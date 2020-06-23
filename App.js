@@ -49,15 +49,18 @@ export default function App() {
   const [card, setCard] = React.useState(null)
   const [name, setName] = React.useState(null)
   const [address, setAddress] = React.useState(null)
+  const [flag, setFlag] = React.useState(false) 
+  const [merchantName, setMerchantName] = React.useState(null)
 
-  const [forceUpdate, forceUpdateId] = useForceUpdate()
+  // const [forceUpdate, forceUpdateId] = useForceUpdate()
 
   React.useEffect(() => {
     db.transaction(tx => {
       tx.executeSql(
-        "create table if not exists Users (id integer primary key not null, card text, name text, address text);"
-      );
-    });
+        "create table if not exists Users (id integer primary key not null, card text, name text, address text);");
+      tx.executeSql("create table if not exists merchantData (id integer primary key not null, restaurant text, address text, cuisine text, expense text, offers text); ");
+      
+      });
   }, []);
 
   const add = (card, name, address) => {
@@ -86,18 +89,88 @@ export default function App() {
     );
   }
 
+  const checkUser = (name) => {
+    if (name === null || name === "") { 
+      return false;
+    }
+    db.transaction(
+      tx => {
+        // tx.executeSql("insert into Users (card, name, address) values (?, ?, ?)", [card, name, address]);
+        tx.executeSql("select * from Users where name = ?", [name], (_, { rows }) =>
+          console.log(JSON.stringify(rows))
+        );
+      },
+      null,
+      null
+    );
+  }
+
+
+  const checkMerchantName = (name) => {
+    if (name === null || name === "") {
+      return false;
+    }
+    db.transaction(
+      tx => {
+        // tx.executeSql("insert into Users (card, name, address) values (?, ?, ?)", [card, name, address]);
+        tx.executeSql("select * from merchantData where restaurant = ?", [name], (_, { rows }) =>
+          console.log(JSON.stringify(rows))
+        );
+      },
+      null,
+      null
+    );
+  }
+  
+
+  const addMerchantData = () => {
+    console.log("merchant data called");
+    db.transaction(
+      tx => {
+        tx.executeSql("insert into merchantData (restaurant, address, cuisine, expense, offers) values('MONTECRISTO REST','6286 3RD ST','CHINESE','AVERAGE','10 % off on total bill');");
+        tx.executeSql("insert into merchantData (restaurant, address, cuisine, expense, offers) values('LAUGHING MONK BREWING','expense1439 EGBERT AVE','CONTINENTAL','HIGH','1 + 1 on drinks');");
+        tx.executeSql("insert into merchantData (restaurant, address, cuisine, expense, offers) values('TAQUERIA LA IGUANA AZUL','928 GENEVA AVE','ITALIAN','HIGH','10 % off on visa card payments');");
+        tx.executeSql("insert into merchantData (restaurant, address, cuisine, expense, offers) values('PATIO ESPANOL RESTAURANT','2850 ALEMANY BLVD','SPANISH','AVERAGE','10 % off on total bill');");
+        tx.executeSql("insert into merchantData (restaurant, address, cuisine, expense, offers) values('LITTLE NEPAL RESTAURANT','925 CORTLAND AVE','NEPALESE','LOW','20 % off on buffet');");
+          //  checking if the merchant database updated or not
+          tx.executeSql("select * from merchantData", [], (_, { rows }) =>
+          console.log(JSON.stringify(rows))
+          );
+      },
+      null,
+      null
+    );
+  }
+
+  const getMerchantData = () => { 
+    var data;
+    db.transaction(
+      tx => {
+        //  get the merchant data from the database
+        tx.executeSql("select * from merchantData", [], (_, { rows }) => {
+          data = JSON.stringify(rows);
+          console.log(data);
+        }
+        );
+      },
+      null,
+      null
+    );
+    return data;
+  }
+
+
+
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>SQLite Example</Text>
-      
+      <Text style={styles.heading}>SQLite </Text>
+      {/* add the user to our database */}
       <View >
         <TextInput
           onChangeText={text => {
             setCard(text);
-            console.log(card);
           }}
-          placeholder="please enter your card details"
-          // style={styles.input}
+          placeholder="please enter your Card"
           value={card}
         />
 
@@ -107,81 +180,104 @@ export default function App() {
         <TextInput
           onChangeText={text => {
             setName(text);
-            console.log(name);
           }}
           placeholder="please enter your name"
-          // style={styles.input}
           value={name}
         />
-
       </View>
 
       <View >
         <TextInput
           onChangeText={text => {
             setAddress(text);
-            console.log(address);
           }}
           placeholder="please enter your address"
-          // style={styles.input}
           value={address}
         />
 
       </View>
 
-      <View> 
+      <View style={styles.viewStyle}> 
         <Button
           onPress={() => { 
-            console.log(card);
-            console.log(name);
-            console.log(address);
             add(card, name, address);
+            if (flag) {
+
+            }
+            else { 
+              addMerchantData();  
+              setFlag(true);
+            }
             setName(null);
             setAddress(null);
             setCard(null);
           }}
-          title="Add User"
+          title="add User"
           color="#841584"
         />
       </View>
-      {/* <ScrollView style={styles.listArea}>
-        <Items
-          key={`forceupdate-todo-${forceUpdateId}`}
-          done={false}
-          onPressItem={id =>
-            db.transaction(
-              tx => {
-                tx.executeSql(`update items set done = 1 where id = ?;`, [
-                  id
-                ]);
-              },
-              null,
-              forceUpdate
-            )
-          }
+
+
+          {/* check if the user exists or not by giving user name */}
+      <View >
+        <TextInput
+          onChangeText={text => {
+            setName(text);
+          }}
+          placeholder="please enter your name"
+          value={name}
         />
-        <Items
-          done
-          key={`forceupdate-done-${forceUpdateId}`}
-          onPressItem={id =>
-            db.transaction(
-              tx => {
-                tx.executeSql(`delete from items where id = ?;`, [id]);
-              },
-              null,
-              forceUpdate
-            )
-          }
+      </View>
+
+      <View style={styles.viewStyle}>
+        <Button
+          onPress={() => {
+            checkUser(name);
+            setName(null);
+          }}
+          title="Check User"
+          color="#841584"
         />
-      </ScrollView> */}
+      </View>
+
+
+          {/* get the whole merchant data */}
+      <View style={styles.viewStyle}>
+        <Button
+          onPress={() => {
+            getMerchantData();
+          }}
+          title="get merchant data"
+          color="#841584"
+        />
+      </View>
+
+
+      {/* check if merchant exists by name */}
+      <View >
+        <TextInput
+          onChangeText={text => {
+            setMerchantName(text);
+          }}
+          placeholder="please enter the name of the merchant"
+          value={merchantName}
+        />
+      </View>
+
+      <View style={styles.viewStyle}>
+        <Button
+          onPress={() => {
+            checkMerchantName(merchantName);
+            setMerchantName(null);
+          }}
+          title="Check User"
+          color="#841584"
+        />
+      </View>
+
     </View>
   );
 
-}
-
-function useForceUpdate() {
-  const [value, setValue] = useState(0);
-  return [() => setValue(value + 1), value];
 }
 
 const styles = StyleSheet.create({
@@ -219,5 +315,8 @@ const styles = StyleSheet.create({
   sectionHeading: {
     fontSize: 18,
     marginBottom: 8
+  },
+  viewStyle: {
+    padding: 10
   }
 });
