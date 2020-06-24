@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, TextInput,StyleSheet, Text, View } from 'react-native';
+import { Button, TextInput, StyleSheet, Text, View } from 'react-native';
 import { add } from 'react-native-reanimated';
 import * as SQLite from 'expo-sqlite';
 
@@ -7,7 +7,7 @@ import * as SQLite from 'expo-sqlite';
 const db = SQLite.openDatabase("db.db");
 
 const Register = props => {
-  
+
   const [card, setCard] = React.useState(null)
   const [name, setName] = React.useState(null)
   const [address, setAddress] = React.useState('Telangana')
@@ -40,45 +40,45 @@ const Register = props => {
     );
   }
 
-    return (
-      <View style={styles.container}>
-        <Text style={styles.container2} >Register to Visa Conscierge Services</Text>
+  return (
+    <View style={styles.container}>
+      <Text style={styles.container2} >Register to Visa Conscierge Services</Text>
 
-        <TextInput
-          onChangeText={text => {
-            setName(text);
-          }
-          }
-          placeholder="Enter Name Here"
-          style={styles.textinput}
-          value = {name}
-        />
+      <TextInput
+        onChangeText={text => {
+          setName(text);
+        }
+        }
+        placeholder="Enter Name Here"
+        style={styles.textinput}
+        value={name}
+      />
 
-        <TextInput
-          onChangeText={text => {
-            setCard(text);
-          }
-          }
-          placeholder="Enter Card No Here"
-          style={styles.textinput}
-          value={card}
-        />
+      <TextInput
+        onChangeText={text => {
+          setCard(text);
+        }
+        }
+        placeholder="Enter Card No Here"
+        style={styles.textinput}
+        value={card}
+      />
 
-        <Button
-          title="Register"
-          onPress={
-            () => {
-              
-              addUser(card, name, address);
-              setName(null);
-              setCard(null);
-              props.navigation.replace('Welcome');
-            }
+      <Button
+        title="Register"
+        onPress={
+          () => {
+
+            addUser(card, name, address);
+            setName(null);
+            setCard(null);
+            props.navigation.replace('Login');
+          }
         } />
 
-      </View>
-    );
-  
+    </View>
+  );
+
 };
 
 
@@ -91,21 +91,21 @@ const styles = StyleSheet.create({
 
     backgroundColor: '#192061',
     alignItems: 'center',
-    padding:100,
+    padding: 100,
     // justifyContent: 'center',
-    
+
   },
   container2: {
     justifyContent: 'center',
-    color:'#fc0',
-    width:300,
-    fontSize : 20
+    color: '#fc0',
+    width: 300,
+    fontSize: 20
   },
-  textinput:{
-    color:'black',
-    backgroundColor:'white',
-    fontSize : 20,
-    width:300
+  textinput: {
+    color: 'black',
+    backgroundColor: 'white',
+    fontSize: 20,
+    width: 300
   }
 });
 
