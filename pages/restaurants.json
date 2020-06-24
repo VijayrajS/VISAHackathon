@@ -1,0 +1,40 @@
+{
+	"merchantData": [
+		{
+			"restaurant": "MONTECRISTO REST",
+			"address": "6286 3RD ST",
+			"cuisine": "CHINESE",
+			"expense": "AVERAGE",
+			"offers": "10% off on total bill"
+		},
+		{
+			"restaurant": "LAUGHING MONK BREWING",
+			"address": "1439 EGBERT AVE",
+			"cuisine": "CONTINENTAL",
+			"expense": "HIGH",
+			"offers": "1+1 on drinks"
+		},
+		{
+			"restaurant": "TAQUERIA LA IGUANA AZUL",
+			"address": "928 GENEVA AVE",
+			"cuisine": "ITALIAN",
+			"expense": "HIGH",
+			"offers": "10% off on visa card payments"
+		},
+		{
+			"restaurant": "PATIO ESPANOL RESTAURANT",
+			"address": "2850 ALEMANY BLVD",
+			"cuisine": "SPANISH",
+			"expense": "AVERAGE",
+			"offers": "10% off on total bill"
+		},
+		{
+			"restaurant": "LITTLE NEPAL RESTAURANT",
+			"address": "925 CORTLAND AVE",
+			"cuisine": "NEPALESE",
+			"expense": "LOW",
+			"offers": "20% off on buffet"
+		}
+	]
+}
+
