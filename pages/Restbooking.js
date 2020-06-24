@@ -20,18 +20,10 @@ const showAlert1 = (data) => {
 };
 
 const Restaur = (data) => {
-  let styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: "#00f",
-      alignItems: "center",
-      justifyContent: "center",
-    },
-  });
 
   return (
-    <View styles={styles.container}>
-      <Text onPress={() => showAlert1(data)}>{data["restaurant"]}</Text>
+    <View>
+      <Text style={styles.txt3} onPress={() => showAlert1(data)}>{data["restaurant"]}</Text>
     </View>
   );
 };
@@ -59,8 +51,8 @@ const styles = StyleSheet.create({
   },
   container2: {
     justifyContent: "center",
-    color: "red",
-    fontSize: 30,
+    color: "#fff",
+    fontSize: 25,
   },
   textinput: {
     color: "black",
@@ -69,5 +61,9 @@ const styles = StyleSheet.create({
   txt2: {
     color: "red",
     fontSize: 30,
+  },
+  txt3: {
+    color: "#fc0",
+    fontSize: 15,
   },
 });

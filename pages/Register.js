@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
   },
   container2: {
     justifyContent: 'center',
-    color:'red',
+    color:'#fc0',
     width:300,
     fontSize : 20
   },

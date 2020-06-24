@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   },
   container2: {
     justifyContent: 'center',
-    color:'red',
+    color:'#fc0',
     width:300,
     fontSize : 20
   },
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     backgroundColor:'white'
   },
   txt2:{
-    color:'red',
+    color:'#fc0',
      fontSize : 30
   }
 });
