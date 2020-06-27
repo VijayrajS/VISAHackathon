@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {ImageBackground,TouchableOpacity, Button, TextInput, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator,ImageBackground,TouchableOpacity, Button, TextInput, StyleSheet, Text, View } from 'react-native';
 import {AppStyles } from '../src/AppStyles'
 import Navigator from '../navigation/Navigator';
 
@@ -9,24 +9,33 @@ import Navigator from '../navigation/Navigator';
 const Register = props => {
 
   const [name, setName] = React.useState("");
-  const [card, setCard] = React.useState("");
   const [email, setMail] = React.useState("");
-  const [password, setPassword] = React.useState("");
+  const [card, setCard] = React.useState("");
   const [address, setAddress] = React.useState("");
-          chng1=event=>{
-            setMail(event);
+  const [password, setPassword] = React.useState("");
+  
+  const [isHidden, setHidden] = useState(false);
+  const [isLoading, setLoading] = useState(false);
+
+          const chng1=event=>{
+            setName(event);
+            setHidden(false);
           };
-          chng2=event=>{
+          const chng2=event=>{
             setMail(event);
+            setHidden(false);
           };
-          chng3=event=>{
-            setMail(event);
+          const chng3=event=>{
+            setCard(event);
+            setHidden(false);
           };
-          chng4=event=>{
-            setMail(event);
+          const chng4=event=>{
+            setAddress(event);
+            setHidden(false);
           };
-          chng5=event=>{
-            setMail(event);
+          const chng5=event=>{
+            setPassword(event);
+            setHidden(false);
           };
 
   return (
@@ -80,13 +89,75 @@ const Register = props => {
                         />
                     </View>
 
+                  {isHidden ? (
+                  <Text style={styles.invlogin} >All Fields are Necessary and Email needs to be valid</Text>  
+                  ) : null
+                  }
+
    <TouchableOpacity style={styles.loginBtn} 
-                onPress={
-                        () => {
-                              props.navigation.navigate('FirstPage');
+                    onPress={
+                           () => {
+                            setLoading(true)
+                            console.log("name:",name)
+                          console.log("mail:",email)
+                          console.log("card:",card)
+                          console.log("address:",address)
+                          console.log("passwd:",password)
+                          if(name=="" || email=="" || card=="" || password=="" || address==""){
+                            setHidden(true);
+                            setLoading(false)
+                            return;
+                          }
+                          setHidden(false);
+                          
+                          fetch('https://polar-earth-85350.herokuapp.com/user/registerUser', {
+                            method: 'POST',
+                            headers: {
+                            Accept: 'application/json',
+                            'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                            "email": email,
+                            "name": name,
+                            "address": address,
+                            "cardNumber":card,
+                            "password":password
+                            }),
+
+                            }).then(response => response.json())
+                            .then((responseJson) => {
+                                console.log('getting data from fetch', responseJson)
+                                setLoading(false)
+                                if(responseJson && responseJson["result"]==true){
+                                   setHidden(false)
+                                   setLoading(false)
+                                   props.navigation.navigate('FirstPage');
+                                }else{
+                                  setTimeout(
+                                    () => { setHidden(true);setLoading(false) ;},
+                                    3000
+                                  )
+                                }
+
+                            })
+                            .catch(error => console.log(error))
+                                  setTimeout(
+                                    () => { setHidden(true);setLoading(false); },
+                                    3000
+                                  )                            
                           }
                       }
-                  >
+
+              >
+
+               {isLoading && (<View>
+                 
+                 <ActivityIndicator
+                       color = 'black'
+                       size = "large"
+                       style = {styles.activityIndicator}/>
+                    </View>
+                    )}
 
                      <Text style={styles.loginText}>Register</Text>
                   </TouchableOpacity>
@@ -156,6 +227,13 @@ const styles = StyleSheet.create({
     alignSelf: "stretch",
     textAlign: "center",
     marginLeft: 20
+  },
+      invlogin: {
+    fontSize:10,
+    alignItems:"center",
+    color: "red",
+    marginTop: 1,
+    marginBottom: 1
   },
 });
 

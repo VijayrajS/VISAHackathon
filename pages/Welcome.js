@@ -6,7 +6,7 @@ import {AppStyles } from '../src/AppStyles'
 const Welcome = props => {
 
     const [zip, setZip] = React.useState("");
-          chng1=event=>{
+          const chng1=event=>{
             setZip(event);
           };
 

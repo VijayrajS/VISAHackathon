@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {ImageBackground,TouchableOpacity, Button, TextInput, StyleSheet, Text, View } from 'react-native';
+import {ActivityIndicator ,ImageBackground,TouchableOpacity, Button, TextInput, StyleSheet, Text, View } from 'react-native';
 import { add } from 'react-native-reanimated';
 import {AppStyles } from '../src/AppStyles'
 import Navigator from '../navigation/Navigator';
@@ -7,20 +7,26 @@ import Navigator from '../navigation/Navigator';
 
 const FirstPage = props => {
       const [email, setMail] = useState("");
+      const [isHidden, setHidden] = useState(false);
       const [password, setPasswd] = useState("");
+      const [isLoading, setLoading] = useState(false);
+
+      const [testv, settestv] = useState(false);
       const [tstd, setTstd] = useState("hello2");
-          chng=event=>{
+          const chng=event=>{
             setMail(event);
+            setHidden(false)
           };
-          chng2=event=>{
+          const chng2=event=>{
             setPasswd(event);
+            setHidden(false)
           }
     return (
-
         <View style={styles.container}>
-        
+
 
             <Text style={[styles.title, styles.centreTitle]} >Welcome to Visa Conscierge Services</Text>
+            
                     <View style={styles.inputView} >
                       <TextInput  
                         style={styles.inputText}
@@ -33,16 +39,68 @@ const FirstPage = props => {
                       <TextInput  
                         style={styles.inputText}
                         placeholder="password" 
+                        secureTextEntry={true}
                         placeholderTextColor="#003f5c"
                         onChangeText={chng2}
+
                         />
                     </View>
 
+                  
+                  {isHidden ? (
+                  <Text style={styles.invlogin} >Invalid Login,Try Again!!!</Text>  
+                  ) : null
+                  }
+
+
+
+                  {isLoading && (<View>
+                  <Text style={styles.or}>Logging You In,Please Wait!</Text>
+                 <ActivityIndicator
+                       color = 'black'
+                       size = "large"
+                       style = {styles.activityIndicator}/>
+                    </View>
+                    )}
 
                 <TouchableOpacity style={styles.loginBtn} 
                 onPress={
                         () => {
-                              props.navigation.navigate('Welcome');
+                          setLoading(true)
+                          console.log("user:",email)
+                          console.log("passwd:",password)
+                          
+                          fetch('https://polar-earth-85350.herokuapp.com/user/checkUserLogin', {
+                            method: 'POST',
+                            headers: {
+                            Accept: 'application/json',
+                            'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                            "email": email,
+                            "password": password,
+                            }),
+
+                            }).then(response => response.json())
+                            .then((responseJson) => {
+                                console.log('getting data from fetch', responseJson)
+                                setLoading(false)
+                                if(responseJson && responseJson["result"]==true){
+                                   setHidden(false)
+                                   props.navigation.navigate('Welcome');
+                                }else{
+                                  setTimeout(
+                                    () => { setHidden(true) },
+                                    3000
+                                  )
+                                }
+
+                            })
+                            .catch(error => console.log(error))
+                                  setTimeout(
+                                    () => { setHidden(true) },
+                                    3000
+                                  )                            
                           }
                       }
                   >
@@ -103,6 +161,13 @@ const styles = StyleSheet.create({
     color: "white",
     marginTop: 5,
     marginBottom: 5
+  },
+    invlogin: {
+    fontSize:10,
+    alignItems:"center",
+    color: "red",
+    marginTop: 1,
+    marginBottom: 1
   },
   title: {
     fontSize: AppStyles.fontSize.title,
@@ -187,7 +252,16 @@ const styles = StyleSheet.create({
     justifyContent:"center",
     marginTop:20,
     marginBottom:10
-  }
+  },
+     activityIndicator: {
+          position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+    alignItems: 'center',
+    justifyContent: 'center'
+   }
 });
 
 
