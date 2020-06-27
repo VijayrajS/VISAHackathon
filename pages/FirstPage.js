@@ -3,6 +3,7 @@ import {ActivityIndicator ,ImageBackground,TouchableOpacity, Button, TextInput, 
 import { add } from 'react-native-reanimated';
 import {AppStyles } from '../src/AppStyles'
 import Navigator from '../navigation/Navigator';
+import AsyncStorage from '@react-native-community/async-storage'
 
 
 const FirstPage = props => {
@@ -86,7 +87,11 @@ const FirstPage = props => {
                                 console.log('getting data from fetch', responseJson)
                                 setLoading(false)
                                 if(responseJson && responseJson["result"]==true){
-                                   setHidden(false)
+                                   setHidden(false);
+                                   AsyncStorage.multiSet([
+                                      ['cardEnding', responseJson["cardEnding"].toString()],
+                                      ['email', responseJson["email"]]
+                                  ]);
                                    props.navigation.navigate('Welcome');
                                 }else{
                                   setTimeout(
