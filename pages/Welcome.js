@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image,ImageBackground,TouchableOpacity, Button, TextInput, StyleSheet, Text, View } from 'react-native';
+import {ActivityIndicator, Image,ImageBackground,TouchableOpacity, Button, TextInput, StyleSheet, Text, View } from 'react-native';
 import {AppStyles } from '../src/AppStyles'
 import AsyncStorage from '@react-native-community/async-storage'
 
@@ -10,7 +10,11 @@ const Welcome = props => {
     const [email, setemail] = React.useState("NA");
     const [isHidden, setHidden] = React.useState(false);
     const [cardEnding, setcardEnding] = React.useState("NA");
+    const [isLoading, setLoading] = React.useState(false);
+    const [isError, setError] = React.useState(false);
+
           const chng1=event=>{
+            setError(false);
             setZip(event);
             // console.log(props)
             // console.log(AsyncStorage.getItem('email'))
@@ -19,6 +23,7 @@ const Welcome = props => {
 
               React.useEffect(() => {
                   console.log('mount it!');
+                  setError(false);
                   AsyncStorage.multiGet(['email', 'cardEnding']).then((data) => {
                       var mailval = data[0][1];
                       var cendval= data[1][1];
@@ -32,37 +37,48 @@ const Welcome = props => {
 
     return (
       <View style={styles.container}>
+        <View style={styles.navBar}>
+                <View style={styles.leftContainer}>
+                  <Text style={[styles.text, {textAlign: 'left'}]}>
+                    Welcome
+                  </Text>
+                </View>
+
+                <View style={styles.rightContainer}>
+                  <Text style={[styles.text, {textAlign: 'right'}]}>
+                    CardNumber
+                  </Text>
+                </View>
+              </View>
+               <View style={styles.navBar}>
+                <View style={styles.leftContainer}>
+                  <Text style={[styles.text, {textAlign: 'left'}]}>
+                    {email}
+                  </Text>
+                </View>
+                <View style={styles.rightContainer}>
+                  <Text style={[styles.text, {textAlign: 'right'}]}>
+                    **{cardEnding}
+                  </Text>
+                </View>
+          </View>
+            
+        
+        <View
+            style={{
+            paddingTop:15,
+            }}
+          />
 
 
-
-      <View style={styles.navBar}>
-      <View style={styles.leftContainer}>
-        <Text style={[styles.text, {textAlign: 'left'}]}>
-          Welcome
-        </Text>
-      </View>
-
-      <View style={styles.rightContainer}>
-        <Text style={[styles.text, {textAlign: 'right'}]}>
-          CardNumber
-        </Text>
-      </View>
-    </View>
-     <View style={styles.navBar}>
-      <View style={styles.leftContainer}>
-        <Text style={[styles.text, {textAlign: 'left'}]}>
-          {email}
-        </Text>
-      </View>
-      <View style={styles.rightContainer}>
-        <Text style={[styles.text, {textAlign: 'right'}]}>
-          **{cardEnding}
-        </Text>
-      </View>
-    </View>
-
-
-
+          <View
+            style={{
+              width: 700,
+             borderWidth: 5,
+             borderTopColor:"#1a1f71",
+              borderBottomColor:'#faaa13',
+            }}
+          />
 
 
               <Text style={[styles.title, styles.centreTitle]} >Welcome to Visa Conscierge Services</Text>
@@ -87,21 +103,59 @@ const Welcome = props => {
    <TouchableOpacity style={styles.loginBtn} 
                 onPress={
                         () => {
+                          setLoading(true);
+                          setError(false);
                           if(zip==""){
                             console.log("empty");
+                            setLoading(false);
                             setHidden(true);
                           }else{
                             setHidden(false);
                             console.log("zip",zip);
                             //todo fetch rest and pass it to next page
-                            props.navigation.navigate('Restbooking');
+                             fetch('https://polar-earth-85350.herokuapp.com/fetchRestaurantList', {
+                                   method: 'GET'
+                                })
+                                .then((response) => response.json())
+                                .then((responseJson) => {
+                                   console.log(responseJson);
+                                   if(responseJson){
+                                    setLoading(false);
+                                   props.navigation.navigate('RestListings',
+                                        {myJSON: responseJson} 
+                                      );
+                                    }else{
+                                      setError(true);
+                                    }
+                                })
+                                .catch((error) => {
+                                   console.error(error);
+                                   setError(true);
+                                });
+                            
                           }
                               
                           }
                       }
                   >
+                  {isError ? (
+                  <Text style={styles.invlogin} >Search Error,Try Again!!!</Text>  
+                  ) : null
+                  }
 
+                  {isLoading && (<View>
+                  <Text style={styles.or}>Searching,Please Wait!</Text>
+                 <ActivityIndicator
+                       color = 'black'
+                       size = "large"
+                       style = {styles.activityIndicator}/>
+                    </View>
+                    )}
+                  {!isLoading && (<View>
                      <Text style={styles.loginText}>Search for Merchants</Text>
+                  </View>
+                    )}
+                  
                   </TouchableOpacity>
       </View>
     );
@@ -115,12 +169,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor:"#192061",
     justifyContent: 'center'
-  },
-    container2: {
-    justifyContent: 'center',
-    color:'#fc0',
-    width:300,
-    fontSize : 20
   },
   textinput:{
     color:'black',
@@ -209,6 +257,33 @@ const styles = StyleSheet.create({
     color:"#faaa13"
   },
       invlogin: {
+    fontSize:10,
+    alignItems:"center",
+    color: "red",
+    marginTop: 1,
+    marginBottom: 1
+  },
+  container2: {
+  // flex:1,
+  paddingTop: 10,
+  paddingBottom:10,
+  width: 700,
+  backgroundColor: "#181c40",
+  justifyContent: "center",
+  textAlign: "center",
+  alignContent: "center",
+  color: "#faaa13",
+  fontSize: 25,
+  
+  shadowColor: '#000',
+     shadowOffset: {
+      width: 1,
+      height: 20,
+     },
+  borderWidth: 5,
+  borderBottomColor:'#faaa13',
+},
+    invlogin: {
     fontSize:10,
     alignItems:"center",
     color: "red",

@@ -93,12 +93,13 @@ const FirstPage = props => {
                                       ['email', responseJson["email"]]
                                   ]);
                                    props.navigation.navigate('Welcome');
-                                }else{
-                                  setTimeout(
-                                    () => { setHidden(true) },
-                                    3000
-                                  )
                                 }
+                                // else{
+                                //   setTimeout(
+                                //     () => { setHidden(true) },
+                                //     3000
+                                //   )
+                                // }
 
                             })
                             .catch(error => console.log(error))

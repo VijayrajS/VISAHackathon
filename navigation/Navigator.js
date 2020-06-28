@@ -6,6 +6,7 @@ import Register from '../pages/Register';
 import Welcome from '../pages/Welcome';
 import Restbooking from '../pages/Restbooking';
 import FirstPage from '../pages/FirstPage';
+import RestListings from '../pages/RestListings';
 
 const RootStack = createStackNavigator({
     FirstPage: {
@@ -16,6 +17,9 @@ const RootStack = createStackNavigator({
     },
     Welcome: {
         screen: Welcome
+    },
+    RestListings:{
+        screen: RestListings
     },
     Restbooking: {
         screen: Restbooking
