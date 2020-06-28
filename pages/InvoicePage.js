@@ -7,7 +7,7 @@ import Constants from 'expo-constants';
 
 import { DataTable } from 'react-native-paper';
 
-export default function App() {
+export default function InvoicePage() {
 
     // const myTableData = {
     //     tableHead: ['Head', 'Head2', 'Head3', 'Head4'],
