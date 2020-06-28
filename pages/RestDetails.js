@@ -20,7 +20,7 @@ let rs={}
   }
   
   const titleCase = (text) => text[0].toUpperCase() + text.slice(1).toLowerCase();
-  
+  import AsyncStorage from '@react-native-community/async-storage';
   import React, { useState } from "react";
   // import React from "react";
   import {
@@ -91,6 +91,7 @@ let rs={}
         console.log("Mounted lsistingsss");
         console.log("data",newls);
         rs=newls;
+        this.forceUpdate();
         // props_temp=this.props;
         // set_r_list(newls);
         // this.setState({ lisr: false }); 
@@ -118,11 +119,9 @@ let rs={}
             Wait time: <Text style={timeStyle(rs["waitTime"])}>{rs["waitTime"]} minutes</Text></Text>
             <Text style={{height:10}}>{'\n'}</Text>
             
-            <View style = {{...styles.detailBox, backgroundColor:'#f00', fontSize:20, marginBottom:30}}>
-              <Text style={{fontSize:17, fontWeight:'bold', color:'#fff'}}>OFFERS!!!</Text>
-              <ScrollView>
-                <Text style={{fontSize:15, color:'#fff'}}>{rs['offers']}</Text>
-              </ScrollView>
+            <View style = {{...styles.detailBox, backgroundColor:'#f00', fontSize:20, marginBottom:10}}>
+              <Text style={{fontSize:17, fontWeight:'bold', color:'#fff'}}>OFFERS:{rs['offers']}</Text>
+              
             </View>
             
           </View>
@@ -130,20 +129,146 @@ let rs={}
           
           <View style = {styles.detailBox}>
             {/*Registration form*/}
-            <Text style={{fontSize:20, fontWeight:'bold', color:"#fff"}}>Make Reservation {"\n"}</Text>
-            <Text style={{fontSize:15, color:"#faaa13",}}>Number of people {"\n"}</Text>
+            <Text style={{fontSize:20, fontWeight:'bold', color:"#fff"}}>Make Reservation</Text>
+            <Text style={{fontSize:15, color:"#faaa13",}}>Number of people</Text>
             <Counter 
               countTextStyle = {{color:'#faaa13'}}
               buttonStyle = {{color:'#faaa13'}}
               buttonTextStyle = {{color:'#faaa13'}}
-              start={1} 
+              start={0} 
               onChange={this.onChange.bind(this)}
               />
             <Text style={{height:20}}>{'\n'}</Text>            
             <DateTime />
             <Text style={{height:10}}>{'\n'}</Text>
-            <TouchableOpacity style = {{...styles.ButtonStyle, height:"20%", borderWidth:0}} onPress={undefined}>
-              <Text style = {{fontWeight:'bold', alignSelf:'center', color:"#192061",}}>RESERVE</Text>
+            <TouchableOpacity style = {{...styles.ButtonStyle, height:"20%", borderWidth:0}} onPress={undefined}
+             onPress={
+                        () => {
+                          console.log("reserve clicked");
+                          var mailval="";
+
+                          AsyncStorage.multiGet(['email', 'cardEnding']).then((data) => {
+                                mailval = data[0][1];
+                                var cendval= data[1][1];
+                                // console.log(mailval);
+                                // console.log(cendval);
+                              
+                          // Alert.alert("alert!!!")
+                          console.log("email:",mailval)
+                          console.log("rest:",rs["name"])
+                          console.log("numberOfPeople:",n_people)
+                          console.log("time:",r_time)//Mon Jun 29 2020 00:48:00
+                          if(n_people <= 0 || (!r_time)){
+                            console.log("try again");
+                            Alert.alert('Alert',  
+                                'Please Select Date & Time and Atleast 1 Person ',  
+                                [  
+                                    {text: 'OK', onPress: () => console.log('OK Pressed')},  
+                                ]  
+                              )
+                            return;
+                          }
+
+                          var c_time=""; //2020-06-29T05:44
+                          var liss=r_time.split(" ");
+                          c_time=c_time+liss[3];
+                          c_time=c_time+"-";
+                          if(liss[1]=='Jan'){
+                            c_time=c_time+"01"+"-";
+                          }
+                          if(liss[1]=='Feb'){
+                            c_time=c_time+"02"+"-";
+                          }
+                          if(liss[1]=='Mar'){
+                            c_time=c_time+"03"+"-";
+                          }
+                          if(liss[1]=='Apr'){
+                            c_time=c_time+"04"+"-";
+                          }
+                          if(liss[1]=='May'){
+                            c_time=c_time+"05"+"-";
+                          }
+                          if(liss[1]=='Jun'){
+                            c_time=c_time+"06"+"-";
+                          }
+                          if(liss[1]=='Jul'){
+                            c_time=c_time+"07"+"-";
+                          }
+                          if(liss[1]=='Aug'){
+                            c_time=c_time+"08"+"-";
+                          }
+                          if(liss[1]=='Sep'){
+                            c_time=c_time+"09"+"-";
+                          }
+                          if(liss[1]=='Oct'){
+                            c_time=c_time+"10"+"-";
+                          }
+                          if(liss[1]=='Nov'){
+                            c_time=c_time+"11"+"-";
+                          }
+                          if(liss[1]=='Dec'){
+                            c_time=c_time+"12"+"-";
+                          }
+                          c_time=c_time+liss[2]+"T"+liss[4];
+                          console.log("timec:",c_time)
+
+                          console.log("continue");
+
+                          fetch('https://polar-earth-85350.herokuapp.com/reserve', {
+                            method: 'POST',
+                            headers: {
+                            Accept: 'application/json',
+                            'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({
+                            "email": mailval,
+                            "restaurant": rs["name"],
+                            "numberOfPeople": n_people,
+                            "time": c_time
+                            }),
+
+                            }).then(response => response.json())
+                            .then((responseJson) => {
+                                console.log('getting data from fetch', responseJson)
+                                console.log('getting data from fetch::::', responseJson["result"])
+                                if(responseJson && responseJson["result"]=="true"){
+                                   console.log("booking made!!!!!");
+                                   console.log(responseJson["message"])
+                                   Alert.alert("Congrats!!!",
+                                    responseJson["message"],
+                                    [  
+                                        {
+                                          text: 'Proceed to My Reservations', 
+                                          onPress: () => {
+                                            console.log('OK22 Pressed'); 
+                                            this.props.navigation.navigate('PendingReservations');
+                                          } 
+                                        },  
+                                    ]  
+                                    );
+
+                                }
+                                else{
+                                      Alert.alert("Booking Cannot be made!!",
+                                         responseJson["message"]
+                                        );
+
+                                }
+
+                            })
+                            .catch(error => {
+                              Alert.alert("Booking Cannot be made!!");
+                              console.log(error)
+                            })
+                                  
+                          
+                          })
+                     }
+                   }
+
+            >
+              <Text style = {{fontWeight:'bold', alignSelf:'center', color:"#192061",}
+                }>RESERVE</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -197,7 +322,8 @@ let rs={}
   textHead:{
     // position:'absolute',
     // top:20,
-    fontSize: 25,
+    fontSize: 22,
+    textAlign:"center",
     fontWeight:'bold',
     color:"#192061",
   },

@@ -127,6 +127,7 @@ export default class RestListings extends React.Component {
     newls.sort((a, b) => (a.waitTime > b.waitTime) ? 1 : -1)
     console.log("data",newls);
     r_list=newls;
+    this.forceUpdate();
     // props_temp=this.props;
     // set_r_list(newls);
     // this.setState({ lisr: false }); 

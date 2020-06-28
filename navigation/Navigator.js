@@ -8,6 +8,7 @@ import Restbooking from '../pages/Restbooking';
 import FirstPage from '../pages/FirstPage';
 import RestListings from '../pages/RestListings';
 import RestDetails from '../pages/RestDetails';
+import PendingReservations from '../pages/PendingReservations'
 
 const RootStack = createStackNavigator({
     FirstPage: {
@@ -25,6 +26,10 @@ const RootStack = createStackNavigator({
     RestDetails: {
         screen: RestDetails
     },
+    PendingReservations:{
+        screen:PendingReservations
+    },
+
     Restbooking: {
         screen: Restbooking
     },
