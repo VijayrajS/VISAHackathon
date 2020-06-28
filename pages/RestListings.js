@@ -58,7 +58,10 @@ const showAlert1 = (data) => {
 Alert.alert(data["restaurant"], data["offers"], [
   {
     text: "Reserve",
-    onPress: () => console.log("Reserving at " + data["restaurant"]),
+    onPress: () => {
+      // console.log("Reserving at " + data["restaurant"]),
+       props.navigation.navigate('RestDetails');
+    },
     style: "cancel",
   },
 ]);
@@ -70,7 +73,7 @@ let top_padding = (index == 0)?{paddingTop:70}:{}
 return (
   <View key ={index} style = {{...boxstyles.MainContainer, ...top_padding}}>
     <View style={boxstyles.TextViewStyle}>
-      <Text style={boxstyles.TextTitle}>{data["restaurant"]}</Text>
+      <Text style={boxstyles.TextTitle}>{data["name"]}</Text>
       <TouchableOpacity style={boxstyles.ButtonStyle}>
           <Text style={boxstyles.ButtonText} onPress={() => showAlert1(data)}>See Details</Text>
       </TouchableOpacity>
@@ -206,6 +209,7 @@ const boxstyles = StyleSheet.create(
   ButtonText:{
     color: "#1a216d",
     fontWeight: 'bold',
+    fontSize:12
     
   },
   TextViewStyle:
