@@ -86,7 +86,9 @@ return (
                 onPress: () => {
                   console.log("Reserving at " + data["name"]),
                   // console.log("props2 :::::::",props_t)
-                   props_t.props.navigation.navigate('RestDetails');
+                   props_t.props.navigation.navigate('RestDetails',
+                    {curRestData: data} 
+                    );
                 },
                 style: "cancel",
               },

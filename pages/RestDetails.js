@@ -1,11 +1,12 @@
-let rs = {
-      "restaurant": "MONTECRISTO REST",
-      "address": "6286 3RD ST",
-      "cuisine": "CHINESE",
-      "expense": "AVERAGE",
-      "offers": "10% off on total bill",
-      "waitTime": "10"
-    };
+// let rs = {
+//       "restaurant": "MONTECRISTO REST",
+//       "address": "6286 3RD ST",
+//       "cuisine": "CHINESE",
+//       "expense": "AVERAGE",
+//       "offers": "10% off on total bill",
+//       "waitTime": "10"
+//     };
+let rs={}
 
   let timeStyle = (time)=>{
     time = +time;
@@ -74,16 +75,26 @@ let rs = {
   };
   
   const showAlert1 = (data) => {
-  Alert.alert(data["restaurant"], data["offers"], [
+  Alert.alert(data["name"], data["offers"], [
     {
       text: "Reserve",
-      onPress: () => console.log("Reserving at " + data["restaurant"]),
+      onPress: () => console.log("Reserving at " + data["name"]),
       style: "cancel",
     },
   ]);
   };
 
-  export default class Restbooking extends React.Component {
+  export default class RestDetails extends React.Component {
+      UNSAFE_componentWillMount() {
+
+        newls=this.props.navigation.getParam("curRestData");
+        console.log("Mounted lsistingsss");
+        console.log("data",newls);
+        rs=newls;
+        // props_temp=this.props;
+        // set_r_list(newls);
+        // this.setState({ lisr: false }); 
+      }
     onChange(number, type) {
       console.log(number, type); // 1, + or -
       n_people = number;
@@ -95,7 +106,7 @@ let rs = {
         <View style={styles.container2}>
           
           <View style ={{flex:0.5, textAlign:'center', padding:10}}>
-            <Text style={styles.textHead}>{rs['restaurant']}</Text>
+            <Text style={styles.textHead}>{rs['name']}</Text>
           </View>
           
           <View style = {{...styles.detailBox, fontSize:20}}>
@@ -132,7 +143,7 @@ let rs = {
             <DateTime />
             <Text style={{height:10}}>{'\n'}</Text>
             <TouchableOpacity style = {{...styles.ButtonStyle, height:"20%", borderWidth:0}} onPress={undefined}>
-              <Text style = {{fontWeight:'bold', alignSelf:'center', color:"#192061",}}>REGISTER</Text>
+              <Text style = {{fontWeight:'bold', alignSelf:'center', color:"#192061",}}>RESERVE</Text>
             </TouchableOpacity>
           </View>
         </View>
