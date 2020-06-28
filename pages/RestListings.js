@@ -28,6 +28,7 @@
 // r_list = [...r_list,...r_list,...r_list,...r_list,...r_list,]
 
 let r_list=[]
+// props_temp={}
 
 let timeStyle = (time)=>{
   time = +time;
@@ -54,28 +55,46 @@ import {
   ScrollView,
 } from "react-native";
 
-const showAlert1 = (data) => {
-Alert.alert(data["restaurant"], data["offers"], [
-  {
-    text: "Reserve",
-    onPress: () => {
-      // console.log("Reserving at " + data["restaurant"]),
-       props.navigation.navigate('RestDetails');
-    },
-    style: "cancel",
-  },
-]);
-};
+// const showAlert1 = (data,props_t) => {
+// Alert.alert(data["restaurant"], data["offers"], [
+//   {
+//     text: "Reserve",
+//     onPress: () => {
+//       console.log("Reserving at " + data["name"]),
+//       console.log("props :::::::",this)
+//        // props_temp.navigation.navigate('RestDetails');
+//     },
+//     style: "cancel",
+//   },
+// ]);
+// };
 
 
-const Restaur = (data, index) => {
+const Restaur = (data, index,props_t) => {
 let top_padding = (index == 0)?{paddingTop:70}:{}
+console.log("func2:::",props_t);
 return (
   <View key ={index} style = {{...boxstyles.MainContainer, ...top_padding}}>
     <View style={boxstyles.TextViewStyle}>
       <Text style={boxstyles.TextTitle}>{data["name"]}</Text>
       <TouchableOpacity style={boxstyles.ButtonStyle}>
-          <Text style={boxstyles.ButtonText} onPress={() => showAlert1(data)}>See Details</Text>
+          <Text style={boxstyles.ButtonText} onPress={() => {
+            // showAlert1(data)
+            Alert.alert(data["restaurant"], data["offers"], [
+              {
+                text: "Reserve",
+                onPress: () => {
+                  console.log("Reserving at " + data["name"]),
+                  // console.log("props2 :::::::",props_t)
+                   props_t.props.navigation.navigate('RestDetails');
+                },
+                style: "cancel",
+              },
+            ]);
+
+
+
+          } }>See Details</Text>
       </TouchableOpacity>
       <Text style={{color:'#454f66', height:0}}>LoremLoremLoremLoremLoremLoremLoremLo</Text>
       
@@ -106,20 +125,24 @@ export default class RestListings extends React.Component {
     newls.sort((a, b) => (a.waitTime > b.waitTime) ? 1 : -1)
     console.log("data",newls);
     r_list=newls;
-    
+    // props_temp=this.props;
     // set_r_list(newls);
     // this.setState({ lisr: false }); 
   }
 
 
 render() {
+   // var { props_t } = this.props;
+   // props_temp=this.props;
+
+  // console.log("props t:",this.props);
   return (
     <View style={styles.container}>
     <Text style={styles.container2}>Search Results</Text>
     <ScrollView
     style={{paddingBottom:100}}
     scrollEnabled={true}>
-    {r_list.map((obj, ind) => Restaur(obj, ind))}
+    {r_list.map((obj, ind) => Restaur(obj, ind,this))}
       </ScrollView>      
     </View>
   );
