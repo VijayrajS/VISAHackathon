@@ -2,14 +2,13 @@ import React from 'react';
 import { ActivityIndicator, Image, ImageBackground, TouchableOpacity, Button, TextInput, StyleSheet, Text, View } from 'react-native';
 import { AppStyles } from '../src/AppStyles'
 import AsyncStorage from '@react-native-community/async-storage'
-
+import Spinner from 'react-native-loading-spinner-overlay';
 import { FlatGrid } from 'react-native-super-grid';
-
 
 // import { StyleSheet, View, Text } from 'react-native';
 
 const Welcome = props => {
-
+  const [showspinner, setSpinner] = React.useState(false);
   const [zip, setZip] = React.useState("");
   const [email, setemail] = React.useState("NA");
   const [isHidden, setHidden] = React.useState(false);
@@ -49,6 +48,12 @@ const Welcome = props => {
 
   return (
     <View style={styles.container}>
+    <Spinner
+          visible={showspinner}
+          textContent={'Loading...'}
+          textStyle={styles.spinnerTextStyle}
+        />
+
       <View style={styles.navBar}>
         <View style={styles.leftContainer}>
           <Text style={[styles.text, { textAlign: 'left' }]}>
@@ -93,9 +98,12 @@ const Welcome = props => {
       />
 
 
-      <Text style={[styles.title, styles.centreTitle]} >Welcome to Visa Conscierge Services</Text>
+     {/*} <Text style={[styles.title, styles.centreTitle]} >Welcome to Visa Conscierge Services</Text>*/}
 
-      <Image style={styles.img} source={{ uri: "https://i.ibb.co/ZJD8FXB/logo.jpg", height: 80, width: 200 }} />
+
+      <View style={styles.img2}>
+      <Image style={styles.imgin} source={{ uri: "https://i.ibb.co/ZJD8FXB/logo.jpg", height: 160, width: 320 }} />
+      </View>
 
 
       {/* <View style={styles.inputView} >
@@ -113,57 +121,49 @@ const Welcome = props => {
       } */}
 
       <FlatGrid
-        itemDimension={130}
-        data={items}
-        style={styles.gridView}
-        // staticDimension={300}
-        // fixed
-        spacing={10}
-        renderItem={({ item }) => (
-          <View style={[styles.itemContainer, { backgroundColor: item.code }]}
-          >
-            <Text style={styles.itemName}
-              onPress={() => {
-                // console.log("Hi");
-                // setLoading(true);
-                // setError(false);
-                // if (zip == "") {
-                //   console.log("empty");
-                //   setLoading(false);
-                //   setHidden(true);
-                // } else 
-                // setHidden(false);
-                console.log("zip", zip);
-                //todo fetch rest and pass it to next page
-                fetch('https://polar-earth-85350.herokuapp.com/fetchRestaurantList', {
-                  method: 'GET'
-                })
-                  .then((response) => response.json())
-                  .then((responseJson) => {
-                    console.log(responseJson);
-                    if (responseJson) {
-                      setLoading(false);
-                      props.navigation.navigate('RestListings',
-                        { myJSON: responseJson }
-                      );
-                    }
-                    // else {
-                    //   setError(true);
-                    // }
-                  })
-                  .catch((error) => {
-                    // console.error(error);
-                    // setError(true);
-                  });
+            itemDimension={130}
+            data={items}
+            style={styles.gridView}
+            // staticDimension={300}
+            // fixed
+            spacing={10}
+            renderItem={({ item }) => (
+                  <View style={[styles.itemContainer, { backgroundColor: item.code }]}
+                  >
+                      <Text style={styles.itemName}
+                        onPress={ 
+                              () => {
+                              console.log("zip", item);
+                              setSpinner(true);
 
+                              fetch('https://polar-earth-85350.herokuapp.com/fetchRestaurantList', {
+                                method: 'GET'
+                              })
+                                .then((response) => response.json())
+                                .then((responseJson) => {
+                                  console.log(responseJson);
+                                  if (responseJson) {
+                                    setLoading(false);
+                                    setSpinner(false);
+                                    props.navigation.navigate('RestListings',
+                                      { myJSON: responseJson }
+                                    );
+                                  }
+                                })
+                                .catch((error) => {
+                                  setSpinner(false);
+                                });
 
-              }
-              }
+                            }
+                        }
 
-            >{item.name}</Text>
-            {/* <Text style={styles.itemCode}>{item.code}</Text> */}
-          </View>
-        )}
+                      >
+                      {item.name}
+                      </Text>
+
+                  </View>
+                )
+          }
       />
 
     {/*  <TouchableOpacity onPress={props.navigate('PendingReservations')} style={styles.ButtonStyle}>
@@ -313,7 +313,8 @@ const styles = StyleSheet.create({
     height: 80,
   },
   itemName: {
-    fontSize: 16,
+    flex:1,
+    fontSize: 20,
     color: '#fff',
     fontWeight: '600',
   },
@@ -339,6 +340,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
 
   },
+  img2:{
+    padding:40
+  },
+  imgin:{
+    borderRadius: 150 / 2,
+    overflow: "hidden",
+    borderWidth: 3,
+    borderColor: "#faaa13"
+  },
+   spinnerTextStyle: {
+    color: '#FFF'
+  }
 });
 
 export default Welcome;

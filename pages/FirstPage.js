@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import {ActivityIndicator ,ImageBackground,TouchableOpacity, Button, TextInput, StyleSheet, Text, View } from 'react-native';
+import {ActivityIndicator,Image ,ImageBackground,TouchableOpacity, Button, TextInput, StyleSheet, Text, View } from 'react-native';
 import { add } from 'react-native-reanimated';
 import {AppStyles } from '../src/AppStyles'
 import Navigator from '../navigation/Navigator';
 import AsyncStorage from '@react-native-community/async-storage'
+import Spinner from 'react-native-loading-spinner-overlay';
 
 
 const FirstPage = props => {
+      const [showspinner, setSpinner] = useState(false);
       const [email, setMail] = useState("");
       const [isHidden, setHidden] = useState(false);
       const [password, setPasswd] = useState("");
@@ -24,10 +26,16 @@ const FirstPage = props => {
           }
     return (
         <View style={styles.container}>
-
+            <Spinner
+              visible={showspinner}
+              textContent={'Loading...'}
+              textStyle={styles.spinnerTextStyle}
+            />
 
             <Text style={[styles.title, styles.centreTitle]} >Welcome to Visa Conscierge Services</Text>
-            
+            <View style = {styles.img2}>
+            <Image style={styles.imgin} source={{ uri: "https://i.ibb.co/ZJD8FXB/logo.jpg", height: 125, width: 250 }} />
+            </View>
                     <View style={styles.inputView} >
                       <TextInput  
                         style={styles.inputText}
@@ -57,17 +65,14 @@ const FirstPage = props => {
 
                   {isLoading && (<View>
                   <Text style={styles.or}>Logging You In,Please Wait!</Text>
-                 <ActivityIndicator
-                       color = 'black'
-                       size = "large"
-                       style = {styles.activityIndicator}/>
                     </View>
                     )}
 
                 <TouchableOpacity style={styles.loginBtn} 
                 onPress={
                         () => {
-                          setLoading(true)
+                          setLoading(true);
+                          setSpinner(true);
                           console.log("user:",email)
                           console.log("passwd:",password)
                           
@@ -92,6 +97,7 @@ const FirstPage = props => {
                                       ['cardEnding', responseJson["cardEnding"].toString()],
                                       ['email', responseJson["email"]]
                                   ]);
+                                   setSpinner(false);
                                    props.navigation.navigate('Welcome');
                                 }
                                 // else{
@@ -100,11 +106,12 @@ const FirstPage = props => {
                                 //     3000
                                 //   )
                                 // }
+                                setSpinner(false);
 
                             })
                             .catch(error => console.log(error))
                                   setTimeout(
-                                    () => { setHidden(true) },
+                                    () => { setHidden(true) ,setSpinner(false)},
                                     3000
                                   )                            
                           }
@@ -180,7 +187,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: AppStyles.color.tint,
     marginTop: 20,
-    marginBottom: 20,
+    marginBottom: 0,
     color:"#fdbb0a"
   },
   leftTitle: {
@@ -267,7 +274,19 @@ const styles = StyleSheet.create({
     bottom: 0,
     alignItems: 'center',
     justifyContent: 'center'
-   }
+   },
+   imagel:{
+    padding:10
+   },
+     img2:{
+    padding:10
+  },
+  imgin:{
+    borderRadius: 150 / 2,
+    overflow: "hidden",
+    borderWidth: 3,
+    borderColor: "#faaa13"
+  }
 });
 
 

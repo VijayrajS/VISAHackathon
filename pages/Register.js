@@ -85,6 +85,7 @@ const Register = props => {
                         placeholder="password"
                         type="password" 
                         placeholderTextColor="#003f5c"
+                        secureTextEntry={true}
                         onChangeText={chng5}
                         />
                     </View>
