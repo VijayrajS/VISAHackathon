@@ -20,7 +20,7 @@
 
 // r_list = [...r_list,...r_list,...r_list,...r_list,...r_list,]
 var r_list = [];
-
+var mailval="";
 // let r_list=[];
 
 
@@ -51,9 +51,15 @@ import {
 // };
 
 
-const navigateToInvoice = (obj) => {
-
-  obj.props.navigation.navigate('InvoicePage');
+const navigateToInvoice = (obj,restnm) => {
+  console.log("Restnm:",restnm);
+  console.log("mailval:",mailval);
+  obj.props.navigation.navigate('InvoicePage',
+     {
+      restname: restnm,
+      mailid:mailval
+     } 
+    );
 
 };
 
@@ -66,7 +72,7 @@ const Restaur2 = (data, index, thisObj) => {
       <View style={boxstyles.TextViewStyle}>
         <Text style={boxstyles.TextTitle}>{data["restaurant"]}</Text>
         <TouchableOpacity style={boxstyles.ButtonStyle}>
-          <Text style={{ ...boxstyles.ButtonText, textAlign: 'center' }} onPress={() => navigateToInvoice(thisObj)}>Pay</Text>
+          <Text style={{ ...boxstyles.ButtonText, textAlign: 'center' }} onPress={() => navigateToInvoice(thisObj,data["restaurant"])}>Pay</Text>
         </TouchableOpacity>
         <Text style={{ color: '#454f66', height: 0 }}>LoremLoremLoremLoremLoremLoremLoremLo</Text>
 
@@ -96,51 +102,48 @@ export default class PendingReservations extends React.Component {
 
   UNSAFE_componentWillMount() {
     // AsyncStorage.multiGet(['email', 'cardEnding']).then((data) => {
-    // var  mailval = data[0][1];
-    var mailval = "pradeep@gmail.com";
-    fetch('https://polar-earth-85350.herokuapp.com/fetchPendingReservations', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        "email": mailval,
-      }),
 
-    }).then(response => response.json())
-      .then((responseJson) => {
-        // console.log('getting data pendres', responseJson)
-        // console.log('getting data pendres', responseJson["result"])
-        if (responseJson && responseJson["result"] == "true") {
-          console.log("assiging!!!");
-          var newls = responseJson["reservations"];
-          r_list = newls;
-          this.forceUpdate();
-          // console.log("r_lis:::",r_list)
-
-        }
-        else {
-        }
-
+      AsyncStorage.getItem("email").then((value) => {
+          mailval=value;
       })
-      .catch(error => {
-        console.log(error)
-      })
+      .then(res => {
+            console.log("MAILVAL:::",mailval);
+            // var mailval = "pradeep@gmail.com";
+            fetch('https://polar-earth-85350.herokuapp.com/fetchPendingReservations', {
+                method: 'POST',
+                headers: {
+                  Accept: 'application/json',
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  "email": mailval,
+                }),
+              }).then(response => response.json())
+                .then((responseJson) => {
+                  // console.log('getting data pendres', responseJson)
+                  // console.log('getting data pendres', responseJson["result"])
+                  if (responseJson && responseJson["result"] == "true") {
+                    console.log("assiging!!!");
+                    var newls = responseJson["reservations"];
+                    r_list = newls;
+                    this.forceUpdate();
+                    // console.log("r_lis:::",r_list)
 
+                  }
+                  else {
+                  }
 
-    // });
+                })
+                .catch(error => {
+                  console.log(error)
+                })
 
-    // newls=this.props.navigation.getParam("myJSON")["restaurants"];
-    //  console.log("Mounted lsistingsss");
-    //  newls.sort((a, b) => (a.waitTime > b.waitTime) ? 1 : -1)
-    //  console.log("data",newls);
+      });
+            
 
-    // r_list=newls;
-    // props_temp=this.props;
-    // set_r_list(newls);
-    // this.setState({ lisr: false }); 
   }
+ 
+
   render() {
     return (
       <View style={styles.container}>

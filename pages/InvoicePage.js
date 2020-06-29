@@ -9,21 +9,6 @@ import { DataTable } from 'react-native-paper';
 
 export default class InvoicePage extends React.Component {
 
-    // const myTableData = {
-    //     tableHead: ['Head', 'Head2', 'Head3', 'Head4'],
-    //     tableData: [
-    //       ['1', '2', '3', '4'],
-    //       ['a', 'b', 'c', 'd'],
-    //       ['1', '2', '3', '456\n789'],
-    //       ['a', 'b', 'c', 'd']
-    //     ]
-    // };
-
-
-    // nagivateToPayreceived = () => {
-    //     this.props.nagivate('Payreceived');
-    // }
-
     render() {
         return (
 
@@ -86,7 +71,37 @@ export default class InvoicePage extends React.Component {
                 <View style={styles.payBtn}>
                     <Button
                         title="Pay"
-                        onPress={() => { this.props.navigation.navigate('Payreceived'); }}
+                        onPress={() => {
+                            var restname = this.props.navigation.getParam("restname");
+                            var mailid = this.props.navigation.getParam("mailid");
+                            console.log("!!!!!!!!restname",restname);
+                            console.log("restname",restname);
+                            console.log("restname",this);
+                            // https://polar-earth-85350.herokuapp.com/pay  email:restaurant:
+                                fetch('https://polar-earth-85350.herokuapp.com/pay', {
+                                        method: 'POST',
+                                        headers: {
+                                          Accept: 'application/json',
+                                          'Content-Type': 'application/json',
+                                        },
+                                        body: JSON.stringify({
+                                          "email": mailid,
+                                          "restaurant":restname
+                                        }),
+                                        }).then((response) => response.json())
+                                        .then((responseJson) => {
+                                           console.log("PayResponse:",responseJson);
+                                           // if(responseJson){
+ 
+                                           //  }else{
+                                           //    setError(true);
+                                           //  }
+                                        })
+                                        .catch((error) => {
+                                        });
+
+                            this.props.navigation.navigate('Payreceived'); 
+                            }}
                     />
                 </View>
             </SafeAreaView>

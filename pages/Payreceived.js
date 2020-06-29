@@ -7,27 +7,12 @@ import Constants from 'expo-constants';
 export default class Payreceived extends React.Component {
 
 
-
-    // const componentDidMount = () => {
-    //     // Start counting when the page is loaded
-    //     this.timeoutHandle = setTimeout(() => {
-    //         // Add your logic for the transition
-    //         console.log("use redirect logic here!");
-
-    //         // this.props.nagivate('Welcome');
-    //     }, 2000);
-    // };
-
-    // const componentWillUnmount = () => {
-    //     clearTimeout(this.timeoutHandle); // This is just necessary in the case that the screen is closed before the timeout fires, otherwise it would cause a memory leak that would trigger the transition regardless, breaking the user experience.
-    // }
-
-
-    // componentDidMount();
-
-    // componentWillUnmount();
     componentDidMount(){
-        setTimeout(function(){this.props.navigation.navigate('Welcome')}, 2000);
+        console.log("this:::",this)
+        var that = this;
+        if (this) {
+             setTimeout(function(){ that.props.navigation.navigate('Welcome'); }, 2000);
+        }
     }
 
     render(){
