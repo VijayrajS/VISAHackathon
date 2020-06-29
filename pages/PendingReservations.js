@@ -23,8 +23,13 @@ var r_list = [];
 var mailval="";
 // let r_list=[];
 
-
-const titleCase = (text) => text[0].toUpperCase() + text.slice(1).toLowerCase();
+const titleCase = (text) => {
+  let date = text.split('T')[0].split('-').reverse().join('/');
+  let time =  text.split(/[TZ]/)[1];
+  time = time.split(':')[0] + ':' + time.split(':')[1]
+  
+  return date + ' - ' + time;
+}
 import AsyncStorage from '@react-native-community/async-storage';
 import React from "react";
 import {
@@ -53,7 +58,7 @@ import {
 
 const navigateToInvoice = (obj,restnm) => {
   console.log("Restnm:",restnm);
-  console.log("mailval:",mailval);
+  con-
   obj.props.navigation.navigate('InvoicePage',
      {
       restname: restnm,
