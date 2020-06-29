@@ -4,7 +4,7 @@ import Constants from 'expo-constants';
 
 
 
-export default function Payreceived() {
+export default class Payreceived extends React.Component {
 
 
 
@@ -26,16 +26,20 @@ export default function Payreceived() {
     // componentDidMount();
 
     // componentWillUnmount();
+    componentDidMount(){
+        setTimeout(function(){this.props.navigation.navigate('Welcome')}, 2000);
+    }
 
-
-
-    return (
+    render(){
+        return (
         <View style={styles.container}>
-            <Image style={styles.animation} source={require('../assets/success.gif')} />
+        <Image style={styles.animation} source={require('../assets/success.gif')} />
+        
+                <Text style={styles.message}> Payment successfull! </Text>
+            </View>
+        );
+    }
 
-            <Text style={styles.message}> Payment successfull! </Text>
-        </View>
-    );
 }
 
 const styles = StyleSheet.create({
