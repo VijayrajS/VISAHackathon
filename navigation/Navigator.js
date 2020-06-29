@@ -4,11 +4,13 @@ import { createAppContainer } from "react-navigation";
 
 import Register from '../pages/Register';
 import Welcome from '../pages/Welcome';
-import Restbooking from '../pages/Restbooking';
+// import Restbooking from '../pages/Restbooking';
+
 import FirstPage from '../pages/FirstPage';
 import RestListings from '../pages/RestListings';
 import RestDetails from '../pages/RestDetails';
 import PendingReservations from '../pages/PendingReservations'
+import InvoicePage from '../pages/InvoicePage';
 
 const RootStack = createStackNavigator({
     FirstPage: {
@@ -20,18 +22,18 @@ const RootStack = createStackNavigator({
     Welcome: {
         screen: Welcome
     },
-    RestListings:{
+    RestListings: {
         screen: RestListings
     },
     RestDetails: {
         screen: RestDetails
     },
-    PendingReservations:{
-        screen:PendingReservations
+    PendingReservations: {
+        screen: PendingReservations
     },
 
-    Restbooking: {
-        screen: Restbooking
+    InvoicePage: {
+        screen: InvoicePage
     },
 
 });
