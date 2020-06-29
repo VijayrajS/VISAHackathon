@@ -11,9 +11,13 @@ import RestListings from '../pages/RestListings';
 import RestDetails from '../pages/RestDetails';
 import PendingReservations from '../pages/PendingReservations'
 import InvoicePage from '../pages/InvoicePage';
-import Payreceived from '../pages/Payreceived'
+import Payreceived from '../pages/Payreceived';
+import MainScreen from '../pages/MainScreen';
 
 const RootStack = createStackNavigator({
+    MainScreen: {
+        screen: MainScreen
+    },
     FirstPage: {
         screen: FirstPage
     },
