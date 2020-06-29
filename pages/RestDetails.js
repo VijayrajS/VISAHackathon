@@ -114,7 +114,9 @@ export default class RestDetails extends React.Component {
             {/*Details of restaurant here*/}
             <Text style={{ height: 50, color: '#fff', alignItems: 'flex-start', fontSize: 20 }}>{titleCase(rs['address'])}</Text>
             <Text style={{ height: 30, color: '#fff', alignItems: 'flex-start', fontSize: 20 }}>
-              <Text style={{ fontWeight: 'bold' }}>Cuisine: {titleCase(rs["cuisine"])}</Text></Text>
+              <Text style={{ fontWeight: 'bold' }}>Cuisine: {titleCase(rs["cuisine"])}</Text>
+              <Text style={{ fontWeight: 'bold' }}>Expense: <Text style = {{color: '#5fa'}}>{'$'.repeat(rs["expense"])}</Text></Text>
+            </Text>
             <Text style={{ color: '#fff', alignItems: 'flex-start', fontWeight: 'bold', height: 30, fontSize: 17 }}>
               Wait time: <Text style={timeStyle(rs["waitTime"])}>{rs["waitTime"]} minutes</Text></Text>
             <Text style={{ height: 10 }}>{'\n'}</Text>
