@@ -166,65 +166,8 @@ const Welcome = props => {
         )}
       />
 
-      {/* <TouchableOpacity style={styles.loginBtn}
-        onPress={
-          () => {
-            setLoading(true);
-            setError(false);
-            if (zip == "") {
-              console.log("empty");
-              setLoading(false);
-              setHidden(true);
-            } else {
-              setHidden(false);
-              console.log("zip", zip);
-              //todo fetch rest and pass it to next page
-              fetch('https://polar-earth-85350.herokuapp.com/fetchRestaurantList', {
-                method: 'GET'
-              })
-                .then((response) => response.json())
-                .then((responseJson) => {
-                  console.log(responseJson);
-                  if (responseJson) {
-                    setLoading(false);
-                    props.navigation.navigate('RestListings',
-                      { myJSON: responseJson }
-                    );
-                  } else {
-                    setError(true);
-                  }
-                })
-                .catch((error) => {
-                  console.error(error);
-                  setError(true);
-                });
-
-            }
-
-          }
-        }
-      >
-        {isError ? (
-          <Text style={styles.invlogin} >Search Error, try Again!</Text>
-        ) : null
-        }
-
-        {isLoading && (<View>
-          <Text style={styles.or}>Searching, Please Wait!</Text>
-          <ActivityIndicator
-            color='black'
-            size="large"
-            style={styles.activityIndicator} />
-        </View>
-        )}
-        {!isLoading && (<View>
-          <Text style={styles.loginText}>Search for Merchants</Text>
-        </View>
-        )}
-
-      </TouchableOpacity> */}
-
-
+      <TouchableOpacity onPress={props.navigate('PendingReservations')} style={styles.ButtonStyle}>
+        <Text style={{fontWeight:'bold', color:"#192061"}}>Check pending reservations</Text></TouchableOpacity>
     </View>
   );
 }
@@ -378,8 +321,23 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#fff',
   },
+  ButtonStyle: {
+    height: "10%",
+    width: "60%",
 
+    backgroundColor: "#faaa13",
+    borderColor: "#faaa13",
+    borderWidth: 15,
+    paddingLeft: 5,
+    borderRadius: 10,
 
+    textAlign: "center",
+
+    fontSize: 10,
+    fontFamily: "sans-serif",
+    justifyContent: 'center',
+
+  },
 });
 
 export default Welcome;
