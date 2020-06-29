@@ -166,8 +166,9 @@ const Welcome = props => {
         )}
       />
 
-      <TouchableOpacity onPress={props.navigate('PendingReservations')} style={styles.ButtonStyle}>
-        <Text style={{fontWeight:'bold', color:"#192061"}}>Check pending reservations</Text></TouchableOpacity>
+    {/*  <TouchableOpacity onPress={props.navigate('PendingReservations')} style={styles.ButtonStyle}>
+            <Text style={{fontWeight:'bold', color:"#192061"}}>Check pending reservations</Text></TouchableOpacity>*/}
+
     </View>
   );
 }
