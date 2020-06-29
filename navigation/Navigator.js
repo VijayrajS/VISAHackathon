@@ -11,6 +11,7 @@ import RestListings from '../pages/RestListings';
 import RestDetails from '../pages/RestDetails';
 import PendingReservations from '../pages/PendingReservations'
 import InvoicePage from '../pages/InvoicePage';
+import Payreceived from '../pages/Payreceived'
 
 const RootStack = createStackNavigator({
     FirstPage: {
@@ -35,6 +36,10 @@ const RootStack = createStackNavigator({
     InvoicePage: {
         screen: InvoicePage
     },
+
+    Payreceived: {
+        screen: Payreceived
+    }
 
 });
 

@@ -8,28 +8,30 @@ export default function Payreceived() {
 
 
 
-    const componentDidMount = () => {
-        // Start counting when the page is loaded
-        this.timeoutHandle = setTimeout(() => {
-            // Add your logic for the transition
-            console.log("use redirect logic here!");
-        }, 2000);
-    };
+    // const componentDidMount = () => {
+    //     // Start counting when the page is loaded
+    //     this.timeoutHandle = setTimeout(() => {
+    //         // Add your logic for the transition
+    //         console.log("use redirect logic here!");
 
-    const componentWillUnmount = () => {
-        clearTimeout(this.timeoutHandle); // This is just necessary in the case that the screen is closed before the timeout fires, otherwise it would cause a memory leak that would trigger the transition regardless, breaking the user experience.
-    }
+    //         // this.props.nagivate('Welcome');
+    //     }, 2000);
+    // };
+
+    // const componentWillUnmount = () => {
+    //     clearTimeout(this.timeoutHandle); // This is just necessary in the case that the screen is closed before the timeout fires, otherwise it would cause a memory leak that would trigger the transition regardless, breaking the user experience.
+    // }
 
 
-    componentDidMount();
+    // componentDidMount();
 
-    componentWillUnmount();
+    // componentWillUnmount();
 
 
 
     return (
         <View style={styles.container}>
-            <Image style={styles.animation} source={require('../assessts/success.gif')} />
+            <Image style={styles.animation} source={require('../assets/success.gif')} />
 
             <Text style={styles.message}> Payment successfull! </Text>
         </View>

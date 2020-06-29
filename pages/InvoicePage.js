@@ -7,7 +7,7 @@ import Constants from 'expo-constants';
 
 import { DataTable } from 'react-native-paper';
 
-export default function InvoicePage() {
+export default class InvoicePage extends React.Component {
 
     // const myTableData = {
     //     tableHead: ['Head', 'Head2', 'Head3', 'Head4'],
@@ -20,74 +20,80 @@ export default function InvoicePage() {
     // };
 
 
-    return (
+    // nagivateToPayreceived = () => {
+    //     this.props.nagivate('Payreceived');
+    // }
 
-        <SafeAreaView style={styles.container}>
+    render() {
+        return (
 
-            <View style={styles.titleView}>
-                <Text style={styles.title}>  Invoice</Text>
-            </View>
+            <SafeAreaView style={styles.container}>
 
-
-            <View style={styles.invoiceTable}>
-                <DataTable style={{ backgroundColor: 'floralwhite' }}>
-                    <DataTable.Header >
-                        <DataTable.Title ></DataTable.Title>
-                        <DataTable.Title numeric>Quantity</DataTable.Title>
-                        <DataTable.Title numeric>Price</DataTable.Title>
-                        <DataTable.Title numeric>Cost</DataTable.Title>
-                    </DataTable.Header>
-                    <DataTable.Row>
-                        <DataTable.Cell borderRight flex={2} > Lasagna </DataTable.Cell>
-                        <DataTable.Cell numeric>2</DataTable.Cell>
-                        <DataTable.Cell numeric>350</DataTable.Cell>
-                        <DataTable.Cell numeric>700</DataTable.Cell>
-                    </DataTable.Row>
-
-                    <DataTable.Row>
-                        <DataTable.Cell>Ice cream </DataTable.Cell>
-                        <DataTable.Cell numeric>1</DataTable.Cell>
-                        <DataTable.Cell numeric>100</DataTable.Cell>
-                        <DataTable.Cell numeric>100</DataTable.Cell>
-                    </DataTable.Row>
+                <View style={styles.titleView}>
+                    <Text style={styles.title}>  Invoice</Text>
+                </View>
 
 
+                <View style={styles.invoiceTable}>
+                    <DataTable style={{ backgroundColor: 'floralwhite' }}>
+                        <DataTable.Header >
+                            <DataTable.Title ></DataTable.Title>
+                            <DataTable.Title numeric>Quantity</DataTable.Title>
+                            <DataTable.Title numeric>Price</DataTable.Title>
+                            <DataTable.Title numeric>Cost</DataTable.Title>
+                        </DataTable.Header>
+                        <DataTable.Row>
+                            <DataTable.Cell borderRight flex={2} > Lasagna </DataTable.Cell>
+                            <DataTable.Cell numeric>2</DataTable.Cell>
+                            <DataTable.Cell numeric>350</DataTable.Cell>
+                            <DataTable.Cell numeric>700</DataTable.Cell>
+                        </DataTable.Row>
 
-                    <DataTable.Row>
-                        <DataTable.Cell> Water </DataTable.Cell>
-                        <DataTable.Cell numeric>3</DataTable.Cell>
-                        <DataTable.Cell numeric>25</DataTable.Cell>
-                        <DataTable.Cell numeric>75</DataTable.Cell>
-                    </DataTable.Row>
+                        <DataTable.Row>
+                            <DataTable.Cell>Ice cream </DataTable.Cell>
+                            <DataTable.Cell numeric>1</DataTable.Cell>
+                            <DataTable.Cell numeric>100</DataTable.Cell>
+                            <DataTable.Cell numeric>100</DataTable.Cell>
+                        </DataTable.Row>
 
 
-                    <DataTable.Row>
-                        <DataTable.Cell>Salad </DataTable.Cell>
-                        <DataTable.Cell numeric>1</DataTable.Cell>
-                        <DataTable.Cell numeric>100</DataTable.Cell>
-                        <DataTable.Cell numeric>100</DataTable.Cell>
-                    </DataTable.Row>
 
-                    <DataTable.Row>
-                        <DataTable.Cell > <Text style={{ fontWeight: "bold", fontSize: 20 }}>Total </Text> </DataTable.Cell>
-                        <DataTable.Cell numeric>Rs. 975 </DataTable.Cell>
-
-                    </DataTable.Row>
+                        <DataTable.Row>
+                            <DataTable.Cell> Water </DataTable.Cell>
+                            <DataTable.Cell numeric>3</DataTable.Cell>
+                            <DataTable.Cell numeric>25</DataTable.Cell>
+                            <DataTable.Cell numeric>75</DataTable.Cell>
+                        </DataTable.Row>
 
 
-                </DataTable>
-            </View>
+                        <DataTable.Row>
+                            <DataTable.Cell>Salad </DataTable.Cell>
+                            <DataTable.Cell numeric>1</DataTable.Cell>
+                            <DataTable.Cell numeric>100</DataTable.Cell>
+                            <DataTable.Cell numeric>100</DataTable.Cell>
+                        </DataTable.Row>
 
-            <View style={styles.payBtn}>
-                <Button
-                    title="Pay"
-                    onPress={() => Alert.alert('Simple Button pressed')}
-                />
-            </View>
-        </SafeAreaView>
+                        <DataTable.Row>
+                            <DataTable.Cell > <Text style={{ fontWeight: "bold", fontSize: 20 }}>Total </Text> </DataTable.Cell>
+                            <DataTable.Cell numeric>Rs. 975 </DataTable.Cell>
 
-        // </View>
-    );
+                        </DataTable.Row>
+
+
+                    </DataTable>
+                </View>
+
+                <View style={styles.payBtn}>
+                    <Button
+                        title="Pay"
+                        onPress={() => { this.props.navigation.navigate('Payreceived'); }}
+                    />
+                </View>
+            </SafeAreaView>
+
+            // </View>
+        );
+    }
 }
 
 
