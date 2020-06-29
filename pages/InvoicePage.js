@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Text, View, StyleSheet, Button, Alert, SafeAreaView } from 'react-native';
 import Constants from 'expo-constants';
+import * as Linking from 'expo-linking';
 
 
 // npm install react-native-table-component
@@ -100,7 +101,27 @@ export default class InvoicePage extends React.Component {
                                         .catch((error) => {
                                         });
 
-                            this.props.navigation.navigate('Payreceived'); 
+                            Alert.alert(
+                            "You have Paid Successfully",
+                            "What to do now ? ",
+                            [
+                              {
+                                text: 'Proceed',
+                                onPress: () => {
+                                  console.log('OK22 Pressed');
+                                  this.props.navigation.navigate('Payreceived'); 
+                                }
+                              },
+                              {
+                                text: 'Book A Ride', onPress: () => {
+                                  console.log('Booking ride ');
+                                  Linking.openURL('https://olawebcdn.com/assets/ola-universal-link.html?');
+                                }
+                              },  
+
+                            ]
+                          );
+                            
                             }}
                     />
                 </View>

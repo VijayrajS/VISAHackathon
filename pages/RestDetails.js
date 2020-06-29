@@ -7,6 +7,7 @@
 //       "waitTime": "10"
 //     };
 let rs = {}
+import * as Linking from 'expo-linking';
 
 let timeStyle = (time) => {
   time = +time;
@@ -236,7 +237,8 @@ export default class RestDetails extends React.Component {
                         if (responseJson && responseJson["result"] == "true") {
                           console.log("booking made!!!!!");
                           console.log(responseJson["message"])
-                          Alert.alert("Congrats!!!",
+                          Alert.alert(
+                            "Congrats!!!",
                             responseJson["message"],
                             [
                               {
@@ -246,6 +248,13 @@ export default class RestDetails extends React.Component {
                                   this.props.navigation.navigate('PendingReservations');
                                 }
                               },
+                              {
+                                text: 'Book A Ride', onPress: () => {
+                                  console.log('Booking ride ');
+                                  Linking.openURL('https://olawebcdn.com/assets/ola-universal-link.html?');
+                                }
+                              },  
+
                             ]
                           );
 

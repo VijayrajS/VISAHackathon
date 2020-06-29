@@ -58,7 +58,6 @@ import {
 
 const navigateToInvoice = (obj,restnm) => {
   console.log("Restnm:",restnm);
-  con-
   obj.props.navigation.navigate('InvoicePage',
      {
       restname: restnm,
