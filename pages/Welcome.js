@@ -136,7 +136,7 @@ const Welcome = props => {
                               console.log("zip", item);
                               setSpinner(true);
 
-                              fetch('https://polar-earth-85350.herokuapp.com/fetchRestaurantList', {
+                              fetch('https://visa-concierge-service.herokuapp.com/fetchRestaurantList', {
                                 method: 'GET'
                               })
                                 .then((response) => response.json())

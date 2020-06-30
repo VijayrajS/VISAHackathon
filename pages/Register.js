@@ -111,7 +111,7 @@ const Register = props => {
                           }
                           setHidden(false);
                           
-                          fetch('https://polar-earth-85350.herokuapp.com/user/registerUser', {
+                          fetch('https://visa-concierge-service.herokuapp.com/user/registerUser', {
                             method: 'POST',
                             headers: {
                             Accept: 'application/json',
