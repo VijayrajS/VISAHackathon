@@ -10,6 +10,12 @@ import { DataTable } from 'react-native-paper';
 
 export default class InvoicePage extends React.Component {
 
+
+    offerPercentage = this.props.navigation.getParam("offerPercentage");
+    discount = 975 * (parseInt(this.offerPercentage) / 100);
+    total = 975 - this.discount;
+
+
     render() {
         return (
 
@@ -60,8 +66,15 @@ export default class InvoicePage extends React.Component {
                         </DataTable.Row>
 
                         <DataTable.Row>
+                            <DataTable.Cell> </DataTable.Cell>
+                            <DataTable.Cell >Discount</DataTable.Cell>
+                            <DataTable.Cell >  ({this.offerPercentage}%) </DataTable.Cell>
+                            <DataTable.Cell numeric><Text>{this.discount}</Text></DataTable.Cell>
+                        </DataTable.Row>
+
+                        <DataTable.Row>
                             <DataTable.Cell > <Text style={{ fontWeight: "bold", fontSize: 20 }}>Total </Text> </DataTable.Cell>
-                            <DataTable.Cell numeric>Rs. 975 </DataTable.Cell>
+                            <DataTable.Cell numeric>Rs. {this.total} </DataTable.Cell>
 
                         </DataTable.Row>
 
@@ -75,54 +88,49 @@ export default class InvoicePage extends React.Component {
                         onPress={() => {
                             var restname = this.props.navigation.getParam("restname");
                             var mailid = this.props.navigation.getParam("mailid");
-                            console.log("!!!!!!!!restname",restname);
-                            console.log("restname",restname);
-                            console.log("restname",this);
+                            console.log("!!!!!!!!restname", restname);
+                            console.log("restname", restname);
+                            console.log("restname", this);
                             // https://polar-earth-85350.herokuapp.com/pay  email:restaurant:
-                                fetch('https://polar-earth-85350.herokuapp.com/pay', {
-                                        method: 'POST',
-                                        headers: {
-                                          Accept: 'application/json',
-                                          'Content-Type': 'application/json',
-                                        },
-                                        body: JSON.stringify({
-                                          "email": mailid,
-                                          "restaurant":restname
-                                        }),
-                                        }).then((response) => response.json())
-                                        .then((responseJson) => {
-                                           console.log("PayResponse:",responseJson);
-                                           // if(responseJson){
- 
-                                           //  }else{
-                                           //    setError(true);
-                                           //  }
-                                        })
-                                        .catch((error) => {
-                                        });
+                            fetch('https://polar-earth-85350.herokuapp.com/pay', {
+                                method: 'POST',
+                                headers: {
+                                    Accept: 'application/json',
+                                    'Content-Type': 'application/json',
+                                },
+                                body: JSON.stringify({
+                                    "email": mailid,
+                                    "restaurant": restname
+                                }),
+                            }).then((response) => response.json())
+                                .then((responseJson) => {
+                                    console.log("PayResponse:", responseJson);
+                                })
+                                .catch((error) => {
+                                });
 
                             Alert.alert(
-                            "You have Paid Successfully",
-                            "What to do now ? ",
-                            [
-                              {
-                                text: 'Proceed',
-                                onPress: () => {
-                                  console.log('OK22 Pressed');
-                                  this.props.navigation.navigate('Payreceived'); 
-                                }
-                              },
-                              {
-                                text: 'Book A Ride', onPress: () => {
-                                  console.log('Booking ride ');
-                                  Linking.openURL('https://olawebcdn.com/assets/ola-universal-link.html?');
-                                }
-                              },  
+                                "You have Paid Successfully",
+                                "What to do now ? ",
+                                [
+                                    {
+                                        text: 'Proceed',
+                                        onPress: () => {
+                                            console.log('OK22 Pressed');
+                                            this.props.navigation.navigate('Payreceived');
+                                        }
+                                    },
+                                    {
+                                        text: 'Book A Ride', onPress: () => {
+                                            console.log('Booking ride ');
+                                            Linking.openURL('https://olawebcdn.com/assets/ola-universal-link.html?');
+                                        }
+                                    },
 
-                            ]
-                          );
-                            
-                            }}
+                                ]
+                            );
+
+                        }}
                     />
                 </View>
             </SafeAreaView>

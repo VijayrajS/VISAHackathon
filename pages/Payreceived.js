@@ -7,19 +7,19 @@ import Constants from 'expo-constants';
 export default class Payreceived extends React.Component {
 
 
-    componentDidMount(){
-        console.log("this:::",this)
+    componentDidMount() {
+        console.log("this:::", this)
         var that = this;
         if (this) {
-             setTimeout(function(){ that.props.navigation.navigate('Welcome'); }, 2000);
+            setTimeout(function () { that.props.navigation.navigate('Welcome'); }, 1700);
         }
     }
 
-    render(){
+    render() {
         return (
-        <View style={styles.container}>
-        <Image style={styles.animation} source={require('../assets/success.gif')} />
-        
+            <View style={styles.container}>
+                <Image style={styles.animation} source={require('../assets/success.gif')} />
+
                 <Text style={styles.message}> Payment successfull! </Text>
             </View>
         );

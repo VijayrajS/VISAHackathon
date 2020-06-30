@@ -20,14 +20,14 @@
 
 // r_list = [...r_list,...r_list,...r_list,...r_list,...r_list,]
 var r_list = [];
-var mailval="";
+var mailval = "";
 // let r_list=[];
 
 const titleCase = (text) => {
   let date = text.split('T')[0].split('-').reverse().join('/');
-  let time =  text.split(/[TZ]/)[1];
+  let time = text.split(/[TZ]/)[1];
   time = time.split(':')[0] + ':' + time.split(':')[1]
-  
+
   return date + ' - ' + time;
 }
 import AsyncStorage from '@react-native-community/async-storage';
@@ -56,14 +56,15 @@ import {
 // };
 
 
-const navigateToInvoice = (obj,restnm) => {
-  console.log("Restnm:",restnm);
+const navigateToInvoice = (obj, restnm) => {
+  console.log("Restnm:", restnm);
   obj.props.navigation.navigate('InvoicePage',
-     {
+    {
       restname: restnm,
-      mailid:mailval
-     } 
-    );
+      mailid: mailval,
+      offerPercentage: "20"
+    }
+  );
 
 };
 
@@ -76,7 +77,7 @@ const Restaur2 = (data, index, thisObj) => {
       <View style={boxstyles.TextViewStyle}>
         <Text style={boxstyles.TextTitle}>{data["restaurant"]}</Text>
         <TouchableOpacity style={boxstyles.ButtonStyle}>
-          <Text style={{ ...boxstyles.ButtonText, textAlign: 'center' }} onPress={() => navigateToInvoice(thisObj,data["restaurant"])}>Pay</Text>
+          <Text style={{ ...boxstyles.ButtonText, textAlign: 'center' }} onPress={() => navigateToInvoice(thisObj, data["restaurant"])}>Fetch Invoice</Text>
         </TouchableOpacity>
         <Text style={{ color: '#454f66', height: 0 }}>LoremLoremLoremLoremLoremLoremLoremLo</Text>
 
@@ -107,46 +108,46 @@ export default class PendingReservations extends React.Component {
   UNSAFE_componentWillMount() {
     // AsyncStorage.multiGet(['email', 'cardEnding']).then((data) => {
 
-      AsyncStorage.getItem("email").then((value) => {
-          mailval=value;
-      })
+    AsyncStorage.getItem("email").then((value) => {
+      mailval = value;
+    })
       .then(res => {
-            console.log("MAILVAL:::",mailval);
-            // var mailval = "pradeep@gmail.com";
-            fetch('https://polar-earth-85350.herokuapp.com/fetchPendingReservations', {
-                method: 'POST',
-                headers: {
-                  Accept: 'application/json',
-                  'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                  "email": mailval,
-                }),
-              }).then(response => response.json())
-                .then((responseJson) => {
-                  // console.log('getting data pendres', responseJson)
-                  // console.log('getting data pendres', responseJson["result"])
-                  if (responseJson && responseJson["result"] == "true") {
-                    console.log("assiging!!!");
-                    var newls = responseJson["reservations"];
-                    r_list = newls;
-                    this.forceUpdate();
-                    // console.log("r_lis:::",r_list)
+        console.log("MAILVAL:::", mailval);
+        // var mailval = "pradeep@gmail.com";
+        fetch('https://polar-earth-85350.herokuapp.com/fetchPendingReservations', {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            "email": mailval,
+          }),
+        }).then(response => response.json())
+          .then((responseJson) => {
+            // console.log('getting data pendres', responseJson)
+            // console.log('getting data pendres', responseJson["result"])
+            if (responseJson && responseJson["result"] == "true") {
+              console.log("assiging!!!");
+              var newls = responseJson["reservations"];
+              r_list = newls;
+              this.forceUpdate();
+              // console.log("r_lis:::",r_list)
 
-                  }
-                  else {
-                  }
+            }
+            else {
+            }
 
-                })
-                .catch(error => {
-                  console.log(error)
-                })
+          })
+          .catch(error => {
+            console.log(error)
+          })
 
       });
-            
+
 
   }
- 
+
 
   render() {
     return (
