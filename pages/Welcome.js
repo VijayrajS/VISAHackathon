@@ -7,6 +7,8 @@ import { FlatGrid } from 'react-native-super-grid';
 
 // import { StyleSheet, View, Text } from 'react-native';
 
+
+
 const Welcome = props => {
   const [showspinner, setSpinner] = React.useState(false);
   const [zip, setZip] = React.useState("");
@@ -15,6 +17,13 @@ const Welcome = props => {
   const [cardEnding, setcardEnding] = React.useState("NA");
   const [isLoading, setLoading] = React.useState(false);
   const [isError, setError] = React.useState(false);
+
+  
+  const navigateToPendingReserv = () =>
+  {
+    props.navigation.navigate("PendingReservations");
+  }
+
 
   const chng1 = event => {
     setError(false);
@@ -41,8 +50,8 @@ const Welcome = props => {
   const [items, setItems] = React.useState([
     { name: 'Restaurant Booking', code: '#1abc9c' },
     { name: 'Movie Booking', code: '#2ecc71' },
-    { name: 'Cab Booking', code: '#3498db' },
-    { name: 'Pay bills', code: '#9b59b6' }
+    { name: 'Golf Course', code: '#3498db' },
+    { name: 'Lifestyle', code: '#9b59b6' }
   ]);
 
 
@@ -166,9 +175,13 @@ const Welcome = props => {
         }
       />
 
-      {/*  <TouchableOpacity onPress={props.navigate('PendingReservations')} style={styles.ButtonStyle}>
-            <Text style={{fontWeight:'bold', color:"#192061"}}>Check pending reservations</Text></TouchableOpacity>*/}
-
+      <View style={styles.PendingBtnView}>
+       <TouchableOpacity onPress= {navigateToPendingReserv} style={styles.ButtonStyle}>
+            <Text style={{fontWeight:'bold', color:"#192061"}}>
+              Check pending reservations
+              </Text>
+              </TouchableOpacity>
+        </View>
     </View>
   );
 }
@@ -217,6 +230,10 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     justifyContent: "center",
     padding: 20
+  },
+  PendingBtnView:
+  {
+    paddingBottom: 60
   },
   img: {
     marginTop: 20,
@@ -326,11 +343,8 @@ const styles = StyleSheet.create({
   ButtonStyle: {
     height: "10%",
     width: "60%",
-
     backgroundColor: "#faaa13",
-    borderColor: "#faaa13",
-    borderWidth: 15,
-    paddingLeft: 5,
+    padding:25,
     borderRadius: 10,
 
     textAlign: "center",

@@ -1,31 +1,3 @@
-// let r_list = [
-//   {
-//     "restaurant": "MONTECRISTO REST",
-//     "address": "6286 3RD ST",
-//     "cuisine": "CHINESE",
-//     "expense": "AVERAGE",
-//     "offers": "10% off on total bill",
-//     "waitTime": "10"
-//   },
-//   {
-//     "restaurant": "LAUGHING MONK BREWING",
-//     "address": "1439 EGBERT AVE",
-//     "cuisine": "CONTINENTAL",
-//     "expense": "HIGH",
-//     "offers": "1+1 on drinks",
-//     "waitTime": "5"
-//   },
-//   {
-//     "restaurant": "CRYING MONK BREWING",
-//     "address": "1429 EGBERT AVE",
-//     "cuisine": "CONTINENTAL",
-//     "expense": "LOW",
-//     "offers": "1+1 on drinks",
-//     "waitTime": "15"
-//   },
-// ];
-
-// r_list = [...r_list,...r_list,...r_list,...r_list,...r_list,]
 
 let r_list = []
 // props_temp={}
@@ -77,31 +49,15 @@ const Restaur = (data, index, props_t) => {
     <View key={index} style={{ ...boxstyles.MainContainer, ...top_padding }}>
       <View style={boxstyles.TextViewStyle}>
         <Text style={boxstyles.TextTitle}>{data["name"]}</Text>
-        <TouchableOpacity style={boxstyles.ButtonStyle}>
-          <Text style={boxstyles.ButtonText} onPress={() => {
+        <TouchableOpacity style={boxstyles.ButtonStyle}
+          onPress={() => {
             props_t.props.navigation.navigate('RestDetails',
               { curRestData: data }
             );
           }
-
-
-            // {
-            //   // showAlert1(data)
-            //   Alert.alert(data["restaurant"], data["offers"], [
-            //     {
-            //       text: "Reserve",
-            //       onPress: () => {
-            //         console.log("Reserving at " + data["name"]),
-            //         // console.log("props2 :::::::",props_t)
-            //          props_t.props.navigation.navigate('RestDetails',
-            //           {curRestData: data} 
-            //           );
-            //       },
-            //       style: "cancel",
-            //     },
-            //   ]);
-            // }
-          }>See Details</Text>
+          }
+        >
+          <Text style={boxstyles.ButtonText} >See Details</Text>
         </TouchableOpacity>
         <Text style={{ color: '#454f66', height: 0 }}>LoremLoremLoremLoremLoremLoremLoremLo</Text>
 
@@ -121,10 +77,6 @@ const Restaur = (data, index, props_t) => {
 export default class RestListings extends React.Component {
 
   // const [r_list, set_r_list] = React.useState([]);
-  state: {
-    lisr: [],
-  }
-
   UNSAFE_componentWillMount() {
 
     newls = this.props.navigation.getParam("myJSON")["restaurants"];
@@ -218,14 +170,15 @@ const boxstyles = StyleSheet.create(
 
     },
     ButtonStyle: {
-      height: "10%",
-      width: "35%",
+      // height: "20%",
+      width: "30%",
 
       backgroundColor: "#faaa13",
-      borderColor: "#faaa13",
-      borderWidth: 15,
-      paddingLeft: 5,
-      borderRadius: 10,
+      // borderColor: "#faaa13",
+      // borderWidth: 15,
+      padding: 8,
+      paddingLeft:13,
+      borderRadius: 20,
       position: 'absolute',
       right: "2%",
       top: "10%",

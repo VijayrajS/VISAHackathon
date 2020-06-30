@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ActivityIndicator, Image, ImageBackground, TouchableOpacity, Button, TextInput, StyleSheet, Text, View } from 'react-native';
-import { add } from 'react-native-reanimated';
+// import { add } from 'react-native-reanimated';
 import { AppStyles } from '../src/AppStyles'
 import Navigator from '../navigation/Navigator';
 import AsyncStorage from '@react-native-community/async-storage'
@@ -32,14 +32,14 @@ const FirstPage = props => {
         textStyle={styles.spinnerTextStyle}
       />
 
-      <Text style={[styles.title, styles.centreTitle]} >Welcome to Visa Conscierge Services</Text>
+      {/* <Text style={[styles.title, styles.centreTitle]} >Welcome to Visa Conscierge Services</Text> */}
       <View style={styles.img2}>
-        <Image style={styles.imgin} source={{ uri: "https://i.ibb.co/ZJD8FXB/logo.jpg", height: 125, width: 250 }} />
+        <Image style={styles.imgin} source={{ uri: "https://i.ibb.co/ZJD8FXB/logo.jpg", height: 160, width: 320 }} />
       </View>
       <View style={styles.inputView} >
         <TextInput
           style={styles.inputText}
-          placeholder="email"
+          placeholder="Email"
           placeholderTextColor="#003f5c"
           onChangeText={chng}
         />
@@ -47,7 +47,7 @@ const FirstPage = props => {
       <View style={styles.inputView} >
         <TextInput
           style={styles.inputText}
-          placeholder="password"
+          placeholder="Password"
           secureTextEntry={true}
           placeholderTextColor="#003f5c"
           onChangeText={chng2}
@@ -57,14 +57,14 @@ const FirstPage = props => {
 
 
       {isHidden ? (
-        <Text style={styles.invlogin} >Invalid Login,Try Again!!!</Text>
+        <Text style={styles.invlogin} >Invalid Login, Try Again!</Text>
       ) : null
       }
 
 
 
       {isLoading && (<View>
-        <Text style={styles.or}>Logging You In,Please Wait!</Text>
+        <Text style={styles.or}>Logging You In, Please Wait!</Text>
       </View>
       )}
 
@@ -279,13 +279,14 @@ const styles = StyleSheet.create({
     padding: 10
   },
   img2: {
-    padding: 10
+    padding: 40
   },
   imgin: {
     borderRadius: 150 / 2,
     overflow: "hidden",
     borderWidth: 3,
-    borderColor: "#faaa13"
+    borderColor: "#faaa13",
+    // padding:20
   }
 });
 

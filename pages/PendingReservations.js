@@ -28,7 +28,7 @@ const titleCase = (text) => {
   let time = text.split(/[TZ]/)[1];
   time = time.split(':')[0] + ':' + time.split(':')[1]
 
-  return date + ' - ' + time;
+  return date + ' | Time: ' + time;
 }
 import AsyncStorage from '@react-native-community/async-storage';
 import React from "react";
@@ -77,7 +77,7 @@ const Restaur2 = (data, index, thisObj) => {
       <View style={boxstyles.TextViewStyle}>
         <Text style={boxstyles.TextTitle}>{data["restaurant"]}</Text>
         <TouchableOpacity style={boxstyles.ButtonStyle}>
-          <Text style={{ ...boxstyles.ButtonText, textAlign: 'center' }} onPress={() => navigateToInvoice(thisObj, data["restaurant"])}>Fetch Invoice</Text>
+          <Text style={{ ...boxstyles.ButtonText, textAlign: 'center' }} onPress={() => navigateToInvoice(thisObj, data["restaurant"])}>Pay</Text>
         </TouchableOpacity>
         <Text style={{ color: '#454f66', height: 0 }}>LoremLoremLoremLoremLoremLoremLoremLo</Text>
 
@@ -85,7 +85,7 @@ const Restaur2 = (data, index, thisObj) => {
           <Text style={{ color: '#fff', alignItems: 'flex-start', fontWeight: 'bold', height: 30 }}>
             Number of people: <Text>{data["numberOfPeople"]}</Text></Text>
           <Text style={{ height: 30, color: '#fff', alignItems: 'flex-start' }}>
-            <Text style={{ fontWeight: 'bold' }}>Time: {titleCase(data["time"])}</Text></Text>
+            <Text style={{ fontWeight: 'bold' }}>Date: {titleCase(data["time"])}</Text></Text>
         </View>
       </View>
     </View>
@@ -94,15 +94,6 @@ const Restaur2 = (data, index, thisObj) => {
 
 
 export default class PendingReservations extends React.Component {
-
-
-
-  // navigateToInvoice = () => {
-
-  //   this.props.navigation.navigate('InvoicePage');
-
-  // };
-
 
 
   UNSAFE_componentWillMount() {
@@ -224,14 +215,15 @@ const boxstyles = StyleSheet.create(
 
     },
     ButtonStyle: {
-      height: "10%",
-      width: "35%",
+      // height: "20%",
+      width: "30%",
 
       backgroundColor: "#faaa13",
-      borderColor: "#faaa13",
-      borderWidth: 15,
-      paddingLeft: 5,
-      borderRadius: 10,
+      // borderColor: "#faaa13",
+      // borderWidth: 15,
+      padding: 8,
+      paddingLeft:13,
+      borderRadius: 20,
       position: 'absolute',
       right: "2%",
       top: "10%",
