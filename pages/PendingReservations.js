@@ -114,7 +114,7 @@ export default class PendingReservations extends React.Component {
       .then(res => {
         console.log("MAILVAL:::", mailval);
         // var mailval = "pradeep@gmail.com";
-        fetch('https://polar-earth-85350.herokuapp.com/fetchPendingReservations', {
+        fetch('https://visa-concierge-service.herokuapp.com/fetchPendingReservations', {
           method: 'POST',
           headers: {
             Accept: 'application/json',

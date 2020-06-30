@@ -92,7 +92,7 @@ export default class InvoicePage extends React.Component {
                             console.log("restname", restname);
                             console.log("restname", this);
                             // https://polar-earth-85350.herokuapp.com/pay  email:restaurant:
-                            fetch('https://polar-earth-85350.herokuapp.com/pay', {
+                            fetch('https://visa-concierge-service.herokuapp.com/pay', {
                                 method: 'POST',
                                 headers: {
                                     Accept: 'application/json',

@@ -48,11 +48,11 @@ const Welcome = props => {
 
   return (
     <View style={styles.container}>
-    <Spinner
-          visible={showspinner}
-          textContent={'Loading...'}
-          textStyle={styles.spinnerTextStyle}
-        />
+      <Spinner
+        visible={showspinner}
+        textContent={'Loading...'}
+        textStyle={styles.spinnerTextStyle}
+      />
 
       <View style={styles.navBar}>
         <View style={styles.leftContainer}>
@@ -98,11 +98,11 @@ const Welcome = props => {
       />
 
 
-     {/*} <Text style={[styles.title, styles.centreTitle]} >Welcome to Visa Conscierge Services</Text>*/}
+      {/*} <Text style={[styles.title, styles.centreTitle]} >Welcome to Visa Conscierge Services</Text>*/}
 
 
       <View style={styles.img2}>
-      <Image style={styles.imgin} source={{ uri: "https://i.ibb.co/ZJD8FXB/logo.jpg", height: 160, width: 320 }} />
+        <Image style={styles.imgin} source={{ uri: "https://i.ibb.co/ZJD8FXB/logo.jpg", height: 160, width: 320 }} />
       </View>
 
 
@@ -121,52 +121,52 @@ const Welcome = props => {
       } */}
 
       <FlatGrid
-            itemDimension={130}
-            data={items}
-            style={styles.gridView}
-            // staticDimension={300}
-            // fixed
-            spacing={10}
-            renderItem={({ item }) => (
-                  <View style={[styles.itemContainer, { backgroundColor: item.code }]}
-                  >
-                      <Text style={styles.itemName}
-                        onPress={ 
-                              () => {
-                              console.log("zip", item);
-                              setSpinner(true);
+        itemDimension={130}
+        data={items}
+        style={styles.gridView}
+        // staticDimension={300}
+        // fixed
+        spacing={10}
+        renderItem={({ item }) => (
+          <View style={[styles.itemContainer, { backgroundColor: item.code }]}
+          >
+            <Text style={styles.itemName}
+              onPress={
+                () => {
+                  console.log("zip", item);
+                  setSpinner(true);
 
-                              fetch('https://visa-concierge-service.herokuapp.com/fetchRestaurantList', {
-                                method: 'GET'
-                              })
-                                .then((response) => response.json())
-                                .then((responseJson) => {
-                                  console.log(responseJson);
-                                  if (responseJson) {
-                                    setLoading(false);
-                                    setSpinner(false);
-                                    props.navigation.navigate('RestListings',
-                                      { myJSON: responseJson }
-                                    );
-                                  }
-                                })
-                                .catch((error) => {
-                                  setSpinner(false);
-                                });
+                  fetch('https://visa-concierge-service.herokuapp.com/fetchRestaurantList', {
+                    method: 'GET'
+                  })
+                    .then((response) => response.json())
+                    .then((responseJson) => {
+                      console.log(responseJson);
+                      if (responseJson) {
+                        setLoading(false);
+                        setSpinner(false);
+                        props.navigation.navigate('RestListings',
+                          { myJSON: responseJson }
+                        );
+                      }
+                    })
+                    .catch((error) => {
+                      setSpinner(false);
+                    });
 
-                            }
-                        }
+                }
+              }
 
-                      >
-                      {item.name}
-                      </Text>
+            >
+              {item.name}
+            </Text>
 
-                  </View>
-                )
-          }
+          </View>
+        )
+        }
       />
 
-    {/*  <TouchableOpacity onPress={props.navigate('PendingReservations')} style={styles.ButtonStyle}>
+      {/*  <TouchableOpacity onPress={props.navigate('PendingReservations')} style={styles.ButtonStyle}>
             <Text style={{fontWeight:'bold', color:"#192061"}}>Check pending reservations</Text></TouchableOpacity>*/}
 
     </View>
@@ -313,7 +313,7 @@ const styles = StyleSheet.create({
     height: 80,
   },
   itemName: {
-    flex:1,
+    flex: 1,
     fontSize: 20,
     color: '#fff',
     fontWeight: '600',
@@ -340,16 +340,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
 
   },
-  img2:{
-    padding:40
+  img2: {
+    padding: 40
   },
-  imgin:{
+  imgin: {
     borderRadius: 150 / 2,
     overflow: "hidden",
     borderWidth: 3,
     borderColor: "#faaa13"
   },
-   spinnerTextStyle: {
+  spinnerTextStyle: {
     color: '#FFF'
   }
 });
