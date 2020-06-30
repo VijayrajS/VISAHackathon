@@ -217,7 +217,7 @@ export default class RestDetails extends React.Component {
 
                     console.log("continue");
 
-                    fetch('https://polar-earth-85350.herokuapp.com/reserve', {
+                    fetch('https://visa-concierge-service.herokuapp.com/reserve', {
                       method: 'POST',
                       headers: {
                         Accept: 'application/json',
