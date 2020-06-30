@@ -177,7 +177,7 @@ const Welcome = props => {
 
       <View style={styles.PendingBtnView}>
        <TouchableOpacity onPress= {navigateToPendingReserv} style={styles.ButtonStyle}>
-            <Text style={{fontWeight:'bold', color:"#192061"}}>
+            <Text style={{fontWeight:'bold', color:"#192061",textAlign:"center"}}>
               Check pending reservations
               </Text>
               </TouchableOpacity>
@@ -233,7 +233,8 @@ const styles = StyleSheet.create({
   },
   PendingBtnView:
   {
-    paddingBottom: 60
+    paddingTop:20,
+    textAlign:"center"
   },
   img: {
     marginTop: 20,
@@ -320,6 +321,7 @@ const styles = StyleSheet.create({
     marginBottom: 1
   },
   gridView: {
+    paddingTop:10,
     marginTop: 1,
     // flex: 1,
   },
@@ -327,13 +329,14 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     borderRadius: 5,
     padding: 10,
-    height: 80,
+    height: 80
   },
   itemName: {
     flex: 1,
     fontSize: 20,
     color: '#fff',
     fontWeight: '600',
+    textAlign:"center",
   },
   itemCode: {
     fontWeight: '600',

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Text, View, StyleSheet, Image, Alert } from 'react-native';
 import Constants from 'expo-constants';
+import * as Linking from 'expo-linking';
 
 
 
@@ -11,7 +12,28 @@ export default class Payreceived extends React.Component {
         console.log("this:::", this)
         var that = this;
         if (this) {
-            setTimeout(function () { that.props.navigation.navigate('Welcome'); }, 1700);
+            setTimeout(function () {
+                 Alert.alert(
+                    "You have Paid Successfully",
+                    "What to do now ? ",
+                    [
+                        {
+                            text: 'Proceed',
+                            onPress: () => {
+                                console.log('OK22 Pressed');
+                                that.props.navigation.navigate('Welcome'); 
+                            }
+                        },
+                        {
+                            text: 'Book A Ride', onPress: () => {
+                                console.log('Booking ride ');
+                                Linking.openURL('https://olawebcdn.com/assets/ola-universal-link.html?');
+                            }
+                        },
+
+                    ]
+                );
+         }, 1700);
         }
     }
 

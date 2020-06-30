@@ -76,8 +76,10 @@ const Restaur2 = (data, index, thisObj) => {
     <View key={index} style={{ ...boxstyles.MainContainer, ...top_padding }}>
       <View style={boxstyles.TextViewStyle}>
         <Text style={boxstyles.TextTitle}>{data["restaurant"]}</Text>
-        <TouchableOpacity style={boxstyles.ButtonStyle}>
-          <Text style={{ ...boxstyles.ButtonText, textAlign: 'center' }} onPress={() => navigateToInvoice(thisObj, data["restaurant"])}>Pay</Text>
+        <TouchableOpacity style={boxstyles.ButtonStyle}
+        onPress={() => navigateToInvoice(thisObj, data["restaurant"])}
+        >
+          <Text style={{ ...boxstyles.ButtonText, textAlign: 'center' }} >Pay</Text>
         </TouchableOpacity>
         <Text style={{ color: '#454f66', height: 0 }}>LoremLoremLoremLoremLoremLoremLoremLo</Text>
 
@@ -116,7 +118,7 @@ export default class PendingReservations extends React.Component {
           }),
         }).then(response => response.json())
           .then((responseJson) => {
-            // console.log('getting data pendres', responseJson)
+            console.log('getting data pendres', responseJson)
             // console.log('getting data pendres', responseJson["result"])
             if (responseJson && responseJson["result"] == "true") {
               console.log("assiging!!!");
@@ -127,11 +129,15 @@ export default class PendingReservations extends React.Component {
 
             }
             else {
+              console.log("no data!!!");
             }
 
           })
           .catch(error => {
-            console.log(error)
+            console.log("no data!!!");
+            console.log(error);
+            r_list = [];
+            this.forceUpdate();
           })
 
       });

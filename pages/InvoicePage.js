@@ -2,6 +2,8 @@ import * as React from 'react';
 import { Text, View, StyleSheet, Button, Alert, SafeAreaView } from 'react-native';
 import Constants from 'expo-constants';
 import * as Linking from 'expo-linking';
+import { Dimensions } from 'react-native';
+const win = Dimensions.get('window');
 
 
 // npm install react-native-table-component
@@ -19,11 +21,9 @@ export default class InvoicePage extends React.Component {
     render() {
         return (
 
-            <SafeAreaView style={styles.container}>
+            <View style={styles.container}>
 
-                <View style={styles.titleView}>
-                    <Text style={styles.title}>  Invoice</Text>
-                </View>
+            <Text style={styles.container2}>Invoice</Text>
 
 
                 <View style={styles.invoiceTable}>
@@ -90,7 +90,7 @@ export default class InvoicePage extends React.Component {
                             var mailid = this.props.navigation.getParam("mailid");
                             console.log("!!!!!!!!restname", restname);
                             console.log("restname", restname);
-                            console.log("restname", this);
+                            // console.log("restname", this);
                             // https://polar-earth-85350.herokuapp.com/pay  email:restaurant:
                             fetch('https://visa-concierge-service.herokuapp.com/pay', {
                                 method: 'POST',
@@ -105,35 +105,30 @@ export default class InvoicePage extends React.Component {
                             }).then((response) => response.json())
                                 .then((responseJson) => {
                                     console.log("PayResponse:", responseJson);
+                                    this.props.navigation.navigate('Payreceived');
                                 })
                                 .catch((error) => {
+                                    console.log("error!!!");
+                                    // console.log("PayResponse:", responseJson);
+                                    Alert.alert(
+                                        "Error",
+                                        "Payment not made Successfully ",
+                                        [
+                                            {
+                                                text: 'Close',
+                                                onPress: () => {
+                                                    console.log('OK22 Pressed');
+                                                }
+                                            },
+                                        ]
+                                    );
                                 });
 
-                            Alert.alert(
-                                "You have Paid Successfully",
-                                "What to do now ? ",
-                                [
-                                    {
-                                        text: 'Proceed',
-                                        onPress: () => {
-                                            console.log('OK22 Pressed');
-                                            this.props.navigation.navigate('Payreceived');
-                                        }
-                                    },
-                                    {
-                                        text: 'Book A Ride', onPress: () => {
-                                            console.log('Booking ride ');
-                                            Linking.openURL('https://olawebcdn.com/assets/ola-universal-link.html?');
-                                        }
-                                    },
-
-                                ]
-                            );
-
+                           
                         }}
                     />
                 </View>
-            </SafeAreaView>
+            </View>
 
             // </View>
         );
@@ -185,6 +180,7 @@ export const AppStyles = {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        flexDirection: 'column',
         // alignItems: "center",
         backgroundColor: "#192061",
         justifyContent: 'center'
@@ -201,6 +197,7 @@ const styles = StyleSheet.create({
     },
     invoiceTable: {
         // borderRadius: 
+        paddingTop:20
     },
     titleView: {
         // borderRadius: AppStyles.borderRadius.main
@@ -215,5 +212,29 @@ const styles = StyleSheet.create({
 
         // color:"white",
         // alignSelf: "stretch",
-    }
+    },
+    container2: {
+    // flex:1,
+    paddingTop: 0,
+    paddingBottom: 10,
+    width: win.width,
+    // backgroundColor: "#181c40",
+    // justifyContent: "center",
+    textAlign: "center",
+    // alignContent: "center",
+    color: "#faaa13",
+    fontSize: 25,
+
+    // shadowColor: '#000',
+    // shadowOffset: {
+    //   width: 1,
+    //   height: 20,
+    // },
+    borderWidth: 5,
+    borderLeftColor:"#192061",
+    borderRightColor:"#192061",
+    borderTopColor: "#192061",
+    borderBottomColor: '#faaa13',
+  },
+
 });
