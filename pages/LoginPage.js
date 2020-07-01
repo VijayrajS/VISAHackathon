@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { ActivityIndicator, Image, ImageBackground, TouchableOpacity, Button, TextInput, StyleSheet, Text, View } from 'react-native';
-// import { add } from 'react-native-reanimated';
 import { AppStyles } from '../src/AppStyles'
 import Navigator from '../navigation/Navigator';
 import AsyncStorage from '@react-native-community/async-storage'
@@ -51,7 +50,6 @@ const [ispassempty, setpassempty] = useState(false);
         textStyle={styles.spinnerTextStyle}
       />
 
-      {/* <Text style={[styles.title, styles.centreTitle]} >Welcome to Visa Conscierge Services</Text> */}
       <View style={styles.img2}>
         <Image style={styles.imgin} source={VisaExpLogo} />
       </View>
@@ -83,13 +81,10 @@ const [ispassempty, setpassempty] = useState(false);
       ) : null
       }
 
-
       {isHidden ? (
         <Text style={styles.invlogin} >Invalid Login, Try Again!</Text>
       ) : null
       }
-
-
 
       {isLoading && (<View>
         <Text style={styles.or}>Logging You In, Please Wait!</Text>
@@ -127,14 +122,8 @@ const [ispassempty, setpassempty] = useState(false);
                     ['email', responseJson["email"]]
                   ]);
                   setSpinner(false);
-                  props.navigation.replace('Welcome');
+                  props.navigation.replace('HomePage');
                 }
-                // else{
-                //   setTimeout(
-                //     () => { setHidden(true) },
-                //     3000
-                //   )
-                // }
                 setSpinner(false);
 
               })
@@ -161,8 +150,6 @@ const [ispassempty, setpassempty] = useState(false);
       >
         <Text style={styles.signUpText}>Register</Text>
       </TouchableOpacity>
-
-
 
     </View>
   );
@@ -311,13 +298,9 @@ const styles = StyleSheet.create({
     padding: 40
   },
   imgin: {
-    // borderRadius: 150 / 2,
     height:118,
     width:250,
     overflow: "hidden",
-    // borderWidth: 3,
-    // borderColor: "#faaa13",
-    // padding:20
   }
 });
 

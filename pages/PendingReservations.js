@@ -1,27 +1,6 @@
 
-// let r_list = [
-//     {
-//       "restaurant": "LITTLE NEPAL",
-//       "numberOfPeople": 4,
-//       "time": "2020-06-19T23:02:00Z"
-//   },
-//   {
-//     "restaurant": "MEDIUM NEPAL",
-//     "numberOfPeople": 42,
-//     "time": "2020-06-19T23:02:00Z"
-//   },
-//   {
-//     "restaurant": "BIG NEPAL",
-//     "numberOfPeople": 420,
-//     "time": "2020-06-19T23:02:00Z"
-//   },
-// ];
-
-
-// r_list = [...r_list,...r_list,...r_list,...r_list,...r_list,]
 var r_list = [];
 var mailval = "";
-// let r_list=[];
 
 const titleCase = (text) => {
   let date = text.split('T')[0].split('-').reverse().join('/');
@@ -43,17 +22,6 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-
-// const showAlert1 = (data, obj) => {
-//   Alert.alert(data["restaurant"], data["offers"], [
-//     {
-//       text: "Reserve",
-//       onPress: () => obj.props.navigation.navigate('InvoicePage'),
-//       // console.log("Reserving at " + data["restaurant"]),
-//       style: "cancel",
-//     },
-//   ]);
-// };
 
 
 const navigateToInvoice = (obj, restnm, offer1) => {
@@ -99,14 +67,12 @@ export default class PendingReservations extends React.Component {
 
 
   UNSAFE_componentWillMount() {
-    // AsyncStorage.multiGet(['email', 'cardEnding']).then((data) => {
 
     AsyncStorage.getItem("email").then((value) => {
       mailval = value;
     })
       .then(res => {
         console.log("MAILVAL:::", mailval);
-        // var mailval = "pradeep@gmail.com";
         fetch('https://visa-concierge-service.herokuapp.com/fetchPendingReservations', {
           method: 'POST',
           headers: {
@@ -119,14 +85,12 @@ export default class PendingReservations extends React.Component {
         }).then(response => response.json())
           .then((responseJson) => {
             console.log('getting data pendres', responseJson)
-            // console.log('getting data pendres', responseJson["result"])
             if (responseJson && responseJson["result"] == "true") {
               console.log("assiging!");
               var newls = responseJson["reservations"];
               
               r_list = newls;
               this.forceUpdate();
-              // console.log("r_lis:::",r_list)
 
             }
             else {
@@ -158,7 +122,7 @@ export default class PendingReservations extends React.Component {
         </ScrollView>
 
         <View style={styles.PendingBtnView}>
-       <TouchableOpacity style={styles.ButtonStyle} onPress={() => {this.props.navigation.navigate("Welcome");} }>
+       <TouchableOpacity style={styles.ButtonStyle} onPress={() => {this.props.navigation.navigate("HomePage");} }>
             <Text style={{fontSize:17, fontWeight:'bold', color:"#192061",textAlign:"center"}}>
               Home Page
               </Text>
@@ -184,11 +148,9 @@ const styles = StyleSheet.create({
     textAlign:"center"
   },
   container2: {
-    // flex:1,
     paddingTop: 10,
     paddingBottom: 10,
     width: 700,
-    // backgroundColor: "#181c40",
     justifyContent: "center",
     textAlign: "center",
     alignContent: "center",
@@ -230,11 +192,9 @@ const boxstyles = StyleSheet.create(
     MainContainer:
     {
       flexDirection: 'column',
-      // padding:1,
       width: "100%",
       justifyContent: 'center',
       alignItems: 'center',
-      // padding:"3%",
       paddingBottom: "3.5%",
       justifyContent: "center",
       color: "#fff",
@@ -243,19 +203,14 @@ const boxstyles = StyleSheet.create(
     TextTitle:
     {
       textAlign: 'left',
-      // padding: 10,
       color: '#fdbb0a',
       fontWeight: 'bold',
       fontSize: 15
 
     },
     ButtonStyle: {
-      // height: "20%",
       width: "30%",
-
       backgroundColor: "#faaa13",
-      // borderColor: "#faaa13",
-      // borderWidth: 15,
       padding: 8,
       paddingLeft:13,
       borderRadius: 20,
@@ -294,12 +249,9 @@ const boxstyles = StyleSheet.create(
     TextStyle:
     {
       textAlign: 'center',
-
       color: '#fff',
       padding: 10,
-
     }
-  
 
   });
 

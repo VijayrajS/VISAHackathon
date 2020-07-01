@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { View, Image, Text, StyleSheet, Animated } from 'react-native';
 
 import Logo from '../assets/visaLoading.png';
-import FirstPage from './FirstPage';
+import LoginPage from './LoginPage';
 
-class MainScreen extends Component {
+class LoadingScreen extends Component {
     state = {
         LogoAnime: new Animated.Value(0)
     }
@@ -17,7 +17,7 @@ class MainScreen extends Component {
                 tension: 5,
                 friction: 1,
                 duration: 30000
-            }).start(() => { this.props.navigation.replace('FirstPage') }),
+            }).start(() => { this.props.navigation.replace('LoginPage') }),
         ]).start()
     }
 
@@ -51,4 +51,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default MainScreen;
+export default LoadingScreen;

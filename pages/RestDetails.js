@@ -1,11 +1,4 @@
-// let rs = {
-//       "restaurant": "MONTECRISTO REST",
-//       "address": "6286 3RD ST",
-//       "cuisine": "CHINESE",
-//       "expense": "AVERAGE",
-//       "offers": "10% off on total bill",
-//       "waitTime": "10"
-//     };
+
 let rs = {}
 import * as Linking from 'expo-linking';
 
@@ -331,8 +324,6 @@ const styles = StyleSheet.create({
   },
 
   textHead: {
-    // position:'absolute',
-    // top:20,
     fontSize: 22,
     textAlign: "center",
     fontWeight: 'bold',

@@ -167,7 +167,7 @@ const Register = props => {
                   console.log("resp json true");
                   setError(false)
                   setLoading(false)
-                  props.navigation.navigate('FirstPage');
+                  props.navigation.navigate('LoginPage');
                 } else {
                   console.log("resp json false");
                   setTimeout(

@@ -3,29 +3,28 @@ import { createStackNavigator } from 'react-navigation-stack';
 import { createAppContainer } from "react-navigation";
 
 import Register from '../pages/Register';
-import Welcome from '../pages/Welcome';
-// import Restbooking from '../pages/Restbooking';
+import HomePage from '../pages/HomePage';
 
-import FirstPage from '../pages/FirstPage';
+import LoginPage from '../pages/LoginPage';
 import RestListings from '../pages/RestListings';
 import RestDetails from '../pages/RestDetails';
 import PendingReservations from '../pages/PendingReservations'
 import InvoicePage from '../pages/InvoicePage';
 import Payreceived from '../pages/Payreceived';
-import MainScreen from '../pages/MainScreen';
+import LoadingScreen from '../pages/LoadingScreen';
 
 const RootStack = createStackNavigator({
-    MainScreen: {
-        screen: MainScreen
+    LoadingScreen: {
+        screen: LoadingScreen
     },
-    FirstPage: {
-        screen: FirstPage
+    LoginPage: {
+        screen: LoginPage
     },
     Register: {
         screen: Register
     },
-    Welcome: {
-        screen: Welcome
+    HomePage: {
+        screen: HomePage
     },
     RestListings: {
         screen: RestListings

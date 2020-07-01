@@ -1,6 +1,4 @@
-
 let r_list = []
-// props_temp={}
 
 let timeStyle = (time) => {
   time = +time;
@@ -26,20 +24,6 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-
-// const showAlert1 = (data,props_t) => {
-// Alert.alert(data["restaurant"], data["offers"], [
-//   {
-//     text: "Reserve",
-//     onPress: () => {
-//       console.log("Reserving at " + data["name"]),
-//       console.log("props :::::::",this)
-//        // props_temp.navigation.navigate('RestDetails');
-//     },
-//     style: "cancel",
-//   },
-// ]);
-// };
 
 
 const Restaur = (data, index, props_t) => {
@@ -76,7 +60,6 @@ const Restaur = (data, index, props_t) => {
 
 export default class RestListings extends React.Component {
 
-  // const [r_list, set_r_list] = React.useState([]);
   UNSAFE_componentWillMount() {
 
     newls = this.props.navigation.getParam("myJSON")["restaurants"];
@@ -85,17 +68,10 @@ export default class RestListings extends React.Component {
     console.log("data", newls);
     r_list = newls;
     this.forceUpdate();
-    // props_temp=this.props;
-    // set_r_list(newls);
-    // this.setState({ lisr: false }); 
   }
 
 
   render() {
-    // var { props_t } = this.props;
-    // props_temp=this.props;
-
-    // console.log("props t:",this.props);
     return (
       <View style={styles.container}>
         <Text style={styles.container2}>Search Results</Text>
@@ -118,11 +94,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   container2: {
-    // flex:1,
     paddingTop: 10,
     paddingBottom: 10,
     width: 700,
-    // backgroundColor: "#181c40",
     justifyContent: "center",
     textAlign: "center",
     alignContent: "center",
@@ -150,11 +124,9 @@ const boxstyles = StyleSheet.create(
     MainContainer:
     {
       flexDirection: 'column',
-      // padding:1,
       width: "100%",
       justifyContent: 'center',
       alignItems: 'center',
-      // padding:"3%",
       paddingBottom: "3.5%",
       justifyContent: "center",
       color: "#fff",
@@ -163,19 +135,14 @@ const boxstyles = StyleSheet.create(
     TextTitle:
     {
       textAlign: 'left',
-      // padding: 10,
       color: '#fdbb0a',
       fontWeight: 'bold',
       fontSize: 15
 
     },
     ButtonStyle: {
-      // height: "20%",
       width: "30%",
-
       backgroundColor: "#faaa13",
-      // borderColor: "#faaa13",
-      // borderWidth: 15,
       padding: 8,
       paddingLeft:13,
       borderRadius: 20,

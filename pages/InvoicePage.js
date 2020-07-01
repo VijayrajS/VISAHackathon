@@ -8,8 +8,6 @@ import Spinner from 'react-native-loading-spinner-overlay';
 const win = Dimensions.get('window');
 
 
-// npm install react-native-table-component
-
 import { DataTable } from 'react-native-paper';
 
 export default class InvoicePage extends React.Component {
@@ -18,7 +16,6 @@ export default class InvoicePage extends React.Component {
       }
 
     offer = this.props.navigation.getParam("offer");
-    // offer = "5% off on total bill";
     offerPercentage = parseFloat((this.offer).substr(0,this.offer.indexOf('%')))
     discount = 975 * ((this.offerPercentage) / 100);
     total = 975 - this.discount;
@@ -228,35 +225,8 @@ const styles = StyleSheet.create({
     marginRight: 15,
 
   },
-    // payBtn: {
-    //     height: "13%",
-    //     width: "20%",
-    //     backgroundColor: "#faaa13",
-    //     padding:25,
-    //     borderRadius: 30,
-    
-    //     textAlign: "center",
-    
-    //     fontSize: 10,
-    //     fontFamily: "sans-serif",
-    //     justifyContent: 'center',
-    
-          
-    //     // textAlign: 'center',
-    //     // marginVertical: 15,
-    //     // color: "green",
-    //     // alignSelf: 'flex-end',
-    //     // marginRight: 15,
-    //     // width: "25%"
-    //     // main: "70%"
-
-    // },
     invoiceTable: {
-        // borderRadius: 
         paddingTop:20
-    },
-    titleView: {
-        // borderRadius: AppStyles.borderRadius.main
     },
     title: {
         fontSize: AppStyles.fontSize.title,
@@ -265,27 +235,14 @@ const styles = StyleSheet.create({
         marginTop: 20,
         marginBottom: 10,
         textAlign: 'left',
-
-        // color:"white",
-        // alignSelf: "stretch",
     },
     container2: {
-    // flex:1,
     paddingTop: 0,
     paddingBottom: 10,
     width: win.width,
-    // backgroundColor: "#181c40",
-    // justifyContent: "center",
     textAlign: "center",
-    // alignContent: "center",
     color: "#faaa13",
     fontSize: 35,
-
-    // shadowColor: '#000',
-    // shadowOffset: {
-    //   width: 1,
-    //   height: 20,
-    // },
     borderWidth: 5,
     borderLeftColor:"#192061",
     borderRightColor:"#192061",

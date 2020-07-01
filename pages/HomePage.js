@@ -4,14 +4,11 @@ import { AppStyles } from '../src/AppStyles'
 import AsyncStorage from '@react-native-community/async-storage'
 import Spinner from 'react-native-loading-spinner-overlay';
 import { FlatGrid } from 'react-native-super-grid';
-
 import Logo from '../assets/visaLoading.png';
 
-// import { StyleSheet, View, Text } from 'react-native';
 
 
-
-const Welcome = props => {
+const HomePage = props => {
   const [showspinner, setSpinner] = React.useState(false);
   const [zip, setZip] = React.useState("");
   const [email, setemail] = React.useState("NA");
@@ -108,28 +105,9 @@ const Welcome = props => {
         }}
       />
 
-
-      {/*} <Text style={[styles.title, styles.centreTitle]} >Welcome to Visa Conscierge Services</Text>*/}
-
-
       <View style={styles.img2}>
         <Image style={styles.imgin} source={Logo} />
       </View>
-
-
-      {/* <View style={styles.inputView} >
-        <TextInput
-          style={styles.inputText}
-          placeholder="Zip code"
-          placeholderTextColor="#003f5c"
-          onChangeText={chng1}
-        />
-      </View>
-
-      {isHidden ? (
-        <Text style={styles.invlogin} >Zip Code Cannot be Empty</Text>
-      ) : null
-      } */}
 
       <FlatGrid
         itemDimension={130}
@@ -329,7 +307,6 @@ const styles = StyleSheet.create({
   gridView: {
     paddingTop:10,
     marginTop: 1,
-    // flex: 1,
   },
   itemContainer: {
     justifyContent: 'flex-end',
@@ -367,18 +344,13 @@ const styles = StyleSheet.create({
     padding: 40
   },
   imgin: {
-    // height: 160, width: 320,
     height:118,
     width:250,
-
-    // borderRadius: 150 / 2,
     overflow: "hidden",
-    // borderWidth: 3,
-    // borderColor: "#faaa13"
   },
   spinnerTextStyle: {
     color: '#FFF'
   }
 });
 
-export default Welcome;
+export default HomePage;

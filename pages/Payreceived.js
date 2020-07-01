@@ -21,7 +21,7 @@ export default class Payreceived extends React.Component {
                             text: 'Proceed',
                             onPress: () => {
                                 console.log('OK22 Pressed');
-                                that.props.navigation.navigate('Welcome'); 
+                                that.props.navigation.navigate('HomePage'); 
                             }
                         },
                         {
