@@ -57,7 +57,7 @@ const DateTime = (props) => {
   return (
     <View style={{ alignItems: 'center' }}>
       <TouchableOpacity style={styles.ButtonStyle} onPress={showDatePicker}>
-        <Text style={{ fontWeight: 'bold', color: "#192061", }}>LoremLoremLoremLoremLoremLoremLoremLo</Text>
+        <Text style={{ fontWeight: 'bold', color: "#192061", }}>Select Date and Time</Text>
       </TouchableOpacity>
       <DateTimePickerModal
         isVisible={isDatePickerVisible}
