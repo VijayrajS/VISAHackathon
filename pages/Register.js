@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import {ImageBackground, TouchableOpacity, Button, TextInput, StyleSheet, Text, View } from 'react-native';
-import { AppStyles } from '../src/AppStyles'
 import Navigator from '../navigation/Navigator';
 import Spinner from 'react-native-loading-spinner-overlay';
 
@@ -17,44 +16,58 @@ const Register = props => {
 
   const [isError, setError] = useState(false);
   const [isLoading, setLoading] = useState(false);
-  const [iscarderr, setcarderr] = useState(false);
-  const [ismailerr, setmailerr] = useState(false);
+  const [isCardErr, setCardErr] = useState(false);
+  const [isMailErr, setMailErr] = useState(false);
 
 
-  const chng1 = event => {
+  const nameListener = event => {
+        /* 
+    Listen to change in name and sets it value in state variable
+    */
     setName(event);
     setError(false);
   };
-  const chng2 = event => {
+  const mailListener = event => {
+    /* 
+    Listen to change in mail also validates it and sets it value in state variable
+    */
     setMail(event);
     setError(false);
      var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
 
     if (reg.test(event) == false) 
     {
-      setmailerr(true);
+      setMailErr(true);
     }else{
-      setmailerr(false);
+      setMailErr(false);
     }
   };
-  const chng3 = event => {
-    // console.log(event.length);
+  const cardListener = event => {
+    /* 
+    Listen to change in card and aslo validates it and sets it value in state variable
+    */
     setCard(event);
     setError(false);
     let isnum = /^\d+$/.test(event);
     let len=event.length;
     if(len==16 && isnum){
       console.log("valid card");
-      setcarderr(false);
+      setCardErr(false);
     }else{
-      setcarderr(true);
+      setCardErr(true);
     }
   };
-  const chng4 = event => {
+  const addressListner = event => {
+    /* 
+    Listen to change in address and sets it value in state variable
+    */
     setAddress(event);
     setError(false);
   };
-  const chng5 = event => {
+  const passwordListener = event => {
+        /* 
+    Listen to change in password and sets it value in state variable
+    */
     setPassword(event);
     setError(false);
   };
@@ -73,7 +86,7 @@ const Register = props => {
           style={styles.inputText}
           placeholder="name"
           placeholderTextColor="#003f5c"
-          onChangeText={chng1}
+          onChangeText={nameListener}
         />
       </View>
 
@@ -82,11 +95,11 @@ const Register = props => {
           style={styles.inputText}
           placeholder="email"
           placeholderTextColor="#003f5c"
-          onChangeText={chng2}
+          onChangeText={mailListener}
         />
       </View>
-      {ismailerr ? (
-        <Text style={styles.invlogin} >Invalid Email. Please Enter a valid email ID</Text>
+      {isMailErr ? (
+        <Text style={styles.invlogin} >Invalid Email.Please Enter A valid mail id</Text>
       ) : null
       }
 
@@ -95,10 +108,10 @@ const Register = props => {
           style={styles.inputText}
           placeholder="card"
           placeholderTextColor="#003f5c"
-          onChangeText={chng3}
+          onChangeText={cardListener}
         />
       </View>
-      {iscarderr ? (
+      {isCardErr ? (
         <Text style={styles.invlogin} >Invalid Card Number. Please Enter 16 digits Numeric value.</Text>
       ) : null
       }
@@ -108,7 +121,7 @@ const Register = props => {
           style={styles.inputText}
           placeholder="address"
           placeholderTextColor="#003f5c"
-          onChangeText={chng4}
+          onChangeText={addressListner}
         />
       </View>
 
@@ -119,7 +132,7 @@ const Register = props => {
           type="password"
           placeholderTextColor="#003f5c"
           secureTextEntry={true}
-          onChangeText={chng5}
+          onChangeText={passwordListener}
         />
       </View>
 
@@ -129,7 +142,7 @@ const Register = props => {
       }
 
       <TouchableOpacity style={styles.loginBtn}
-      disabled={iscarderr || ismailerr}
+      disabled={isCardErr || isMailErr}
         onPress={
           () => {
             setLoading(true)
@@ -201,11 +214,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#192061",
     justifyContent: 'center'
-  }, container2: {
-    justifyContent: 'center',
-    color: '#fc0',
-    width: 300,
-    fontSize: 20
   },
   textinput: {
     color: 'black',
@@ -236,18 +244,14 @@ const styles = StyleSheet.create({
     color: "white"
   },
   title: {
-    fontSize: AppStyles.fontSize.title,
+    fontSize: 30,
     fontWeight: "bold",
-    color: AppStyles.color.tint,
+    color: "#ff5a66",
     marginTop: 20,
     marginBottom: 20,
     color: "#fdbb0a"
   },
-  leftTitle: {
-    alignSelf: "stretch",
-    textAlign: "left",
-    marginLeft: 20
-  },
+
   centreTitle: {
     alignSelf: "stretch",
     textAlign: "center",
