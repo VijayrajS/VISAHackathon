@@ -85,7 +85,7 @@ const PendingResObj = (data, index, thisObj) => {
         >
           <Text style={{ ...boxstyles.ButtonText, textAlign: 'center' }} >Pay</Text>
         </TouchableOpacity>
-        <Text style={{ color: '#454f66', height: 0 }}>-------------------------------------</Text>
+        <Text style={{ color: '#454f66', height: 0 }}>LoremLoremLoremLoremLoremLoremLoremLo</Text>
 
         <View style={{ alignItems: 'flex-start' }}>
           <Text style={{ color: '#fff', alignItems: 'flex-start', fontWeight: 'bold', height: 30 }}>

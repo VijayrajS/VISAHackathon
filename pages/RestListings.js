@@ -86,6 +86,8 @@ export default class RestListings extends React.Component {
   }
 }
 
+//stylesets
+
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',

@@ -3,6 +3,7 @@ let rs = {}
 import * as Linking from 'expo-linking';
 
 let timeStyle = (time) => {
+  
   time = +time;
   if (time < 6) {
     return { fontWeight: 'bold', color: '#5fa' };
@@ -56,7 +57,7 @@ const DateTime = (props) => {
   return (
     <View style={{ alignItems: 'center' }}>
       <TouchableOpacity style={styles.ButtonStyle} onPress={showDatePicker}>
-        <Text style={{ fontWeight: 'bold', color: "#192061", }}>Select date and time</Text>
+        <Text style={{ fontWeight: 'bold', color: "#192061", }}>LoremLoremLoremLoremLoremLoremLoremLo</Text>
       </TouchableOpacity>
       <DateTimePickerModal
         isVisible={isDatePickerVisible}
@@ -67,17 +68,6 @@ const DateTime = (props) => {
     </View>
   );
 };
-
-const showAlert1 = (data) => {
-  Alert.alert(data["name"], data["offers"], [
-    {
-      text: "Reserve",
-      onPress: () => console.log("Reserving at " + data["name"]),
-      style: "cancel",
-    },
-  ]);
-};
-
 export default class RestDetails extends React.Component {
   UNSAFE_componentWillMount() {
 
