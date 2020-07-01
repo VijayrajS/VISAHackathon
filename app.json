@@ -23,6 +23,14 @@
     ],
     "ios": {
       "supportsTablet": true
+    },
+    "android":{
+      "package": "ca.visa.VisaConciergeService",
+      "config":{ 
+              "googleMaps": {
+                "apiKey": "AIzaSyClDOM-Tjf-Nc078Vw7Yc60PeVHNVu9HMw"
+              }
+      }
     }
   }
 }

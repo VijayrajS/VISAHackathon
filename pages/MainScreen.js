@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { View, Image, Text, StyleSheet, Animated } from 'react-native';
 
-import Logo from '../assets/logo.png';
+import Logo from '../assets/visaLoading.png';
 import FirstPage from './FirstPage';
 
 class MainScreen extends Component {
