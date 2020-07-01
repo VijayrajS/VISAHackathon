@@ -113,17 +113,18 @@ export default class RestDetails extends React.Component {
 
           <View style={{ ...styles.detailBox, fontSize: 20 }}>
             {/*Details of restaurant here*/}
-            <Text style={{ height: 50, color: '#fff', alignItems: 'flex-start', fontSize: 20 }}>{titleCase(rs['address'])}</Text>
+            <Text style={{ height: 30, color: '#fff', alignItems: 'flex-start', fontSize: 20 }}>{titleCase(rs['address'])}</Text>
             <Text style={{ height: 30, color: '#fff', alignItems: 'flex-start', fontSize: 20 }}>
               <Text style={{ fontWeight: 'bold' }}>Cuisine: {titleCase(rs["cuisine"]) + '\n'}</Text>
-              <Text style={{ fontWeight: 'bold' }}>Expense: <Text style = {{color: '#5fa'}}>{'$'.repeat(rs["expense"])}</Text></Text>
+        
             </Text>
+            <Text style={{ fontWeight: 'bold', color:"white", fontSize:17 }}>Expense: <Text style = {{color: '#5fa'}}>{'$'.repeat(rs["expense"])}</Text></Text>
             <Text style={{ color: '#fff', alignItems: 'flex-start', fontWeight: 'bold', height: 30, fontSize: 17 }}>
               Wait time: <Text style={timeStyle(rs["waitTime"])}>{rs["waitTime"]} minutes</Text></Text>
             <Text style={{ height: 10 }}>{'\n'}</Text>
 
             <View style={{ ...styles.detailBox, backgroundColor: '#f00', fontSize: 20, marginBottom: 10 }}>
-              <Text style={{ fontSize: 17, fontWeight: 'bold', color: '#fff' }}>OFFERS: {rs['offers']}</Text>
+              <Text style={{ fontSize: 17, fontWeight: 'bold', color: '#fff', textAlign:"center" }}>OFFERS! {'\n'} {rs['offers']}</Text>
 
             </View>
 
