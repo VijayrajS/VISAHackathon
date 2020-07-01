@@ -65,7 +65,7 @@ return (
         />
       </View>
       {isMailErr ? (
-        <Text style={styles.invlogin} >Invalid Email.Please Enter A valid mail id</Text>
+        <Text style={styles.invlogin} >Invalid Email.Please Enter a valid emamil ID</Text>
       ) : null
       }
 
