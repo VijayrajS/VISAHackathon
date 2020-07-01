@@ -236,10 +236,10 @@ export default class RestDetails extends React.Component {
                         console.log('getting data from fetch', responseJson)
                         console.log('getting data from fetch::::', responseJson["result"])
                         if (responseJson && responseJson["result"] == "true") {
-                          console.log("booking made!!!!!");
+                          console.log("booking made!!");
                           console.log(responseJson["message"])
                           Alert.alert(
-                            "Congrats!!!",
+                            "Congrats!",
                             responseJson["message"],
                             [
                               {
@@ -261,7 +261,7 @@ export default class RestDetails extends React.Component {
 
                         }
                         else {
-                          Alert.alert("Booking Cannot be made!!",
+                          Alert.alert("Booking Cannot be made!",
                             responseJson["message"]
                           );
 
@@ -269,7 +269,7 @@ export default class RestDetails extends React.Component {
 
                       })
                       .catch(error => {
-                        Alert.alert("Booking Cannot be made!!");
+                        Alert.alert("Booking Cannot be made!");
                         console.log(error)
                       })
 
@@ -277,7 +277,6 @@ export default class RestDetails extends React.Component {
                   })
                 }
               }
-
             >
               <Text style={{ fontWeight: 'bold', alignSelf: 'center', color: "#192061", }
               }>RESERVE</Text>

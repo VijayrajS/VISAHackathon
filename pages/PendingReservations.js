@@ -56,13 +56,14 @@ import {
 // };
 
 
-const navigateToInvoice = (obj, restnm) => {
+const navigateToInvoice = (obj, restnm, offer1) => {
   console.log("Restnm:", restnm);
+  console.log("Restnm:", offer1);
   obj.props.navigation.navigate('InvoicePage',
     {
       restname: restnm,
       mailid: mailval,
-      offerPercentage: "20"
+      offer: offer1
     }
   );
 
@@ -70,14 +71,13 @@ const navigateToInvoice = (obj, restnm) => {
 
 
 const Restaur2 = (data, index, thisObj) => {
-  // console.log("in func!!!!!!")
   let top_padding = (index == 0) ? { paddingTop: 70 } : {}
   return (
     <View key={index} style={{ ...boxstyles.MainContainer, ...top_padding }}>
       <View style={boxstyles.TextViewStyle}>
         <Text style={boxstyles.TextTitle}>{data["restaurant"]}</Text>
         <TouchableOpacity style={boxstyles.ButtonStyle}
-        onPress={() => navigateToInvoice(thisObj, data["restaurant"])}
+        onPress={() => navigateToInvoice(thisObj, data["restaurant"],data["offers"])}
         >
           <Text style={{ ...boxstyles.ButtonText, textAlign: 'center' }} >Pay</Text>
         </TouchableOpacity>
@@ -121,20 +121,21 @@ export default class PendingReservations extends React.Component {
             console.log('getting data pendres', responseJson)
             // console.log('getting data pendres', responseJson["result"])
             if (responseJson && responseJson["result"] == "true") {
-              console.log("assiging!!!");
+              console.log("assiging!");
               var newls = responseJson["reservations"];
+              
               r_list = newls;
               this.forceUpdate();
               // console.log("r_lis:::",r_list)
 
             }
             else {
-              console.log("no data!!!");
+              console.log("No data!");
             }
 
           })
           .catch(error => {
-            console.log("no data!!!");
+            console.log("No data!");
             console.log(error);
             r_list = [];
             this.forceUpdate();

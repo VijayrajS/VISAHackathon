@@ -13,8 +13,10 @@ import { DataTable } from 'react-native-paper';
 export default class InvoicePage extends React.Component {
 
 
-    offerPercentage = this.props.navigation.getParam("offerPercentage");
-    discount = 975 * (parseInt(this.offerPercentage) / 100);
+    offer = this.props.navigation.getParam("offer");
+    // offer = "5% off on total bill";
+    offerPercentage = parseFloat((this.offer).substr(0,this.offer.indexOf('%')))
+    discount = 975 * ((this.offerPercentage) / 100);
     total = 975 - this.discount;
 
 
@@ -89,7 +91,6 @@ export default class InvoicePage extends React.Component {
              onPress={() => {
                             var restname = this.props.navigation.getParam("restname");
                             var mailid = this.props.navigation.getParam("mailid");
-                            console.log("!!!!!!!!restname", restname);
                             console.log("restname", restname);
                             fetch("https://visa-concierge-service.herokuapp.com/pushPayment",{method: 'GET'});
 
