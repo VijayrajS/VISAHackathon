@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { ActivityIndicator, Image, ImageBackground, TouchableOpacity, Button, TextInput, StyleSheet, Text, View } from 'react-native';
-import { AppStyles } from '../src/AppStyles'
+import { Image, ImageBackground, TouchableOpacity, Button, TextInput, StyleSheet, Text, View } from 'react-native';
 import Navigator from '../navigation/Navigator';
 import AsyncStorage from '@react-native-community/async-storage'
 import Spinner from 'react-native-loading-spinner-overlay';
@@ -14,35 +13,39 @@ const FirstPage = props => {
   const [isHidden, setHidden] = useState(false);
   const [password, setPasswd] = useState("");
   const [isLoading, setLoading] = useState(false);
- const [ismailerr, setmailerr] = useState(false);
-const [ispassempty, setpassempty] = useState(false);
+ const [isMailErr, setMailErr] = useState(false);
+const [isPasswordEmpty, setPasswordEmpty] = useState(false);
 
 
-  const [testv, settestv] = useState(false);
-  const [tstd, setTstd] = useState("hello2");
-  const chng = event => {
+const emialListener = event => {
+      /* 
+    Listen to change in mail also validates it and sets it value in state variable
+    */
     setMail(event);
     setHidden(false);
     var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
 
     if (reg.test(event) == false) 
     {
-      setmailerr(true);
+      setMailErr(true);
     }else{
-      setmailerr(false);
+      setMailErr(false);
     }
   };
-  const chng2 = event => {
+const passwordListener = event => {
+      /* 
+    Listen to change in password also check if its empty and sets it value in state variable
+    */
     setPasswd(event);
     setHidden(false);
     if(event==""){
-      setpassempty(true);
+      setPasswordEmpty(true);
     }else
     {
-      setpassempty(false);
+      setPasswordEmpty(false);
     }
-  }
-  return (
+}
+return (
     <View style={styles.container}>
       <Spinner
         visible={showspinner}
@@ -58,11 +61,11 @@ const [ispassempty, setpassempty] = useState(false);
           style={styles.inputText}
           placeholder="Email"
           placeholderTextColor="#003f5c"
-          onChangeText={chng}
+          onChangeText={emialListener}
         />
       </View>
-      {ismailerr ? (
-        <Text style={styles.invlogin} >Invalid Email. Please Enter a valid email ID</Text>
+      {isMailErr ? (
+        <Text style={styles.invlogin} >Invalid Email.Please Enter A valid mail id</Text>
       ) : null
       }
 
@@ -72,11 +75,11 @@ const [ispassempty, setpassempty] = useState(false);
           placeholder="Password"
           secureTextEntry={true}
           placeholderTextColor="#003f5c"
-          onChangeText={chng2}
+          onChangeText={passwordListener}
 
         />
       </View>
-      {ispassempty ? (
+      {isPasswordEmpty ? (
         <Text style={styles.invlogin} >Please Enter your Password.</Text>
       ) : null
       }
@@ -92,7 +95,7 @@ const [ispassempty, setpassempty] = useState(false);
       )}
 
       <TouchableOpacity style={styles.loginBtn}
-      disabled={ismailerr || ispassempty}
+      disabled={isMailErr || isPasswordEmpty}
         onPress={
           () => {
             setLoading(true);
@@ -165,11 +168,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#142165",
     justifyContent: 'center'
   },
-  image: {
-    flex: 1,
-    resizeMode: "cover",
-    justifyContent: "center"
-  },
+
   signUpBtn: {
     color: "white",
     fontSize: 15
@@ -178,12 +177,7 @@ const styles = StyleSheet.create({
     color: "#faaa13",
     fontSize: 20
   },
-  logo: {
-    fontWeight: "bold",
-    fontSize: 50,
-    color: "#fdbb0a",
-    marginBottom: 40
-  },
+
   or: {
     fontSize: 20,
     alignItems: "center",
@@ -198,68 +192,12 @@ const styles = StyleSheet.create({
     marginTop: 1,
     marginBottom: 1
   },
-  title: {
-    fontSize: AppStyles.fontSize.title,
-    fontWeight: "bold",
-    color: AppStyles.color.tint,
-    marginTop: 20,
-    marginBottom: 0,
-    color: "#fdbb0a"
-  },
-  leftTitle: {
-    alignSelf: "stretch",
-    textAlign: "left",
-    marginLeft: 20
-  },
-  centreTitle: {
-    alignSelf: "stretch",
-    textAlign: "center",
-    marginLeft: 20
-  },
-  content: {
-    paddingLeft: 50,
-    paddingRight: 50,
-    textAlign: "center",
-    fontSize: AppStyles.fontSize.content,
-    color: AppStyles.color.text
-  },
-  loginContainer: {
-    width: AppStyles.buttonWidth.main,
-    backgroundColor: AppStyles.color.tint,
-    borderRadius: AppStyles.borderRadius.main,
-    padding: 10,
-    marginTop: 30
-  },
-  loginText: {
-    color: AppStyles.color.white
-  },
-  placeholder: {
-    fontFamily: AppStyles.fontName.text,
-    color: "red"
-  },
-  InputContainer: {
-    width: AppStyles.textInputWidth.main,
-    marginTop: 30,
-    borderWidth: 1,
-    borderStyle: "solid",
-    borderColor: AppStyles.color.grey,
-    borderRadius: AppStyles.borderRadius.main
-  },
-  body: {
-    height: 42,
-    paddingLeft: 20,
-    paddingRight: 20,
-    backgroundColor: "white",
-    color: AppStyles.color.text
 
+  loginText: {
+    color: "white"
   },
-  facebookContainer: {
-    width: AppStyles.buttonWidth.main,
-    backgroundColor: AppStyles.color.facebook,
-    borderRadius: AppStyles.borderRadius.main,
-    padding: 10,
-    marginTop: 30
-  },
+
+
   inputView: {
     width: "80%",
     backgroundColor: "#B1B8E6",
@@ -269,9 +207,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: 20
   },
-  facebookText: {
-    color: AppStyles.color.white
-  },
+
   loginBtn: {
     width: "80%",
     backgroundColor: "#faaa13",
@@ -282,18 +218,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 10
   },
-  activityIndicator: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 0,
-    bottom: 0,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  imagel: {
-    padding: 10
-  },
+
   img2: {
     padding: 40
   },

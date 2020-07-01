@@ -1,6 +1,5 @@
 import React from 'react';
-import { ActivityIndicator, Image, ImageBackground, TouchableOpacity, Button, TextInput, StyleSheet, Text, View } from 'react-native';
-import { AppStyles } from '../src/AppStyles'
+import { ActivityIndicator, Image, ImageBackground, TouchableOpacity, Button,  StyleSheet, Text, View } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage'
 import Spinner from 'react-native-loading-spinner-overlay';
 import { FlatGrid } from 'react-native-super-grid';
@@ -10,31 +9,22 @@ import Logo from '../assets/visaLoading.png';
 
 const HomePage = props => {
   const [showspinner, setSpinner] = React.useState(false);
-  const [zip, setZip] = React.useState("");
   const [email, setemail] = React.useState("NA");
-  const [isHidden, setHidden] = React.useState(false);
   const [cardEnding, setcardEnding] = React.useState("NA");
-  const [isLoading, setLoading] = React.useState(false);
-  const [isError, setError] = React.useState(false);
 
   
   const navigateToPendingReserv = () =>
   {
+    /* 
+    navigate to Pending reservations page
+    */
     props.navigation.navigate("PendingReservations");
   }
 
-
-  const chng1 = event => {
-    setError(false);
-    setZip(event);
-    // console.log(props)
-    // console.log(AsyncStorage.getItem('email'))
-    // console.log(AsyncStorage.getItem('cardEnding'))
-  };
-
   React.useEffect(() => {
-    console.log('mount it!');
-    setError(false);
+    /* 
+    Function to get mail id and card ending from session(async) storage as they are needed in api calls
+    */
     AsyncStorage.multiGet(['email', 'cardEnding']).then((data) => {
       var mailval = data[0][1];
       var cendval = data[1][1];
@@ -113,8 +103,6 @@ const HomePage = props => {
         itemDimension={130}
         data={items}
         style={styles.gridView}
-        // staticDimension={300}
-        // fixed
         spacing={10}
         renderItem={({ item }) => (
           <View style={[styles.itemContainer, { backgroundColor: "#B1B8E6" }]}
@@ -136,7 +124,6 @@ const HomePage = props => {
                     .then((responseJson) => {
                       console.log(responseJson);
                       if (responseJson) {
-                        setLoading(false);
                         setSpinner(false);
                         props.navigation.navigate('RestListings',
                           { myJSON: responseJson }
@@ -179,64 +166,14 @@ const styles = StyleSheet.create({
     backgroundColor: "#192061",
     justifyContent: 'center'
   },
-  textinput: {
-    color: 'black',
-    backgroundColor: 'white'
-  },
-  txt2: {
-    color: '#fc0',
-    fontSize: 30
-  },
-  title: {
-    fontSize: AppStyles.fontSize.title,
-    fontWeight: "bold",
-    color: AppStyles.color.tint,
-    marginTop: 20,
-    marginBottom: 20,
-    color: "#fdbb0a"
-  },
-  leftTitle: {
-    alignSelf: "stretch",
-    textAlign: "left",
-    marginLeft: 20
-  },
 
-  centreTitle: {
-    alignSelf: "stretch",
-    textAlign: "center",
-    marginLeft: 20
-  },
-  inputView: {
-    width: "80%",
-    backgroundColor: "#465881",
-    borderRadius: 25,
-    height: 55,
-    marginBottom: 20,
-    justifyContent: "center",
-    padding: 20
-  },
   PendingBtnView:
   {
     paddingTop:20,
     textAlign:"center"
   },
-  img: {
-    marginTop: 20,
-    marginBottom: 40
-  },
-  loginBtn: {
-    width: "80%",
-    backgroundColor: "#faaa13",
-    borderRadius: 25,
-    height: 50,
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 20,
-    marginBottom: 10
-  },
-  loginText: {
-    color: "white"
-  },
+
+
   tl: {
     alignSelf: 'flex-end',
     marginTop: -5,
@@ -270,40 +207,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     color: "#faaa13"
   },
-  invlogin: {
-    fontSize: 10,
-    alignItems: "center",
-    color: "red",
-    marginTop: 1,
-    marginBottom: 1
-  },
-  container2: {
-    // flex:1,
-    paddingTop: 10,
-    paddingBottom: 10,
-    width: 700,
-    backgroundColor: "#181c40",
-    justifyContent: "center",
-    textAlign: "center",
-    alignContent: "center",
-    color: "#faaa13",
-    fontSize: 25,
 
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 1,
-      height: 20,
-    },
-    borderWidth: 5,
-    borderBottomColor: '#faaa13',
-  },
-  invlogin: {
-    fontSize: 10,
-    alignItems: "center",
-    color: "red",
-    marginTop: 1,
-    marginBottom: 1
-  },
+
   gridView: {
     paddingTop:10,
     marginTop: 1,
@@ -321,11 +226,7 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     textAlign:"center",
   },
-  itemCode: {
-    fontWeight: '600',
-    fontSize: 12,
-    color: '#fff',
-  },
+
   ButtonStyle: {
     height: "20%",
     width: "70%",
