@@ -1,29 +1,29 @@
+// User lands on this pay when he choose to pay for a particular reservation. 
+// This page is supposed to display the invoice received from the merchant end.
+// For now, this page contains a sample invoice and payment option.
+
 import * as React from 'react';
 import { Text, View, StyleSheet, Button, Alert, SafeAreaView, TouchableOpacity} from 'react-native';
-import Constants from 'expo-constants';
 import * as Linking from 'expo-linking';
 import { Dimensions } from 'react-native';
 import Spinner from 'react-native-loading-spinner-overlay';
+import { DataTable } from 'react-native-paper';
 
 const win = Dimensions.get('window');
-
-
-import { DataTable } from 'react-native-paper';
 
 export default class InvoicePage extends React.Component {
         state = {
         showloader: '',
       }
 
+    // receiving offer details and computing the discount
     offer = this.props.navigation.getParam("offer");
     offerPercentage = parseFloat((this.offer).substr(0,this.offer.indexOf('%')))
     discount = 975 * ((this.offerPercentage) / 100);
     total = 975 - this.discount;
 
-
     render() {
         return (
-
             <View style={styles.container}>
             <Spinner
                 visible={ (this.state.showloader == "true")} 
@@ -85,8 +85,6 @@ export default class InvoicePage extends React.Component {
                             <DataTable.Cell numeric>Rs. {this.total} </DataTable.Cell>
 
                         </DataTable.Row>
-
-
                     </DataTable>
                 </View>
 
@@ -95,12 +93,16 @@ export default class InvoicePage extends React.Component {
        <TouchableOpacity style={styles.ButtonStyle} 
        
              onPress={() => {
+
+                            // Adding "loading" screen while the backend calls and processing is done
                             this.setState({showloader: 'true'});
                             var restname = this.props.navigation.getParam("restname");
                             var mailid = this.props.navigation.getParam("mailid");
                             console.log("restname", restname);
+
                             fetch("https://visa-concierge-service.herokuapp.com/pushPayment",{method: 'GET'});
 
+                            // API call to update reservation status in backend
                             fetch('https://visa-concierge-service.herokuapp.com/pay', {
                                 method: 'POST',
                                 headers: {
@@ -119,8 +121,7 @@ export default class InvoicePage extends React.Component {
                                 })
                                 .catch((error) => {
                                     this.setState({showloader: 'false'});
-                                    console.log("error!!!");
-                                    // console.log("PayResponse:", responseJson);
+                                    console.log("Error!");
                                     Alert.alert(
                                         "Error",
                                         "Payment not made Successfully ",
@@ -154,51 +155,10 @@ export default class InvoicePage extends React.Component {
 
 
 
-
-export const AppStyles = {
-    color: {
-        main: "#5ea23a",
-        text: "#696969",
-        title: "#464646",
-        subtitle: "#545454",
-        categoryTitle: "#161616",
-        tint: "#ff5a66",
-        description: "#bbbbbb",
-        filterTitle: "#8a8a8a",
-        starRating: "#2bdf85",
-        location: "#a9a9a9",
-        white: "white",
-        facebook: "#4267b2",
-        grey: "grey",
-        greenBlue: "#00aea8",
-        placeholder: "#a0a0a0",
-        background: "#f2f2f2",
-        blue: "#3293fe"
-    },
-    fontSize: {
-        title: 30,
-        content: 20,
-        normal: 16
-    },
-    textInputWidth: {
-        main: "80%"
-    },
-    fontName: {
-        main: "Noto Sans",
-        bold: "Noto Sans"
-    },
-    borderRadius: {
-        main: 25,
-        small: 5
-    }
-};
-
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: 'column',
-        // alignItems: "center",
         backgroundColor: "#192061",
         justifyContent: 'center'
     },
@@ -229,9 +189,9 @@ const styles = StyleSheet.create({
         paddingTop:20
     },
     title: {
-        fontSize: AppStyles.fontSize.title,
+        fontSize: 30,
         fontWeight: "bold",
-        color: AppStyles.color.white,
+        color: "white",
         marginTop: 20,
         marginBottom: 10,
         textAlign: 'left',

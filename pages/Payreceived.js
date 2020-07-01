@@ -1,14 +1,19 @@
+// User lands on this page when the payment of the service is successfull
+// From this page, user has the option to either book a cab or proceed to HomePage
+
 import * as React from 'react';
 import { Text, View, StyleSheet, Image, Alert } from 'react-native';
 import Constants from 'expo-constants';
 import * as Linking from 'expo-linking';
-
-
+import { HeaderStyleInterpolators } from 'react-navigation-stack';
 
 export default class Payreceived extends React.Component {
-
-
-    componentDidMount() {
+    componentDidMount() {        
+        /*
+        This function displays an alert after the "payment successfull" animation complets.
+        Option to redirect to cab service or to homePage.
+        */
+        
         console.log("this:::", this)
         var that = this;
         if (this) {

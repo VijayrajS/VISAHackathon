@@ -62,7 +62,7 @@ const [ispassempty, setpassempty] = useState(false);
         />
       </View>
       {ismailerr ? (
-        <Text style={styles.invlogin} >Invalid Email.Please Enter A valid mail id</Text>
+        <Text style={styles.invlogin} >Invalid Email. Please Enter a valid email ID</Text>
       ) : null
       }
 
