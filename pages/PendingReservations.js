@@ -1,14 +1,26 @@
-
+// variable to store the list of restaurants that are returned as a list from
+// the 
 var r_list = [];
 var mailval = "";
 
 const formatTime = (text) => {
+  /*
+    Input:
+      text: <String> of the form %yyyy-%mm-%ddT%HH:%MMZ
+    Output:
+      <String> of the form %dd/%mm/%yyyy | Time: %HH:%MM
+    Function:
+      Formatting the string of the default date object to make it more readable
+      to the user in the date and time field of the pending reservation.
+  */
+ 
   let date = text.split('T')[0].split('-').reverse().join('/');
   let time = text.split(/[TZ]/)[1];
   time = time.split(':')[0] + ':' + time.split(':')[1]
 
   return date + ' | Time: ' + time;
 }
+
 import AsyncStorage from '@react-native-community/async-storage';
 import React from "react";
 import {
@@ -37,6 +49,21 @@ const navigateToInvoice = (obj, restnm, offer1) => {
 
 
 const PendingResObj = (data, index, thisObj) => {
+  /*
+    Input:
+      Data: JSON data object of a reservation
+      Index: Index of the JSON object in the list
+      thisObj: reference to the page object for navigation purposes
+    
+      Output:
+        A component containing details of a particular pending reservation, with
+        a pay button, which redirects to the invoice of the reservation whose payment
+        is pending
+      
+      Function:
+        Generating the above described component
+  */
+ 
   let top_padding = (index == 0) ? { paddingTop: 70 } : {}
   return (
     <View key={index} style={{ ...boxstyles.MainContainer, ...top_padding }}>
@@ -47,7 +74,7 @@ const PendingResObj = (data, index, thisObj) => {
         >
           <Text style={{ ...boxstyles.ButtonText, textAlign: 'center' }} >Pay</Text>
         </TouchableOpacity>
-        <Text style={{ color: '#454f66', height: 0 }}>LoremLoremLoremLoremLoremLoremLoremLo</Text>
+        <Text style={{ color: '#454f66', height: 0 }}>-------------------------------------</Text>
 
         <View style={{ alignItems: 'flex-start' }}>
           <Text style={{ color: '#fff', alignItems: 'flex-start', fontWeight: 'bold', height: 30 }}>

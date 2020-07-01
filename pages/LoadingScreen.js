@@ -46,6 +46,7 @@ class LoadingScreen extends Component {
     }
 }
 
+// styleset
 const styles = StyleSheet.create({
     container: {
         flex: 1,
