@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { ActivityIndicator, ImageBackground, TouchableOpacity, Button, TextInput, StyleSheet, Text, View } from 'react-native';
+import {ImageBackground, TouchableOpacity, Button, TextInput, StyleSheet, Text, View } from 'react-native';
 import { AppStyles } from '../src/AppStyles'
 import Navigator from '../navigation/Navigator';
+import Spinner from 'react-native-loading-spinner-overlay';
 
 
 
@@ -14,32 +15,57 @@ const Register = props => {
   const [address, setAddress] = React.useState("");
   const [password, setPassword] = React.useState("");
 
-  const [isHidden, setHidden] = useState(false);
+  const [isError, setError] = useState(false);
   const [isLoading, setLoading] = useState(false);
+  const [iscarderr, setcarderr] = useState(false);
+  const [ismailerr, setmailerr] = useState(false);
+
 
   const chng1 = event => {
     setName(event);
-    setHidden(false);
+    setError(false);
   };
   const chng2 = event => {
     setMail(event);
-    setHidden(false);
+    setError(false);
+     var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+
+    if (reg.test(event) == false) 
+    {
+      setmailerr(true);
+    }else{
+      setmailerr(false);
+    }
   };
   const chng3 = event => {
+    // console.log(event.length);
     setCard(event);
-    setHidden(false);
+    setError(false);
+    let isnum = /^\d+$/.test(event);
+    let len=event.length;
+    if(len==16 && isnum){
+      console.log("valid card");
+      setcarderr(false);
+    }else{
+      setcarderr(true);
+    }
   };
   const chng4 = event => {
     setAddress(event);
-    setHidden(false);
+    setError(false);
   };
   const chng5 = event => {
     setPassword(event);
-    setHidden(false);
+    setError(false);
   };
 
   return (
     <View style={styles.container}>
+      <Spinner
+        visible={isLoading}
+        textContent={'Loading...'}
+        textStyle={styles.spinnerTextStyle}
+      />
       <Text style={[styles.title, styles.centreTitle]} >Register to Visa Conscierge Services</Text>
 
       <View style={styles.inputView} >
@@ -59,7 +85,10 @@ const Register = props => {
           onChangeText={chng2}
         />
       </View>
-
+      {ismailerr ? (
+        <Text style={styles.invlogin} >Invalid Email.Please Enter A valid mail id</Text>
+      ) : null
+      }
 
       <View style={styles.inputView} >
         <TextInput
@@ -69,6 +98,10 @@ const Register = props => {
           onChangeText={chng3}
         />
       </View>
+      {iscarderr ? (
+        <Text style={styles.invlogin} >Invalid Card Number. Please Enter 16 digits Numeric value.</Text>
+      ) : null
+      }
 
       <View style={styles.inputView} >
         <TextInput
@@ -90,12 +123,13 @@ const Register = props => {
         />
       </View>
 
-      {isHidden ? (
-        <Text style={styles.invlogin} >All Fields are Necessary and Email needs to be valid</Text>
+      {isError ? (
+        <Text style={styles.invlogin} >All Fields are Necessary.Email and Card needs to be valid</Text>
       ) : null
       }
 
       <TouchableOpacity style={styles.loginBtn}
+      disabled={iscarderr || ismailerr}
         onPress={
           () => {
             setLoading(true)
@@ -105,11 +139,11 @@ const Register = props => {
             console.log("address:", address)
             console.log("passwd:", password)
             if (name == "" || email == "" || card == "" || password == "" || address == "") {
-              setHidden(true);
+              setError(true);
               setLoading(false)
               return;
             }
-            setHidden(false);
+            setError(false);
 
             fetch('https://visa-concierge-service.herokuapp.com/user/registerUser', {
               method: 'POST',
@@ -130,35 +164,25 @@ const Register = props => {
                 console.log('getting data from fetch', responseJson)
                 setLoading(false)
                 if (responseJson && responseJson["result"] == true) {
-                  setHidden(false)
+                  console.log("resp json true");
+                  setError(false)
                   setLoading(false)
                   props.navigation.navigate('FirstPage');
                 } else {
+                  console.log("resp json false");
                   setTimeout(
-                    () => { setHidden(true); setLoading(false); },
+                    () => { setError(true); setLoading(false); },
                     3000
                   )
                 }
 
               })
               .catch(error => console.log(error))
-            setTimeout(
-              () => { setHidden(true); setLoading(false); },
-              3000
-            )
           }
         }
 
       >
 
-        {isLoading && (<View>
-
-          <ActivityIndicator
-            color='black'
-            size="large"
-            style={styles.activityIndicator} />
-        </View>
-        )}
 
         <Text style={styles.loginText}>Register</Text>
       </TouchableOpacity>

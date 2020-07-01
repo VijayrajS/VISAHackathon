@@ -3,6 +3,8 @@ import { Text, View, StyleSheet, Button, Alert, SafeAreaView, TouchableOpacity} 
 import Constants from 'expo-constants';
 import * as Linking from 'expo-linking';
 import { Dimensions } from 'react-native';
+import Spinner from 'react-native-loading-spinner-overlay';
+
 const win = Dimensions.get('window');
 
 
@@ -11,7 +13,9 @@ const win = Dimensions.get('window');
 import { DataTable } from 'react-native-paper';
 
 export default class InvoicePage extends React.Component {
-
+        state = {
+        showloader: '',
+      }
 
     offer = this.props.navigation.getParam("offer");
     // offer = "5% off on total bill";
@@ -24,6 +28,11 @@ export default class InvoicePage extends React.Component {
         return (
 
             <View style={styles.container}>
+            <Spinner
+                visible={ (this.state.showloader == "true")} 
+                textContent={'Loading...'}
+                textStyle={styles.spinnerTextStyle}
+              />
 
             <Text style={styles.container2}>Invoice</Text>
 
@@ -89,6 +98,7 @@ export default class InvoicePage extends React.Component {
        <TouchableOpacity style={styles.ButtonStyle} 
        
              onPress={() => {
+                            this.setState({showloader: 'true'});
                             var restname = this.props.navigation.getParam("restname");
                             var mailid = this.props.navigation.getParam("mailid");
                             console.log("restname", restname);
@@ -108,8 +118,10 @@ export default class InvoicePage extends React.Component {
                                 .then((responseJson) => {
                                     console.log("PayResponse:", responseJson);
                                     this.props.navigation.navigate('Payreceived');
+                                    this.setState({showloader: 'false'});
                                 })
                                 .catch((error) => {
+                                    this.setState({showloader: 'false'});
                                     console.log("error!!!");
                                     // console.log("PayResponse:", responseJson);
                                     Alert.alert(
@@ -126,7 +138,7 @@ export default class InvoicePage extends React.Component {
                                     );
                                 });
 
-                           
+                           this.setState({showloader: 'false'});
                         }}
        
        >

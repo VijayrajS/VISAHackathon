@@ -13,7 +13,6 @@ import PendingReservations from '../pages/PendingReservations'
 import InvoicePage from '../pages/InvoicePage';
 import Payreceived from '../pages/Payreceived';
 import MainScreen from '../pages/MainScreen';
-import Maps from '../pages/Maps';
 
 const RootStack = createStackNavigator({
     MainScreen: {
@@ -24,9 +23,6 @@ const RootStack = createStackNavigator({
     },
     Register: {
         screen: Register
-    },
-    Maps: {
-        screen: Maps
     },
     Welcome: {
         screen: Welcome

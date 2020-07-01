@@ -15,16 +15,33 @@ const FirstPage = props => {
   const [isHidden, setHidden] = useState(false);
   const [password, setPasswd] = useState("");
   const [isLoading, setLoading] = useState(false);
+ const [ismailerr, setmailerr] = useState(false);
+const [ispassempty, setpassempty] = useState(false);
+
 
   const [testv, settestv] = useState(false);
   const [tstd, setTstd] = useState("hello2");
   const chng = event => {
     setMail(event);
-    setHidden(false)
+    setHidden(false);
+    var reg = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+
+    if (reg.test(event) == false) 
+    {
+      setmailerr(true);
+    }else{
+      setmailerr(false);
+    }
   };
   const chng2 = event => {
     setPasswd(event);
-    setHidden(false)
+    setHidden(false);
+    if(event==""){
+      setpassempty(true);
+    }else
+    {
+      setpassempty(false);
+    }
   }
   return (
     <View style={styles.container}>
@@ -46,6 +63,11 @@ const FirstPage = props => {
           onChangeText={chng}
         />
       </View>
+      {ismailerr ? (
+        <Text style={styles.invlogin} >Invalid Email.Please Enter A valid mail id</Text>
+      ) : null
+      }
+
       <View style={styles.inputView} >
         <TextInput
           style={styles.inputText}
@@ -56,6 +78,10 @@ const FirstPage = props => {
 
         />
       </View>
+      {ispassempty ? (
+        <Text style={styles.invlogin} >Please Enter your Password.</Text>
+      ) : null
+      }
 
 
       {isHidden ? (
@@ -71,6 +97,7 @@ const FirstPage = props => {
       )}
 
       <TouchableOpacity style={styles.loginBtn}
+      disabled={ismailerr || ispassempty}
         onPress={
           () => {
             setLoading(true);
