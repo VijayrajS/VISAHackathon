@@ -1,6 +1,8 @@
 // variable to store the list of restaurants that are returned as a list from
-// the 
+// the API call
 var r_list = [];
+
+// User's mail value will be stored here
 var mailval = "";
 
 const formatTime = (text) => {
@@ -36,12 +38,21 @@ import {
 } from "react-native";
 
 
-const navigateToInvoice = (obj, restnm, offer1) => {
+const navigateToInvoice = (obj, restaurant_name, offer_value) => {
+  /*
+    Input:
+      obj: eference to the page object for navigation purposes
+      restaurant_name: name of the restaurant
+      offer_value: reference to the page object for navigation purposes
+      
+      Function:
+        Passing the data to the invoice page and navigating to the same
+  */
   obj.props.navigation.navigate('InvoicePage',
     {
-      restname: restnm,
+      restname: restaurant_name,
       mailid: mailval,
-      offer: offer1
+      offer: offer_value
     }
   );
 
@@ -74,7 +85,7 @@ const PendingResObj = (data, index, thisObj) => {
         >
           <Text style={{ ...boxstyles.ButtonText, textAlign: 'center' }} >Pay</Text>
         </TouchableOpacity>
-        <Text style={{ color: '#454f66', height: 0 }}>-------------------------------------</Text>
+        <Text style={{ color: '#454f66', height: 0 }}>LoremLoremLoremLoremLoremLoremLoremLo</Text>
 
         <View style={{ alignItems: 'flex-start' }}>
           <Text style={{ color: '#fff', alignItems: 'flex-start', fontWeight: 'bold', height: 30 }}>
@@ -89,9 +100,17 @@ const PendingResObj = (data, index, thisObj) => {
 
 
 export default class PendingReservations extends React.Component {
-
+  // Main class for the page to display the reservations whose payments are pending
+  
 
   UNSAFE_componentWillMount() {
+    // This gets executed before the components get mounted on the screen
+    /*
+      Before rendering the components on the page, this function loads the user's
+      email from the local AsyncStorage, and gets the list of pending reservations
+      via the backend API call
+    */
+
     AsyncStorage.getItem("email").then((value) => {
       mailval = value;
     })
@@ -114,8 +133,13 @@ export default class PendingReservations extends React.Component {
               var newls = responseJson["reservations"];
               
               r_list = newls;
-              this.forceUpdate();
-
+              
+              /*
+                Renders the page again forcefully because the API call takes time
+                and the page renders before the API call returns the result
+              */
+              
+              this.forceUpdate(); 
             }
             else {
               console.log("No data!");
@@ -125,7 +149,7 @@ export default class PendingReservations extends React.Component {
           .catch(error => {
             console.log("No data!");
             console.log(error);
-            r_list = [];
+            r_list = []; 
             this.forceUpdate();
           })
 
@@ -133,6 +157,7 @@ export default class PendingReservations extends React.Component {
   }
 
   render() {
+    // rendering function to render the components on screen
     return (
       <View style={styles.container}>
         <Text style={styles.container2}>Pending reservations</Text>
@@ -155,6 +180,7 @@ export default class PendingReservations extends React.Component {
   }
 }
 
+//stylesets
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
@@ -268,8 +294,6 @@ const boxstyles = StyleSheet.create(
     },
 
   });
-
-
 
 const img = StyleSheet.create({
   stretch: {

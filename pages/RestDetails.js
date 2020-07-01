@@ -3,6 +3,7 @@ let rs = {}
 import * as Linking from 'expo-linking';
 
 let timeStyle = (time) => {
+  
   time = +time;
   if (time < 6) {
     return { fontWeight: 'bold', color: '#5fa' };
@@ -56,7 +57,7 @@ const DateTime = (props) => {
   return (
     <View style={{ alignItems: 'center' }}>
       <TouchableOpacity style={styles.ButtonStyle} onPress={showDatePicker}>
-        <Text style={{ fontWeight: 'bold', color: "#192061", }}>Select date and time</Text>
+        <Text style={{ fontWeight: 'bold', color: "#192061", }}>LoremLoremLoremLoremLoremLoremLoremLo</Text>
       </TouchableOpacity>
       <DateTimePickerModal
         isVisible={isDatePickerVisible}
@@ -67,17 +68,6 @@ const DateTime = (props) => {
     </View>
   );
 };
-
-const showAlert1 = (data) => {
-  Alert.alert(data["name"], data["offers"], [
-    {
-      text: "Reserve",
-      onPress: () => console.log("Reserving at " + data["name"]),
-      style: "cancel",
-    },
-  ]);
-};
-
 export default class RestDetails extends React.Component {
   UNSAFE_componentWillMount() {
 
@@ -87,8 +77,97 @@ export default class RestDetails extends React.Component {
     rs = newls;
     this.forceUpdate();
   }
+  
   onChange(number, type) {
     n_people = number;
+  }
+  makeReservation(){
+    // Function to change the date format according to the format stored in the 
+    // backend database, and make a reservation (through appropriate API calls)
+
+    var mailval = "";
+
+    AsyncStorage.multiGet(['email', 'cardEnding']).then((data) => {
+      mailval = data[0][1];
+      var cendval = data[1][1];
+
+      if (n_people <= 0 || (!r_time)) {
+        console.log("try again");
+        Alert.alert('Alert',
+          'Please Select Date & Time and Atleast 1 Person ',
+          [
+            { text: 'OK', onPress: () => console.log('OK Pressed') },
+          ]
+        )
+        return;
+      }
+
+      var c_time = ""; 
+      // c_time will be a date string of the format
+      // %yyyy-%mm-%ddT%HH:%MM
+      
+      var liss = r_time.split(" ");
+      c_time = c_time + liss[3] + "-";
+      
+      month_str_to_num = {
+        'Jan':'01-', 'Feb':'02-', 'Mar':'03-', 'Apr':'04-',
+        'May':'05-', 'Jun':'06-', 'Jul':'07-', 'Aug':'08-',
+        'Sep':'09-', 'Oct':'10-', 'Nov':'11-', 'Dec':'12-',
+      }
+      
+      c_time = c_time + month_str_to_num[liss[1]] + liss[2]
+      c_time = c_time + "T" + liss[4];
+
+      fetch('https://visa-concierge-service.herokuapp.com/reserve', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          "email": mailval,
+          "restaurant": rs["name"],
+          "numberOfPeople": n_people,
+          "time": c_time
+        }),
+
+      }).then(response => response.json())
+        .then((responseJson) => {
+          if (responseJson && responseJson["result"] == "true") {
+            // console.log("booking made!!");
+            Alert.alert(
+              "Congrats!",
+              responseJson["message"],
+              [
+                {
+                  text: 'Proceed to My Reservations',
+                  onPress: () => {
+                    this.props.navigation.navigate('PendingReservations');
+                  }
+                },
+                {
+                  text: 'Book A Ride', onPress: () => {
+                    console.log('Booking ride ');
+                    Linking.openURL('https://m.uber.com/ul/?action=setPickup&client_id=dXDKqDLDYWaBZxWsKHUOqvUdDLwmMht5&pickup[formatted_address]=Visa%20Global%20HQ%2C%20Metro%20Center%20Boulevard%2C%20Foster%20City%2C%20CA%2C%20USA&pickup[latitude]=37.559252&pickup[longitude]=-122.276365&dropoff[formatted_address]=925%20Cortland%20Avenue%2C%20San%20Francisco%2C%20CA%2C%20USA&dropoff[latitude]=37.739128&dropoff[longitude]=-122.413610');
+                  }
+                },  
+              ]
+            );
+
+          }
+          else {
+            Alert.alert("Booking Cannot be made!",
+              responseJson["message"]
+            );
+
+          }
+
+        })
+        .catch(error => {
+          Alert.alert("Booking Cannot be made!");
+          console.log(error)
+        })
+    })
   }
 
   render() {
@@ -134,141 +213,9 @@ export default class RestDetails extends React.Component {
             <Text style={{ height: 20 }}>{'\n'}</Text>
             <DateTime />
             <Text style={{ height: 10 }}>{'\n'}</Text>
-            <TouchableOpacity style={{ ...styles.ButtonStyle, height: "20%", borderWidth: 0 }} onPress={undefined}
-              onPress={
-                () => {
-                  console.log("reserve clicked");
-                  var mailval = "";
-
-                  AsyncStorage.multiGet(['email', 'cardEnding']).then((data) => {
-                    mailval = data[0][1];
-                    var cendval = data[1][1];
-                    // console.log(mailval);
-                    // console.log(cendval);
-
-                    // Alert.alert("alert!!!")
-                    console.log("email:", mailval)
-                    console.log("rest:", rs["name"])
-                    console.log("numberOfPeople:", n_people)
-                    console.log("time:", r_time)//Mon Jun 29 2020 00:48:00
-                    if (n_people <= 0 || (!r_time)) {
-                      console.log("try again");
-                      Alert.alert('Alert',
-                        'Please Select Date & Time and Atleast 1 Person ',
-                        [
-                          { text: 'OK', onPress: () => console.log('OK Pressed') },
-                        ]
-                      )
-                      return;
-                    }
-
-                    var c_time = ""; //2020-06-29T05:44
-                    var liss = r_time.split(" ");
-                    c_time = c_time + liss[3];
-                    c_time = c_time + "-";
-                    if (liss[1] == 'Jan') {
-                      c_time = c_time + "01" + "-";
-                    }
-                    if (liss[1] == 'Feb') {
-                      c_time = c_time + "02" + "-";
-                    }
-                    if (liss[1] == 'Mar') {
-                      c_time = c_time + "03" + "-";
-                    }
-                    if (liss[1] == 'Apr') {
-                      c_time = c_time + "04" + "-";
-                    }
-                    if (liss[1] == 'May') {
-                      c_time = c_time + "05" + "-";
-                    }
-                    if (liss[1] == 'Jun') {
-                      c_time = c_time + "06" + "-";
-                    }
-                    if (liss[1] == 'Jul') {
-                      c_time = c_time + "07" + "-";
-                    }
-                    if (liss[1] == 'Aug') {
-                      c_time = c_time + "08" + "-";
-                    }
-                    if (liss[1] == 'Sep') {
-                      c_time = c_time + "09" + "-";
-                    }
-                    if (liss[1] == 'Oct') {
-                      c_time = c_time + "10" + "-";
-                    }
-                    if (liss[1] == 'Nov') {
-                      c_time = c_time + "11" + "-";
-                    }
-                    if (liss[1] == 'Dec') {
-                      c_time = c_time + "12" + "-";
-                    }
-                    c_time = c_time + liss[2] + "T" + liss[4];
-                    console.log("timec:", c_time)
-
-                    console.log("continue");
-
-                    fetch('https://visa-concierge-service.herokuapp.com/reserve', {
-                      method: 'POST',
-                      headers: {
-                        Accept: 'application/json',
-                        'Content-Type': 'application/json',
-                      },
-                      body: JSON.stringify({
-                        "email": mailval,
-                        "restaurant": rs["name"],
-                        "numberOfPeople": n_people,
-                        "time": c_time
-                      }),
-
-                    }).then(response => response.json())
-                      .then((responseJson) => {
-                        console.log('getting data from fetch', responseJson)
-                        console.log('getting data from fetch::::', responseJson["result"])
-                        if (responseJson && responseJson["result"] == "true") {
-                          console.log("booking made!!");
-                          console.log(responseJson["message"])
-                          Alert.alert(
-                            "Congrats!",
-                            responseJson["message"],
-                            [
-                              {
-                                text: 'Proceed to My Reservations',
-                                onPress: () => {
-                                  console.log('OK22 Pressed');
-                                  this.props.navigation.navigate('PendingReservations');
-                                }
-                              },
-                              {
-                                text: 'Book A Ride', onPress: () => {
-                                  console.log('Booking ride ');
-                                  Linking.openURL('https://m.uber.com/ul/?action=setPickup&client_id=dXDKqDLDYWaBZxWsKHUOqvUdDLwmMht5&pickup[formatted_address]=Visa%20Global%20HQ%2C%20Metro%20Center%20Boulevard%2C%20Foster%20City%2C%20CA%2C%20USA&pickup[latitude]=37.559252&pickup[longitude]=-122.276365&dropoff[formatted_address]=925%20Cortland%20Avenue%2C%20San%20Francisco%2C%20CA%2C%20USA&dropoff[latitude]=37.739128&dropoff[longitude]=-122.413610');
-                                }
-                              },  
-
-                            ]
-                          );
-
-                        }
-                        else {
-                          Alert.alert("Booking Cannot be made!",
-                            responseJson["message"]
-                          );
-
-                        }
-
-                      })
-                      .catch(error => {
-                        Alert.alert("Booking Cannot be made!");
-                        console.log(error)
-                      })
-
-
-                  })
-                }
-              }
-            >
-              <Text style={{ fontWeight: 'bold', alignSelf: 'center', color: "#192061", }
-              }>RESERVE</Text>
+            <TouchableOpacity style={{ ...styles.ButtonStyle, height: "20%", borderWidth: 0 }} 
+              onPress={this.makeReservation.bind(this)}>
+              <Text style={{ fontWeight: 'bold', alignSelf: 'center', color: "#192061",}}>RESERVE</Text>
             </TouchableOpacity>
           </View>
         </View>
