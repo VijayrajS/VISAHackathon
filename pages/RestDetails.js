@@ -16,7 +16,7 @@ let timeStyle = (time) => {
 const titleCase = (text) => text[0].toUpperCase() + text.slice(1).toLowerCase();
 import AsyncStorage from '@react-native-community/async-storage';
 import React, { useState } from "react";
-// import React from "react";
+
 import {
   Image,
   Button,
@@ -86,12 +86,8 @@ export default class RestDetails extends React.Component {
     console.log("data", newls);
     rs = newls;
     this.forceUpdate();
-    // props_temp=this.props;
-    // set_r_list(newls);
-    // this.setState({ lisr: false }); 
   }
   onChange(number, type) {
-    console.log(number, type); // 1, + or -
     n_people = number;
   }
 
