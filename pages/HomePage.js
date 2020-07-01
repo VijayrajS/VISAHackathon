@@ -16,20 +16,22 @@ const HomePage = props => {
   const navigateToPendingReserv = () =>
   {
     /* 
-    navigate to Pending reservations page
+      navigate to Pending reservations page
     */
     props.navigation.navigate("PendingReservations");
   }
 
   React.useEffect(() => {
-    /* 
-    Function to get mail id and card ending from session(async) storage as they are needed in api calls
+    /*
+    This function executes on starting of component load so calling this function  
+      to get mail id and card ending from session(async) storage
+       as they are needed in api calls
     */
     AsyncStorage.multiGet(['email', 'cardEnding']).then((data) => {
       var mailval = data[0][1];
       var cendval = data[1][1];
-      console.log(mailval)
-      console.log(cendval)
+      // console.log(mailval)
+      // console.log(cendval)
       setemail(mailval);
       setcardEnding(cendval);
     })
@@ -110,21 +112,23 @@ const HomePage = props => {
             <Text style={styles.itemName}
               onPress={
                 () => {
-                  console.log(item.name), "- Clicked ";
+                  // console.log(item.name), "- Clicked ";
                   if(item.name!="Restaurant Booking")
                   {
                     return;
                   }
                   setSpinner(true);
 
+                  // api to fetch restaurants list near user
                   fetch('https://visa-concierge-service.herokuapp.com/fetchRestaurantList', {
                     method: 'GET'
                   })
                     .then((response) => response.json())
                     .then((responseJson) => {
-                      console.log(responseJson);
+                      // console.log(responseJson);
                       if (responseJson) {
                         setSpinner(false);
+                        //navigate to restaurant listing on succesful fetch
                         props.navigation.navigate('RestListings',
                           { myJSON: responseJson }
                         );

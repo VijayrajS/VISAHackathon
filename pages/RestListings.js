@@ -73,7 +73,7 @@ const RestaurObj = (data, index, props_t) => {
         >
           <Text style={boxstyles.ButtonText} >See Details</Text>
         </TouchableOpacity>
-        <Text style={{ color: '#454f66', height: 0 }}>-------------------------------------</Text>
+        <Text style={{ color: '#454f66', height: 0 }}>LoremLoremLoremLoremLoremLoremLoremLo</Text>
 
         <View style={{ alignItems: 'flex-start' }}>
           <Text style={{ color: '#fff', alignItems: 'flex-start', fontWeight: 'bold', height: 30 }}>
