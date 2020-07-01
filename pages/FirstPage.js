@@ -6,6 +6,8 @@ import Navigator from '../navigation/Navigator';
 import AsyncStorage from '@react-native-community/async-storage'
 import Spinner from 'react-native-loading-spinner-overlay';
 
+import VisaExpLogo from '../assets/visaLoading.png';
+
 
 const FirstPage = props => {
   const [showspinner, setSpinner] = useState(false);
@@ -34,7 +36,7 @@ const FirstPage = props => {
 
       {/* <Text style={[styles.title, styles.centreTitle]} >Welcome to Visa Conscierge Services</Text> */}
       <View style={styles.img2}>
-        <Image style={styles.imgin} source={{ uri: "https://i.ibb.co/ZJD8FXB/logo.jpg", height: 160, width: 320 }} />
+        <Image style={styles.imgin} source={VisaExpLogo} />
       </View>
       <View style={styles.inputView} >
         <TextInput
@@ -98,7 +100,7 @@ const FirstPage = props => {
                     ['email', responseJson["email"]]
                   ]);
                   setSpinner(false);
-                  props.navigation.navigate('Welcome');
+                  props.navigation.replace('Welcome');
                 }
                 // else{
                 //   setTimeout(
@@ -146,7 +148,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    backgroundColor: "#192061",
+    backgroundColor: "#142165",
     justifyContent: 'center'
   },
   image: {
@@ -282,10 +284,12 @@ const styles = StyleSheet.create({
     padding: 40
   },
   imgin: {
-    borderRadius: 150 / 2,
+    // borderRadius: 150 / 2,
+    height:118,
+    width:250,
     overflow: "hidden",
-    borderWidth: 3,
-    borderColor: "#faaa13",
+    // borderWidth: 3,
+    // borderColor: "#faaa13",
     // padding:20
   }
 });

@@ -123,7 +123,7 @@ export default class RestDetails extends React.Component {
             <Text style={{ height: 10 }}>{'\n'}</Text>
 
             <View style={{ ...styles.detailBox, backgroundColor: '#f00', fontSize: 20, marginBottom: 10 }}>
-              <Text style={{ fontSize: 17, fontWeight: 'bold', color: '#fff' }}>OFFERS:{rs['offers']}</Text>
+              <Text style={{ fontSize: 17, fontWeight: 'bold', color: '#fff' }}>OFFERS: {rs['offers']}</Text>
 
             </View>
 

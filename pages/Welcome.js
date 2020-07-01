@@ -5,6 +5,8 @@ import AsyncStorage from '@react-native-community/async-storage'
 import Spinner from 'react-native-loading-spinner-overlay';
 import { FlatGrid } from 'react-native-super-grid';
 
+import Logo from '../assets/visaLoading.png';
+
 // import { StyleSheet, View, Text } from 'react-native';
 
 
@@ -111,7 +113,7 @@ const Welcome = props => {
 
 
       <View style={styles.img2}>
-        <Image style={styles.imgin} source={{ uri: "https://i.ibb.co/ZJD8FXB/logo.jpg", height: 160, width: 320 }} />
+        <Image style={styles.imgin} source={Logo} />
       </View>
 
 
@@ -137,7 +139,7 @@ const Welcome = props => {
         // fixed
         spacing={10}
         renderItem={({ item }) => (
-          <View style={[styles.itemContainer, { backgroundColor: item.code }]}
+          <View style={[styles.itemContainer, { backgroundColor: "#B1B8E6" }]}
           >
             <Text style={styles.itemName}
               onPress={
@@ -177,7 +179,7 @@ const Welcome = props => {
 
       <View style={styles.PendingBtnView}>
        <TouchableOpacity onPress= {navigateToPendingReserv} style={styles.ButtonStyle}>
-            <Text style={{fontWeight:'bold', color:"#192061",textAlign:"center"}}>
+            <Text style={{fontSize:17, fontWeight:'bold', color:"#192061",textAlign:"center"}}>
               Check pending reservations
               </Text>
               </TouchableOpacity>
@@ -334,7 +336,7 @@ const styles = StyleSheet.create({
   itemName: {
     flex: 1,
     fontSize: 20,
-    color: '#fff',
+    color: 'black',
     fontWeight: '600',
     textAlign:"center",
   },
@@ -344,8 +346,8 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   ButtonStyle: {
-    height: "10%",
-    width: "60%",
+    height: "20%",
+    width: "70%",
     backgroundColor: "#faaa13",
     padding:25,
     borderRadius: 10,
@@ -361,10 +363,14 @@ const styles = StyleSheet.create({
     padding: 40
   },
   imgin: {
-    borderRadius: 150 / 2,
+    // height: 160, width: 320,
+    height:118,
+    width:250,
+
+    // borderRadius: 150 / 2,
     overflow: "hidden",
-    borderWidth: 3,
-    borderColor: "#faaa13"
+    // borderWidth: 3,
+    // borderColor: "#faaa13"
   },
   spinnerTextStyle: {
     color: '#FFF'

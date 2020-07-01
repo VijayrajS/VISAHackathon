@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text, View, StyleSheet, Button, Alert, SafeAreaView } from 'react-native';
+import { Text, View, StyleSheet, Button, Alert, SafeAreaView, TouchableOpacity} from 'react-native';
 import Constants from 'expo-constants';
 import * as Linking from 'expo-linking';
 import { Dimensions } from 'react-native';
@@ -27,7 +27,7 @@ export default class InvoicePage extends React.Component {
 
 
                 <View style={styles.invoiceTable}>
-                    <DataTable style={{ backgroundColor: 'floralwhite' }}>
+                    <DataTable style={{ backgroundColor: 'floralwhite', fontSize:20}}>
                         <DataTable.Header >
                             <DataTable.Title ></DataTable.Title>
                             <DataTable.Title numeric>Quantity</DataTable.Title>
@@ -51,7 +51,7 @@ export default class InvoicePage extends React.Component {
 
 
                         <DataTable.Row>
-                            <DataTable.Cell> Water </DataTable.Cell>
+                            <DataTable.Cell>Water </DataTable.Cell>
                             <DataTable.Cell numeric>3</DataTable.Cell>
                             <DataTable.Cell numeric>25</DataTable.Cell>
                             <DataTable.Cell numeric>75</DataTable.Cell>
@@ -82,16 +82,17 @@ export default class InvoicePage extends React.Component {
                     </DataTable>
                 </View>
 
-                <View style={styles.payBtn}>
-                    <Button
-                        title="Pay"
-                        onPress={() => {
+
+                <View style={styles.PendingBtnView}>
+       <TouchableOpacity style={styles.ButtonStyle} 
+       
+             onPress={() => {
                             var restname = this.props.navigation.getParam("restname");
                             var mailid = this.props.navigation.getParam("mailid");
                             console.log("!!!!!!!!restname", restname);
                             console.log("restname", restname);
-                            // console.log("restname", this);
-                            // https://polar-earth-85350.herokuapp.com/pay  email:restaurant:
+                            fetch("https://visa-concierge-service.herokuapp.com/pushPayment",{method: 'GET'});
+
                             fetch('https://visa-concierge-service.herokuapp.com/pay', {
                                 method: 'POST',
                                 headers: {
@@ -126,8 +127,14 @@ export default class InvoicePage extends React.Component {
 
                            
                         }}
-                    />
-                </View>
+       
+       >
+            <Text style={{fontSize:17, fontWeight:'bold', color:"#192061",textAlign:"center"}}>
+              Pay
+              </Text>
+              </TouchableOpacity>
+        </View>
+
             </View>
 
             // </View>
@@ -185,16 +192,52 @@ const styles = StyleSheet.create({
         backgroundColor: "#192061",
         justifyContent: 'center'
     },
-    payBtn: {
-        textAlign: 'center',
-        marginVertical: 15,
-        color: "green",
-        alignSelf: 'flex-end',
-        marginRight: 15,
-        width: "25%"
-        // main: "70%"
+    PendingBtnView:
+  {
+    paddingTop:20,
+    textAlign:"center"
+  },
+  ButtonStyle: {
+    height: "15%",
+    width: "30%",
+    backgroundColor: "#faaa13",
+    padding:25,
+    borderRadius: 30,
 
-    },
+    alignItems:"center",
+    textAlign: "center",
+
+    fontSize: 10,
+    fontFamily: "sans-serif",
+    justifyContent: 'center',
+
+    alignSelf: 'flex-end',
+    marginRight: 15,
+
+  },
+    // payBtn: {
+    //     height: "13%",
+    //     width: "20%",
+    //     backgroundColor: "#faaa13",
+    //     padding:25,
+    //     borderRadius: 30,
+    
+    //     textAlign: "center",
+    
+    //     fontSize: 10,
+    //     fontFamily: "sans-serif",
+    //     justifyContent: 'center',
+    
+          
+    //     // textAlign: 'center',
+    //     // marginVertical: 15,
+    //     // color: "green",
+    //     // alignSelf: 'flex-end',
+    //     // marginRight: 15,
+    //     // width: "25%"
+    //     // main: "70%"
+
+    // },
     invoiceTable: {
         // borderRadius: 
         paddingTop:20
@@ -223,7 +266,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     // alignContent: "center",
     color: "#faaa13",
-    fontSize: 25,
+    fontSize: 35,
 
     // shadowColor: '#000',
     // shadowOffset: {

@@ -155,6 +155,15 @@ export default class PendingReservations extends React.Component {
           scrollEnabled={true}>
           {r_list.map((obj, ind) => Restaur2(obj, ind, this))}
         </ScrollView>
+
+        <View style={styles.PendingBtnView}>
+       <TouchableOpacity style={styles.ButtonStyle} onPress={() => {this.props.navigation.pop();} }>
+            <Text style={{fontSize:17, fontWeight:'bold', color:"#192061",textAlign:"center"}}>
+              Home Page
+              </Text>
+              </TouchableOpacity>
+        </View>
+
       </View>
     );
   }
@@ -167,6 +176,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#192061",
     alignItems: "center",
     justifyContent: "center",
+  },
+  PendingBtnView:
+  {
+    paddingTop:20,
+    textAlign:"center"
   },
   container2: {
     // flex:1,
@@ -194,6 +208,20 @@ const styles = StyleSheet.create({
     color: "white",
     backgroundColor: "white",
   },
+  ButtonStyle: {
+    height: "13%",
+    width: "70%",
+    backgroundColor: "#faaa13",
+    padding:25,
+    borderRadius: 30,
+
+    textAlign: "center",
+
+    fontSize: 10,
+    fontFamily: "sans-serif",
+    justifyContent: 'center',
+
+  }
 });
 
 const boxstyles = StyleSheet.create(
@@ -270,6 +298,7 @@ const boxstyles = StyleSheet.create(
       padding: 10,
 
     }
+  
 
   });
 

@@ -42,12 +42,12 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: "center",
-        backgroundColor: "#192061",
+        backgroundColor: "#142165",
         justifyContent: 'center'
     },
     image: {
-        width: 300,
-        height: 200
+        width: 230,
+        height: 100
     }
 });
 
