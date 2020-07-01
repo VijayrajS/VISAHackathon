@@ -1,6 +1,21 @@
-let r_list = []
+let r_list = [] // List of nearby restaurants (updated by API call)
 
 let timeStyle = (time) => {
+  /*
+    Input:
+      time: Wait time for a restaurant in minutes
+      Index: Index of the JSON object in the list
+      thisObj: reference to the page object for navigation purposes
+    
+      Output:
+        a css styling object
+      
+      Function:
+        Generating css for the waiting time based on the same. If the waiting time is 
+        5 minutes or less, it gets a green tint in display. It gets a yellow tint if it
+        is between 6-10 minutes, and red otherwise
+  */
+ 
   time = +time;
   if (time < 6) {
     return { fontWeight: 'bold', color: '#5fa' };
@@ -26,7 +41,22 @@ import {
 } from "react-native";
 
 
-const Restaur = (data, index, props_t) => {
+const RestaurObj = (data, index, props_t) => {
+  /*
+    Input:
+      data: JSON data object of a reservation
+      index: Index of the JSON object in the list
+      props_t: props attribute of the main object (for navigation purposes)
+    
+      Output:
+        A component containing details of a particular restaurant, with
+        a see details button, which redirects to the details page of the restaurant
+        where one can see offers and make a reservation
+      
+      Function:
+        Generating the above described component
+  */
+
   let top_padding = (index == 0) ? { paddingTop: 70 } : {}
 
   return (
@@ -62,9 +92,11 @@ const Restaur = (data, index, props_t) => {
 
 
 export default class RestListings extends React.Component {
-
+  // Main class for the page that lists out the restaurants
+  
   UNSAFE_componentWillMount() {
-
+    // This gets executed before the components get mounted on the screen
+    // Sorts the list of restaurants according to wait time
     newls = this.props.navigation.getParam("myJSON")["restaurants"];
     newls.sort((a, b) => (a.waitTime > b.waitTime) ? 1 : -1)
     r_list = newls;
@@ -73,13 +105,14 @@ export default class RestListings extends React.Component {
 
 
   render() {
+    // rendering function to render the components on screen
     return (
       <View style={styles.container}>
         <Text style={styles.container2}>Search Results</Text>
         <ScrollView
           style={{ paddingBottom: 100 }}
           scrollEnabled={true}>
-          {r_list.map((obj, ind) => Restaur(obj, ind, this))}
+          {r_list.map((obj, ind) => RestaurObj(obj, ind, this))}
         </ScrollView>
       </View>
     );
