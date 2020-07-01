@@ -5,11 +5,18 @@ import Logo from '../assets/visaLoading.png';
 import LoginPage from './LoginPage';
 
 class LoadingScreen extends Component {
+    // Main class for the loading screen page
+    
     state = {
+        // state for the animated component (the logo )
         LogoAnime: new Animated.Value(0)
     }
 
     componentDidMount() {
+        /*
+         function to trigger the animation of the logo on the loading screen
+         and redirect to the Login page
+        */
         const { LogoAnime } = this.state;
         Animated.parallel([
             Animated.spring(LogoAnime, {
@@ -22,6 +29,7 @@ class LoadingScreen extends Component {
     }
 
     render() {
+        // rendering function to render the components on screen
         return (
             <View style={styles.container}>
                 <Animated.View style={{

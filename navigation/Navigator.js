@@ -14,6 +14,12 @@ import Payreceived from '../pages/Payreceived';
 import LoadingScreen from '../pages/LoadingScreen';
 
 const RootStack = createStackNavigator({
+    /*
+        Declaring a stack navigator, which provides a way for your app to 
+        transition between screens where each new screen is placed on top 
+        of a stack.
+    */
+   
     LoadingScreen: {
         screen: LoadingScreen
     },

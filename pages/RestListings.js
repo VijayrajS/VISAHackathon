@@ -28,29 +28,32 @@ import {
 
 const Restaur = (data, index, props_t) => {
   let top_padding = (index == 0) ? { paddingTop: 70 } : {}
-  console.log("func2:::", props_t);
+
   return (
     <View key={index} style={{ ...boxstyles.MainContainer, ...top_padding }}>
       <View style={boxstyles.TextViewStyle}>
         <Text style={boxstyles.TextTitle}>{data["name"]}</Text>
         <TouchableOpacity style={boxstyles.ButtonStyle}
           onPress={() => {
-            props_t.props.navigation.navigate('RestDetails',
-              { curRestData: data }
-            );
-          }
+              props_t.props.navigation.navigate('RestDetails',
+                { curRestData: data }
+              );
+            }
           }
         >
           <Text style={boxstyles.ButtonText} >See Details</Text>
         </TouchableOpacity>
-        <Text style={{ color: '#454f66', height: 0 }}>LoremLoremLoremLoremLoremLoremLoremLo</Text>
+        <Text style={{ color: '#454f66', height: 0 }}>-------------------------------------</Text>
 
         <View style={{ alignItems: 'flex-start' }}>
           <Text style={{ color: '#fff', alignItems: 'flex-start', fontWeight: 'bold', height: 30 }}>
             <Image source={require('../src/images/wait.png')} style={img.stretch} />
-        Wait time: <Text style={timeStyle(data["waitTime"])}>{data["waitTime"]} minutes</Text></Text>
-          <Text style={{ height: 30, color: '#fff', alignItems: 'flex-start' }}><Image source={require('../src/images/cuisine.png')} style={img.stretch} />
-            <Text style={{ fontWeight: 'bold' }}>Cuisine: {titleCase(data["cuisine"])}</Text></Text>
+            Wait time: <Text style={timeStyle(data["waitTime"])}>{data["waitTime"]} minutes</Text>
+          </Text>
+          <Text style={{ height: 30, color: '#fff', alignItems: 'flex-start' }}>
+            <Image source={require('../src/images/cuisine.png')} style={img.stretch} />
+            <Text style={{ fontWeight: 'bold' }}>Cuisine: {titleCase(data["cuisine"])}</Text>
+          </Text>
         </View>
       </View>
     </View>
@@ -63,9 +66,7 @@ export default class RestListings extends React.Component {
   UNSAFE_componentWillMount() {
 
     newls = this.props.navigation.getParam("myJSON")["restaurants"];
-    console.log("Mounted lsistingsss");
     newls.sort((a, b) => (a.waitTime > b.waitTime) ? 1 : -1)
-    console.log("data", newls);
     r_list = newls;
     this.forceUpdate();
   }
@@ -178,23 +179,9 @@ const boxstyles = StyleSheet.create(
         height: 4,
       },
     },
-
-    TextStyle:
-    {
-      textAlign: 'center',
-
-      color: '#fff',
-      padding: 10,
-
-    }
-
   });
 
-
-
 const img = StyleSheet.create({
-  container: {
-  },
   stretch: {
     width: 20,
     height: 20,

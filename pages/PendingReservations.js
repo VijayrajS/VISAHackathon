@@ -2,7 +2,7 @@
 var r_list = [];
 var mailval = "";
 
-const titleCase = (text) => {
+const formatTime = (text) => {
   let date = text.split('T')[0].split('-').reverse().join('/');
   let time = text.split(/[TZ]/)[1];
   time = time.split(':')[0] + ':' + time.split(':')[1]
@@ -25,8 +25,6 @@ import {
 
 
 const navigateToInvoice = (obj, restnm, offer1) => {
-  console.log("Restnm:", restnm);
-  console.log("Restnm:", offer1);
   obj.props.navigation.navigate('InvoicePage',
     {
       restname: restnm,
@@ -38,7 +36,7 @@ const navigateToInvoice = (obj, restnm, offer1) => {
 };
 
 
-const Restaur2 = (data, index, thisObj) => {
+const PendingResObj = (data, index, thisObj) => {
   let top_padding = (index == 0) ? { paddingTop: 70 } : {}
   return (
     <View key={index} style={{ ...boxstyles.MainContainer, ...top_padding }}>
@@ -55,7 +53,7 @@ const Restaur2 = (data, index, thisObj) => {
           <Text style={{ color: '#fff', alignItems: 'flex-start', fontWeight: 'bold', height: 30 }}>
             Number of people: <Text>{data["numberOfPeople"]}</Text></Text>
           <Text style={{ height: 30, color: '#fff', alignItems: 'flex-start' }}>
-            <Text style={{ fontWeight: 'bold' }}>Date: {titleCase(data["time"])}</Text></Text>
+            <Text style={{ fontWeight: 'bold' }}>Date: {formatTime(data["time"])}</Text></Text>
         </View>
       </View>
     </View>
@@ -67,7 +65,6 @@ export default class PendingReservations extends React.Component {
 
 
   UNSAFE_componentWillMount() {
-
     AsyncStorage.getItem("email").then((value) => {
       mailval = value;
     })
@@ -106,10 +103,7 @@ export default class PendingReservations extends React.Component {
           })
 
       });
-
-
   }
-
 
   render() {
     return (
@@ -118,7 +112,7 @@ export default class PendingReservations extends React.Component {
         <ScrollView
           style={{ paddingBottom: 100 }}
           scrollEnabled={true}>
-          {r_list.map((obj, ind) => Restaur2(obj, ind, this))}
+          {r_list.map((obj, ind) => PendingResObj(obj, ind, this))}
         </ScrollView>
 
         <View style={styles.PendingBtnView}>
@@ -246,20 +240,11 @@ const boxstyles = StyleSheet.create(
       },
     },
 
-    TextStyle:
-    {
-      textAlign: 'center',
-      color: '#fff',
-      padding: 10,
-    }
-
   });
 
 
 
 const img = StyleSheet.create({
-  container: {
-  },
   stretch: {
     width: 20,
     height: 20,
