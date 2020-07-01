@@ -144,7 +144,11 @@ const Welcome = props => {
             <Text style={styles.itemName}
               onPress={
                 () => {
-                  console.log("zip", item);
+                  console.log(item.name), "- Clicked ";
+                  if(item.name!="Restaurant Booking")
+                  {
+                    return;
+                  }
                   setSpinner(true);
 
                   fetch('https://visa-concierge-service.herokuapp.com/fetchRestaurantList', {

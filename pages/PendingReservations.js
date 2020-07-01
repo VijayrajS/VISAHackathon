@@ -157,7 +157,7 @@ export default class PendingReservations extends React.Component {
         </ScrollView>
 
         <View style={styles.PendingBtnView}>
-       <TouchableOpacity style={styles.ButtonStyle} onPress={() => {this.props.navigation.pop();} }>
+       <TouchableOpacity style={styles.ButtonStyle} onPress={() => {this.props.navigation.navigate("Welcome");} }>
             <Text style={{fontSize:17, fontWeight:'bold', color:"#192061",textAlign:"center"}}>
               Home Page
               </Text>
