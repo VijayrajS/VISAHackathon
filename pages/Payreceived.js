@@ -20,19 +20,19 @@ export default class Payreceived extends React.Component {
             setTimeout(function () {
                  Alert.alert(
                     "You have Paid Successfully",
-                    "What to do now ? ",
+                    "What to do now? ",
                     [
                         {
                             text: 'Proceed',
                             onPress: () => {
-                                console.log('OK22 Pressed');
+                                console.log('OK Pressed');
                                 that.props.navigation.navigate('HomePage'); 
                             }
                         },
                         {
                             text: 'Book A Ride', onPress: () => {
                                 console.log('Booking ride ');
-                                Linking.openURL('https://olawebcdn.com/assets/ola-universal-link.html?');
+                                Linking.openURL('https://m.uber.com/ul/?action=setPickup&client_id=dXDKqDLDYWaBZxWsKHUOqvUdDLwmMht5&pickup[formatted_address]=925%20Cortland%20Avenue%2C%20San%20Francisco%2C%20CA%2C%20USA&pickup[latitude]=37.739128&pickup[longitude]=-122.413610&dropoff[formatted_address]=Visa%20Global%20HQ%2C%20Metro%20Center%20Boulevard%2C%20Foster%20City%2C%20CA%2C%20USA&dropoff[latitude]=37.559252&dropoff[longitude]=-122.276365');
                             }
                         },
 
