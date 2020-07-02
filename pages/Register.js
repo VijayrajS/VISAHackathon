@@ -21,15 +21,15 @@ const Register = props => {
 
 
   const nameListener = event => {
-        /* 
-    Listen to change in name and sets it value in state variable
+    /* 
+      Listen to change in name and sets it value in state variable
     */
     setName(event);
     setError(false);
   };
   const mailListener = event => {
     /* 
-    Listen to change in mail also validates it and sets it value in state variable
+      Listen to change in mail also validates it and sets it value in state variable
     */
     setMail(event);
     setError(false);
@@ -44,14 +44,14 @@ const Register = props => {
   };
   const cardListener = event => {
     /* 
-    Listen to change in card and aslo validates it and sets it value in state variable
+      Listen to change in card and aslo validates it and sets it value in state variable
     */
     setCard(event);
     setError(false);
     let isnum = /^\d+$/.test(event);
     let len=event.length;
     if(len==16 && isnum){
-      console.log("valid card");
+      // console.log("valid card");
       setCardErr(false);
     }else{
       setCardErr(true);
@@ -59,14 +59,14 @@ const Register = props => {
   };
   const addressListner = event => {
     /* 
-    Listen to change in address and sets it value in state variable
+      Listen to change in address and sets it value in state variable
     */
     setAddress(event);
     setError(false);
   };
   const passwordListener = event => {
-        /* 
-    Listen to change in password and sets it value in state variable
+    /* 
+      Listen to change in password and sets it value in state variable
     */
     setPassword(event);
     setError(false);
@@ -146,18 +146,18 @@ const Register = props => {
         onPress={
           () => {
             setLoading(true)
-            console.log("name:", name)
-            console.log("mail:", email)
-            console.log("card:", card)
-            console.log("address:", address)
-            console.log("passwd:", password)
+            // console.log("name:", name)
+            // console.log("mail:", email)
+            // console.log("card:", card)
+            // console.log("address:", address)
+            // console.log("passwd:", password)
             if (name == "" || email == "" || card == "" || password == "" || address == "") {
               setError(true);
               setLoading(false)
               return;
             }
             setError(false);
-
+            //api to register user in system
             fetch('https://visa-concierge-service.herokuapp.com/user/registerUser', {
               method: 'POST',
               headers: {
@@ -174,15 +174,16 @@ const Register = props => {
 
             }).then(response => response.json())
               .then((responseJson) => {
-                console.log('getting data from fetch', responseJson)
+                // console.log('getting data from fetch', responseJson)
                 setLoading(false)
                 if (responseJson && responseJson["result"] == true) {
-                  console.log("resp json true");
+                  // console.log("resp json true");
                   setError(false)
                   setLoading(false)
+                  // navigate to login page again after successful registration
                   props.navigation.navigate('LoginPage');
                 } else {
-                  console.log("resp json false");
+                  // console.log("resp json false");
                   setTimeout(
                     () => { setError(true); setLoading(false); },
                     3000

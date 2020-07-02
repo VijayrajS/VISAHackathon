@@ -13,13 +13,13 @@ const FirstPage = props => {
   const [isHidden, setHidden] = useState(false);
   const [password, setPasswd] = useState("");
   const [isLoading, setLoading] = useState(false);
- const [isMailErr, setMailErr] = useState(false);
-const [isPasswordEmpty, setPasswordEmpty] = useState(false);
+  const [isMailErr, setMailErr] = useState(false);
+  const [isPasswordEmpty, setPasswordEmpty] = useState(false);
 
 
 const emialListener = event => {
-      /* 
-    Listen to change in mail also validates it and sets it value in state variable
+    /* 
+      Listen to change in mail also validates it and sets it value in state variable
     */
     setMail(event);
     setHidden(false);
@@ -33,8 +33,8 @@ const emialListener = event => {
     }
   };
 const passwordListener = event => {
-      /* 
-    Listen to change in password also check if its empty and sets it value in state variable
+    /* 
+      Listen to change in password also check if its empty and sets it value in state variable
     */
     setPasswd(event);
     setHidden(false);
@@ -65,7 +65,7 @@ return (
         />
       </View>
       {isMailErr ? (
-        <Text style={styles.invlogin} >Invalid Email.Please Enter a valid emamil ID</Text>
+        <Text style={styles.invlogin} >Invalid Email.Please Enter a valid email ID</Text>
       ) : null
       }
 
@@ -100,9 +100,9 @@ return (
           () => {
             setLoading(true);
             setSpinner(true);
-            console.log("user:", email)
-            console.log("passwd:", password)
-
+            // console.log("user:", email)
+            // console.log("passwd:", password)
+            //call this api to check user's login credentials 
             fetch('https://visa-concierge-service.herokuapp.com/user/checkUserLogin', {
               method: 'POST',
               headers: {
@@ -116,7 +116,7 @@ return (
 
             }).then(response => response.json())
               .then((responseJson) => {
-                console.log('getting data from fetch', responseJson)
+                // console.log('getting data from fetch', responseJson)
                 setLoading(false)
                 if (responseJson && responseJson["result"] == true) {
                   setHidden(false);
@@ -125,6 +125,8 @@ return (
                     ['email', responseJson["email"]]
                   ]);
                   setSpinner(false);
+                  //if creds correct navigate him to homepage , 
+                  //also store his mail and card data to session storage
                   props.navigation.replace('HomePage');
                 }
                 setSpinner(false);
