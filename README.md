@@ -10,15 +10,6 @@ The VISA experience is a value-added-service for Visa card holders. This app giv
 
 It is aimed at offering an end-to-end solution for the user. This hackathon demo only takes care of the usecase of making reservations at restaurants.
 
-## How to run on Phone
-PreRequisites(NPM && Nodejs should be installed in system).
-1. Install Expo app on phone from play store
-2. Pull latest code from front-end new branch.
-3. opne cmd and do npm install.
-4.After done , Do npm start.
-5. Browser will open with qr code. Scan qr in phone's expo app. It will run.
-
-
 ### How to run on a physical device
 - Install npm and nodejs
 - Run `npm install`
@@ -26,7 +17,7 @@ PreRequisites(NPM && Nodejs should be installed in system).
 - Install the expo app on your mobile
 - Scan the QR code from the terminal/expo developer tools to open the app
 
-### For Android Emulator:
+### How to run on an Android Emulator:
 - Run `npm install`
 - Run `expo start`
 - Launch the emulator 
