@@ -148,6 +148,8 @@ export default class RestDetails extends React.Component {
                 {
                   text: 'Book A Ride', onPress: () => {
                     console.log('Booking ride ');
+                    // The following link is added to demo the cab booking feature
+                    // Opens Uber app with pickup point Visa Global HQ and drop point "Little Nepal" restaurant  
                     Linking.openURL('https://m.uber.com/ul/?action=setPickup&client_id=dXDKqDLDYWaBZxWsKHUOqvUdDLwmMht5&pickup[formatted_address]=Visa%20Global%20HQ%2C%20Metro%20Center%20Boulevard%2C%20Foster%20City%2C%20CA%2C%20USA&pickup[latitude]=37.559252&pickup[longitude]=-122.276365&dropoff[formatted_address]=925%20Cortland%20Avenue%2C%20San%20Francisco%2C%20CA%2C%20USA&dropoff[latitude]=37.739128&dropoff[longitude]=-122.413610');
                     this.props.navigation.navigate('PendingReservations');
                   }
