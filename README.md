@@ -1,25 +1,21 @@
-# SQLite Example
+# VISA experience app
+## Hackathon submission by team '6 Rooks'
 
-<p>
-  <!-- iOS -->
-  <img alt="Supports Expo iOS" longdesc="Supports Expo iOS" src="https://img.shields.io/badge/iOS-4630EB.svg?style=flat-square&logo=APPLE&labelColor=999999&logoColor=fff" />
-  <!-- Android -->
-  <img alt="Supports Expo Android" longdesc="Supports Expo Android" src="https://img.shields.io/badge/Android-4630EB.svg?style=flat-square&logo=ANDROID&labelColor=A4C639&logoColor=fff" />
-</p>
-
-Example demonstrating use of the `SQLite` API in Expo.
-
-The app allows adding todo items, marking them as done, and deleting done items.
-`SQLite` features used include creating and opening databases, creating tables,
-inserting items, querying and displaying results, using prepared statements.
-
-![Simulator Example](.gh-assets/1.png)
+The VISA experience app gives the user a one-stop solution for booking of restaurants, movie tickets and golf courses. It helps the user keep track of pending reservations, book a cab to the desired location, and
+also pay the invoice for the resrvation, making it an end-to-end solution for the user. This hackathon demo only takes care of the usecase of making a reservation at a restaurant.
 
 ## 🚀 How to use
 
 - Run `yarn` or `npm install`
-- Run [`expo start`](https://docs.expo.io/versions/latest/workflow/expo-cli/), try it out.
+- Run [`expo start`](https://docs.expo.io/versions/latest/workflow/expo-cli/)]
+- Install the expo app on your mobile
+- Scan the QR code from the terminal/expo developer tools to open the app
 
-## 📝 Notes
+### For Android Emulator:
 
-- [Expo SQLite docs](https://docs.expo.io/versions/latest/sdk/sqlite/)
+- 
+- 
+- 
+
+
+
