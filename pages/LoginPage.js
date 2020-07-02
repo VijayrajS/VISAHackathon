@@ -13,8 +13,8 @@ const FirstPage = props => {
   const [isHidden, setHidden] = useState(false);
   const [password, setPasswd] = useState("");
   const [isLoading, setLoading] = useState(false);
- const [isMailErr, setMailErr] = useState(false);
-const [isPasswordEmpty, setPasswordEmpty] = useState(false);
+  const [isMailErr, setMailErr] = useState(false);
+  const [isPasswordEmpty, setPasswordEmpty] = useState(false);
 
 
 const emialListener = event => {
@@ -65,7 +65,7 @@ return (
         />
       </View>
       {isMailErr ? (
-        <Text style={styles.invlogin} >Invalid Email.Please Enter A valid mail id</Text>
+        <Text style={styles.invlogin} >Invalid Email.Please Enter a valid email ID</Text>
       ) : null
       }
 
